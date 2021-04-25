@@ -1,0 +1,25 @@
+﻿using marketplace.Data.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace marketplace.Data.Configurations
+{
+    public class NguoiBanCF : IEntityTypeConfiguration<NguoiBan>
+    {
+        public void Configure(EntityTypeBuilder<NguoiBan> builder)
+        {
+            builder.ToTable("NguoiBan");
+
+            builder.HasKey(x => x.Id);
+            builder.HasAlternateKey(x => x.TaiKhoanId);
+
+            builder.Property(x => x.MaNB).HasColumnType("nvarchar(32)").IsRequired();
+            builder.Property(x => x.MoTa).HasColumnType("ntext").IsRequired();
+
+            builder.HasOne<CuaHang>(x => x.CuaHang).WithMany(x => x.NguoiBans).HasForeignKey(x => x.CuaHangId);
+        }
+    }
+}
