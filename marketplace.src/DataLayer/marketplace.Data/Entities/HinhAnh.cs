@@ -4,7 +4,7 @@ using System.Text;
 
 namespace marketplace.Data.Entities
 {
-    public class HinhAnh
+    public class HinhAnh : IBaseEntity<int>
     {
         public int Id { get; set; }
         public string MaHA { get; set; }
