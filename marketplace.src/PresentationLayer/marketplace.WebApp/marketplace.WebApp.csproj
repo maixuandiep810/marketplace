@@ -3,12 +3,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CommonLayer\marketplace.DTO\marketplace.DTO.csproj" />
     <ProjectReference Include="..\..\CommonLayer\marketplace.Utilities\marketplace.Utilities.csproj" />
-    <ProjectReference Include="..\..\BusinessLayer\marketplace.Services\marketplace.Services.csproj" />
+    <ProjectReference Include="..\marketplace.ApiService\marketplace.ApiService.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
 
 </Project>

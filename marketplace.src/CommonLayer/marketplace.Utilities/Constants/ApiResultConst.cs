@@ -8,6 +8,10 @@ namespace marketplace.Utilities.Const
             CLIENT_ERROR = 7000,
             SERVER_ERROR = 8000,
             SUCCESS = 9000,
+            API_RESULT = 1000,
+
+            API_RESULT_INVALID_E = 1001,
+
 
             USERNAME_EXISTS_E = 6001,
             USERNAME_PASSWORD_INCORRECT_E = 6002,
@@ -32,6 +36,12 @@ namespace marketplace.Utilities.Const
                 case CODE.SUCCESS:
                     return "Successed.";
 
+                case CODE.API_RESULT:
+                    return "Result.";
+
+                case CODE.API_RESULT_INVALID_E:
+                    return "Error.";
+
                 case CODE.USERNAME_EXISTS_E:
                     return "The username or email already exists.";
                 case CODE.USERNAME_PASSWORD_INCORRECT_E:
@@ -40,7 +50,7 @@ namespace marketplace.Utilities.Const
                     return "The role already exists.";
                 case CODE.INVALID_REQUEST_DATA:
                     return "Could not parse request data. Invalid Request Data.";
-                    case CODE.REGISTER_FAILED_E:
+                case CODE.REGISTER_FAILED_E:
                     return "Registration failed";
 
                 case CODE.SUCCESSFULLY_REGISTER_S:

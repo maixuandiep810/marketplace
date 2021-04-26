@@ -5,7 +5,7 @@ using marketplace.Data.EF;
 using marketplace.Data.RepositoryPattern.Repositories;
 using marketplace.Data.UnitOfWorkPattern;
 
-namespace vigalileo.Data.UnitOfWorkPattern
+namespace marketplace.Data.UnitOfWorkPattern
 
 {
     public class UnitOfWork : IUnitOfWork

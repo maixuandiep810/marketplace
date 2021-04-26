@@ -5,7 +5,7 @@ using marketplace.DTOs.Common;
 using marketplace.Utilities.Const;
 using marketplace.Utilities.Exceptions;
 using System.Text.Json;
-using vigalileo.BackendApi.Extensions;
+using marketplace.BackendApi.Extensions;
 
 namespace marketplace.BackendApi.Middlewares
 {
@@ -24,7 +24,7 @@ namespace marketplace.BackendApi.Middlewares
             {
                 await _next.Invoke(httpContext);
             }
-            catch (ViException ex)
+            catch (MPException ex)
             {
                 var result = new ApiResult<bool>(false);
                 result.SetResult((int)ex.ApiCode, false, false, ex.Message);

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace vigalileo.DTOs.System.Users
+namespace marketplace.DTOs.System.Users
 {
     public class RegisterRequest
     {
