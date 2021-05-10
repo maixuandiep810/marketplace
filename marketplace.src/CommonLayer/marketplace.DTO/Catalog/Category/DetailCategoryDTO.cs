@@ -10,7 +10,7 @@ namespace marketplace.DTO.Catalog.Category
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public static ChiTietDanhMuc DetailCategoryDTOToChiTietDanhMuc(DetailCategoryDTO detailCD)
+        public static ChiTietDanhMuc ToChiTietDanhMuc(DetailCategoryDTO detailCD)
         {
             var chiTietDanhMuc = new ChiTietDanhMuc()
             {

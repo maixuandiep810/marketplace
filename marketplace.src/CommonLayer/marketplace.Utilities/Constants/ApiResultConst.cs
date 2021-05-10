@@ -22,9 +22,9 @@ namespace marketplace.Utilities.Const
             ROLE_EXISTS_E = 6003,
             INVALID_REQUEST_DATA = 6004,
             REGISTER_FAILED_E = 6005,
-            PRODUCT_CODE_EXISTS = 6050,
             // ---
-            ENTITY_NOT_FOUND_E = 6101,
+            ENTITY_CODE_EXISTS = 6101,
+            ENTITY_NOT_FOUND_E = 6102,
 
             // SERVER_ERROR
             // ---
@@ -72,9 +72,8 @@ namespace marketplace.Utilities.Const
                 case CODE.REGISTER_FAILED_E:
                     return "Registration failed";
                 // ---
-                case CODE.PRODUCT_CODE_EXISTS:
-                    return "The product code already exists.";
-                // ---
+                case CODE.ENTITY_CODE_EXISTS:
+                    return "The entity code already exists.";
                 case CODE.ENTITY_NOT_FOUND_E:
                     return "Requested entity is not found";
                 // ---

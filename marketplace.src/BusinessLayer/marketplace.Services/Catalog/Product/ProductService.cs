@@ -35,11 +35,11 @@ namespace marketplace.Services.Catalog.Product
             try
             {
                 SanPham product = await _unitOfWork.SanPhamRepository.GetByCodeAsync(productCode);
-                ChiTietSanPham detailProduct = null;
                 if (product == null)
                 {
                     return new ApiResult<ProductDTO>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, null, null);
                 }
+                ChiTietSanPham detailProduct = null;
                 detailProduct = await _unitOfWork.ChiTietSanPhamRepository.GetByLanguageIdAsync(product.Id, languageId);
                 if (detailProduct == null)
                 {
@@ -49,12 +49,12 @@ namespace marketplace.Services.Catalog.Product
                 List<HinhAnh> images = null;
                 try
                 {
-                    images = await _unitOfWork.HinhAnhRepository.GetImagesAsync(product.Id.ToString(), TypeOfEntityConst.PRODUCT);
+                    images = await _unitOfWork.HinhAnhRepository.GetImagesAsync(productDTO.Id.ToString(), TypeOfEntityConst.PRODUCT);
                 }
                 catch (System.Exception)
                 {
                 }
-                var imageDTOs = images.ConvertAll(new Converter<HinhAnh, ImageDTO>(ImageDTO.HinhAnhToImageDTO));
+                var imageDTOs = images.ConvertAll(new Converter<HinhAnh, ImageDTO>(ImageDTO.FromHinhAnh));
                 productDTO.ImageDTOs = imageDTOs;
                 return new ApiResult<ProductDTO>(ApiResultConst.CODE.SUCCESS, true, productDTO, null);
             }
@@ -68,15 +68,14 @@ namespace marketplace.Services.Catalog.Product
         {
             try
             {
-                var apiResult = new ApiResult<bool>(false);
                 var product = await _unitOfWork.SanPhamRepository.GetByCodeAsync(req.Code);
                 if (product != null)
                 {
-                    return new ApiResult<bool>(ApiResultConst.CODE.PRODUCT_CODE_EXISTS, false, false, null);
+                    return new ApiResult<bool>(ApiResultConst.CODE.ENTITY_CODE_EXISTS, false, false, null);
                 }
-                var newProduct = CreateProductDTO.CreateProductDTOToSanPham(req);
+                var newProduct = CreateProductDTO.ToSanPham(req);
                 var newDetailProducts = req.DetailProductDTOs.ConvertAll(
-                    new Converter<DetailProductDTO, ChiTietSanPham>(DetailProductDTO.DetailProductDTOToChiTietSanPham)
+                    new Converter<DetailProductDTO, ChiTietSanPham>(DetailProductDTO.ToChiTietSanPham)
                     );
                 newProduct.ChiTietSanPhams = newDetailProducts;
                 foreach (var createImageDTO in req.Images)
@@ -87,6 +86,7 @@ namespace marketplace.Services.Catalog.Product
                         newImage.Url = await _fileStorageService.SaveFileAsync(createImageDTO.FormImage, SystemConst.PRODUCT_IMAGE_FOLDER_NAME);
                         newImage.LaAnhMacDinh = createImageDTO.IsDefault;
                         newImage.Loai = TypeOfEntityConst.PRODUCT;
+                        newImage.DoiTuongId = newProduct.Id.ToString();
                         await _imageService.CreateAsync(newImage);
                     }
                     catch (System.Exception)

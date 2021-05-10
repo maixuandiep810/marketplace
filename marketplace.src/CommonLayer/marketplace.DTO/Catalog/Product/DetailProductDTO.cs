@@ -11,7 +11,7 @@ namespace marketplace.DTO.Catalog.Product
         public string FullName { get; set; }
         public string Description { get; set; }
 
-        public static ChiTietSanPham DetailProductDTOToChiTietSanPham(DetailProductDTO detailPD)
+        public static ChiTietSanPham ToChiTietSanPham(DetailProductDTO detailPD)
         {
             var chiTietSp = new ChiTietSanPham() {
                 NgonNguId = detailPD.LanguageId,

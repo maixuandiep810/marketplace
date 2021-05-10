@@ -15,6 +15,19 @@ namespace marketplace.Data.RepositoryPattern.Repositories
         {
         }
 
+        public async Task<HinhAnh> GetImageAsync(string type, string entityId)
+        {
+            try
+            {
+                var image = await (Find(x => x.Loai == type && x.DoiTuongId == entityId)).FirstOrDefaultAsync();
+                return image;
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<List<HinhAnh>> GetImagesAsync(string type, string entityId)
         {
             try
@@ -28,4 +41,4 @@ namespace marketplace.Data.RepositoryPattern.Repositories
             }
         }
     }
-}   
+}

@@ -4,6 +4,7 @@ using FluentValidation;
 using marketplace.Data.Entities;
 using marketplace.Data.Enums;
 using marketplace.DTO.Enum;
+using marketplace.DTO.Common;
 
 namespace marketplace.DTO.Catalog.Category
 {
@@ -13,8 +14,10 @@ namespace marketplace.DTO.Catalog.Category
         public Status Status { get; set; }
         public bool IsShownAtHome { get; set; }
         public List<DetailCategoryDTO> DetailCategoryDTOs { get; set; }
+        public CreateImageDTO Image { get; set; }
 
-        public static DanhMuc CreateCategoryDTOToDanhMuc(CreateCategoryDTO createCDTO)
+
+        public static DanhMuc ToDanhMuc(CreateCategoryDTO createCDTO)
         {
             var danhMuc = new DanhMuc()
             {

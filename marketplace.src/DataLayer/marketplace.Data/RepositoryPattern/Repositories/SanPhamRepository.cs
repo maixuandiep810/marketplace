@@ -18,10 +18,10 @@ namespace marketplace.Data.RepositoryPattern.Repositories
             try
             {
                 var product = await FirstOrDefaultAsync(x => x.MaSP == code);
-                if (product == null)
-                {
-                    return null;
-                } 
+                // if (product == null)
+                // {
+                //     return null;
+                // } 
                 return product;
             }
             catch (System.Exception ex)

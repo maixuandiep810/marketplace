@@ -27,7 +27,7 @@ namespace marketplace.DTO.Common
             SortOrder = img.ThuTu;
         }
 
-        public static ImageDTO HinhAnhToImageDTO(HinhAnh hinh)
+        public static ImageDTO FromHinhAnh(HinhAnh hinh)
         {
             return new ImageDTO(hinh);
         }

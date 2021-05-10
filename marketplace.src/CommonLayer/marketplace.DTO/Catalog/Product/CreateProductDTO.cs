@@ -14,7 +14,7 @@ namespace marketplace.DTO.Catalog.Product
         public List<DetailProductDTO> DetailProductDTOs { get; set; }
         public List<CreateImageDTO> Images { get; set; }
 
-        public static SanPham CreateProductDTOToSanPham(CreateProductDTO createPDTO)
+        public static SanPham ToSanPham(CreateProductDTO createPDTO)
         {
             var sanPham = new SanPham()
             {
