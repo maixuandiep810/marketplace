@@ -7,6 +7,7 @@ using marketplace.Data.EF;
 using marketplace.Data.Entities;
 using System.Linq.Expressions;
 using System.Linq;
+using marketplace.Utilities.Const;
 
 namespace marketplace.Data.RepositoryPattern.Repositories
 {
@@ -45,12 +46,11 @@ namespace marketplace.Data.RepositoryPattern.Repositories
             }
         }
 
-        public async Task<int> AddAsync(TEntity entity)
+        public async Task AddAsync(TEntity entity)
         {
             try
             {
                 var result = await entities.AddAsync(entity);
-                return 1;
             }
             catch (System.Exception ex)
             {
@@ -58,12 +58,11 @@ namespace marketplace.Data.RepositoryPattern.Repositories
             }
         }
 
-        public int Update(TEntity entity)
+        public void Update(TEntity entity)
         {
             try
             {
                 entities.Update(entity);
-                return 1;
             }
             catch (System.Exception ex)
             {
@@ -84,11 +83,25 @@ namespace marketplace.Data.RepositoryPattern.Repositories
             }
         }
 
-        public async Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
+        public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
             try
             {
-                var result = await entities.Where(predicate).ToListAsync();
+                var query = entities.Where(predicate).AsQueryable();
+                return query;
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            try
+            {
+                var query = Find(predicate);
+                var result = await query.FirstOrDefaultAsync<TEntity>();
                 return result;
             }
             catch (System.Exception ex)
@@ -96,5 +109,6 @@ namespace marketplace.Data.RepositoryPattern.Repositories
                 throw ex;
             }
         }
+
     }
 }

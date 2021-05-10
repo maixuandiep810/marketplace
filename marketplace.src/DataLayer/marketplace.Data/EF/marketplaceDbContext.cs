@@ -20,7 +20,8 @@ namespace marketplace.Data.EF
             modelBuilder.ApplyConfiguration(new ChiTietDonHangCF());
             modelBuilder.ApplyConfiguration(new CuaHangCF());
             modelBuilder.ApplyConfiguration(new DanhMucCF());
-            modelBuilder.ApplyConfiguration(new DanhMucDichThuatCF());
+            modelBuilder.ApplyConfiguration(new ChiTietDanhMucCF());
+            modelBuilder.ApplyConfiguration(new ChiTietSanPhamCF());
             modelBuilder.ApplyConfiguration(new DonHangCF());
 
 
@@ -37,7 +38,6 @@ namespace marketplace.Data.EF
 
             modelBuilder.ApplyConfiguration(new SanPhamCF());
             modelBuilder.ApplyConfiguration(new SanPhamDanhMucCF());
-            modelBuilder.ApplyConfiguration(new SanPhamDichThuatCF());
             modelBuilder.ApplyConfiguration(new TaiKhoanCF());
             modelBuilder.ApplyConfiguration(new VaiTroCF());
 
@@ -67,7 +67,7 @@ namespace marketplace.Data.EF
         public DbSet<ChiTietDonHang> ChiTietDonHangs { get; set; }
         public DbSet<CuaHang> CuaHangs { get; set; }
         public DbSet<DanhMuc> DanhMucs { get; set; }
-        public DbSet<DanhMucDichThuat> DanhMucDichThuats { get; set; }
+        public DbSet<ChiTietDanhMuc> ChiTietDanhMucs { get; set; }
         public DbSet<DonHang> DonHangs { get; set; }
 
         public DbSet<GiaoDich> GiaoDichs { get; set; }
@@ -83,7 +83,7 @@ namespace marketplace.Data.EF
         public DbSet<QuanLyDonHang> QuanLyDonHangs { get; set; }
         public DbSet<SanPham> SanPhams { get; set; }
         public DbSet<SanPhamDanhMuc> SanPhamDanhMucs { get; set; }
-        public DbSet<SanPhamDichThuat> SanPhamDichThuats { get; set; }
+        public DbSet<ChiTietSanPham> ChiTietSanPhams { get; set; }
         public DbSet<TaiKhoan> TaiKhoans { get; set; }
         public DbSet<VaiTro> VaiTros { get; set; }
     }

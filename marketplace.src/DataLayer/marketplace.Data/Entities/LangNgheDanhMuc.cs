@@ -6,7 +6,8 @@ namespace marketplace.Data.Entities
 {
     public class LangNgheDanhMuc : IBaseEntity<int>
     {
-        public int Id { get; set; }    
+        public int Id { get; set; }
+        public bool DaXoa { get; set; }    
     
 
         public int LangNgheId { get; set; }

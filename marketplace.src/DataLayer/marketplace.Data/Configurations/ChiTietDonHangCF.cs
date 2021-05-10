@@ -15,7 +15,7 @@ namespace marketplace.Data.Configurations
             
             builder.HasKey(x => x.Id);
             builder.HasAlternateKey(x => new { x.DonHangId, x.SanPhamId });
-            builder.Property(x => x.DonGia).HasColumnType("decimal(10,8)");
+            builder.Property(x => x.DonGia).HasColumnType("decimal(15,2)");
 
             builder.HasOne<SanPham>(x => x.SanPham).WithMany(x => x.ChiTietDonHangs).HasForeignKey(x => x.SanPhamId);
             builder.HasOne<DonHang>(x => x.DonHang).WithMany(x => x.ChiTietDonHangs).HasForeignKey(x => x.DonHangId);

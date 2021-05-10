@@ -5,6 +5,7 @@ namespace marketplace.Data.Entities
     public class CuaHang : IBaseEntity<int>
     {
         public int Id { set; get; }
+        public bool DaXoa { get; set; }
         public string MaCH { get; set; }
         public string Ten { get; set; }
         public string TenDayDu { set; get; }

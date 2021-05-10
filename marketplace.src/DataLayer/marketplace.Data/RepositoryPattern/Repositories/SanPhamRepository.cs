@@ -12,7 +12,22 @@ namespace marketplace.Data.RepositoryPattern.Repositories
     {
         public SanPhamRepository(marketplaceDbContext marketplaceDbContext) : base(marketplaceDbContext)
         {
-
+        }
+        public async Task<SanPham> GetByCodeAsync(string code)
+        {
+            try
+            {
+                var product = await FirstOrDefaultAsync(x => x.MaSP == code);
+                if (product == null)
+                {
+                    return null;
+                } 
+                return product;
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

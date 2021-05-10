@@ -1,9 +1,11 @@
+using System.Data.Common;
 using System;
 using System.Threading.Tasks;
 using marketplace.Data.RepositoryPattern.IRepositories;
 using marketplace.Data.EF;
 using marketplace.Data.RepositoryPattern.Repositories;
 using marketplace.Data.UnitOfWorkPattern;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace marketplace.Data.UnitOfWorkPattern
 
@@ -12,6 +14,7 @@ namespace marketplace.Data.UnitOfWorkPattern
     {
         private bool _disposed = false;
         private readonly marketplaceDbContext _context;
+        private readonly IDbContextTransaction _contextTransaction;
 
         public IChiTietDonHangRepository ChiTietDonHangRepository { get; }
 
@@ -19,7 +22,9 @@ namespace marketplace.Data.UnitOfWorkPattern
 
         public IDanhMucRepository DanhMucRepository { get; }
 
-        public IDanhMucDichThuatRepository DanhMucDichThuatRepository { get; }
+        public IChiTietDanhMucRepository ChiTietDanhMucRepository { get; }
+
+        public IChiTietSanPhamRepository ChiTietSanPhamRepository { get; }
 
         public IDonHangRepository DonHangRepository { get; }
 
@@ -45,15 +50,17 @@ namespace marketplace.Data.UnitOfWorkPattern
 
         public ISanPhamDanhMucRepository SanPhamDanhMucRepository { get; }
 
-        public ISanPhamDichThuatRepository SanPhamDichThuatRepository { get; }
-
         public ITaiKhoanRepository TaiKhoanRepository { get; }
 
         public IVaiTroRepository VaiTroRepository { get; }
 
         public UnitOfWork(marketplaceDbContext context)
         {
-            _context = context;;
+            _context = context;
+            _contextTransaction = _context.Database.BeginTransaction();
+            ChiTietSanPhamRepository = new ChiTietSanPhamRepository(_context);
+            HinhAnhRepository = new HinhAnhRepository(_context);
+            SanPhamRepository = new SanPhamRepository(_context);
         }
 
         public void Dispose()
@@ -90,18 +97,21 @@ namespace marketplace.Data.UnitOfWorkPattern
         /// Save All Changes To Db using DbContext
         /// </summary>
         /// <returns></returns>
-        public async Task CommitAsync()
+        public async Task CommitTransactionAsync()
         {
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+                await _contextTransaction.CommitAsync();
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        // public void Rollback()
-        // {
-        //     _context
-        //         .ChangeTracker
-        //         .Entries()
-        //         .ToList()
-        //         .ForEach(x => x.Reload());
-        // }
+        public async Task RollbackTransactionAsync() {
+            await _contextTransaction.RollbackAsync();
+        }
     }
 }

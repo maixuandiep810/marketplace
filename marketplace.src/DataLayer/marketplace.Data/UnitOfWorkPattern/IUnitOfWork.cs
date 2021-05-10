@@ -9,7 +9,8 @@ namespace marketplace.Data.UnitOfWorkPattern
         IChiTietDonHangRepository ChiTietDonHangRepository { get; }
         ICuaHangRepository CuaHangRepository { get; }
         IDanhMucRepository DanhMucRepository { get; }
-        IDanhMucDichThuatRepository DanhMucDichThuatRepository { get; }
+        IChiTietDanhMucRepository ChiTietDanhMucRepository { get; }
+        IChiTietSanPhamRepository ChiTietSanPhamRepository { get; }
         IDonHangRepository DonHangRepository { get; }
         IGiaoDichRepository GiaoDichRepository { get; }
         IGioHangRepository GioHangRepository { get; }
@@ -18,15 +19,15 @@ namespace marketplace.Data.UnitOfWorkPattern
         ILangNgheRepository LangNgheRepository { get; }
         ILangNgheDanhMucRepository LangNgheDanhMucRepository { get; }
         INgonNguRepository NgonNguRepository { get; }
-        INguoiBanRepository NguoiBanRepository{ get; }
+        INguoiBanRepository NguoiBanRepository { get; }
         IQuanLyDonHangRepository QuanLyDonHangRepository { get; }
         ISanPhamRepository SanPhamRepository { get; }
         ISanPhamDanhMucRepository SanPhamDanhMucRepository { get; }
-        ISanPhamDichThuatRepository SanPhamDichThuatRepository { get; }
         ITaiKhoanRepository TaiKhoanRepository { get; }
         IVaiTroRepository VaiTroRepository { get; }
 
 
-        Task CommitAsync();
+        Task CommitTransactionAsync();
+        Task RollbackTransactionAsync();
     }
 }

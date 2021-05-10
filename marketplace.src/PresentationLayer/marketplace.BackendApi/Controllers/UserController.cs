@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
-using marketplace.DTOs.Common;
-using marketplace.DTOs.System.Users;
-using marketplace.Services.System.User;
+using marketplace.DTO.Common;
+using marketplace.DTO.SystemManager.User;
+using marketplace.Services.SystemManager.User;
 using marketplace.Utilities.Const;
-using marketplace.Utilities.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
+using marketplace.BackendApi.Extensions;
 
 namespace marketplace.BackendApi.Controllers
 {
@@ -18,7 +18,7 @@ namespace marketplace.BackendApi.Controllers
         }
 
         [HttpPost(UriConst.API_USERS_REGISTER_POST_PATH)]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        public async Task<IActionResult> Register([FromBody] RegisterDTO request)
         {
             var result = new ApiResult<bool>(false);
             // if (StringValues.IsNullOrEmpty(HttpContext.Request.Headers["Authorization"]) == false)
@@ -27,7 +27,7 @@ namespace marketplace.BackendApi.Controllers
             // }
             if (!ModelState.IsValid)
             {
-                throw new MPException(ApiResultConst.CODE.INVALID_REQUEST_DATA);
+                return Ok(new ApiResult<bool>(ApiResultConst.CODE.INVALID_REQUEST_DATA, false, false, null, ModelState.GetMessageList()));
             }
             result = await _userService.RegisterAsync(request);
             return Ok(result);

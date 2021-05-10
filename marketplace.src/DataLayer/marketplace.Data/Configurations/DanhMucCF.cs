@@ -15,7 +15,6 @@ namespace marketplace.Data.Configurations
 
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.MaSo).HasColumnType("nvarchar(32)");
-            builder.Property(x => x.HienThiTrangChu).HasDefaultValue(true);
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.HoatDong);
         }
     }

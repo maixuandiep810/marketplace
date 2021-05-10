@@ -8,6 +8,8 @@ namespace marketplace.Data.Entities
     public class GiaoDich : IBaseEntity<int>
     {
         public int Id { set; get; }
+        public bool DaXoa { get; set; }
+
         public string MaGD { get; set; }
         public decimal ThanhTien { set; get; }
         public decimal Phi { set; get; }

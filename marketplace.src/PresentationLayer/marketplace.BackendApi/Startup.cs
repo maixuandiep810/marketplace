@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using marketplace.BackendApi.Extensions;
+using FluentValidation.AspNetCore;
+
 
 namespace marketplace.BackendApi
 {
@@ -25,7 +28,11 @@ namespace marketplace.BackendApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
+            services.AddDatabaseServices(Configuration);
+            services.AddIdentityServices();
+            services.AddMPServices();
+            services.AddMPValidator();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,7 +45,11 @@ namespace marketplace.BackendApi
 
             // app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
+
             app.UseRouting();
+
+            app.UseMPExceptionHandler();
 
             app.UseAuthorization();
 

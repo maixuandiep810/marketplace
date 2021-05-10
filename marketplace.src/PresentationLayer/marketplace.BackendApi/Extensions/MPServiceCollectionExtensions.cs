@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using marketplace.Services.System.User;
+using marketplace.Services.SystemManager.User;
 using marketplace.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using marketplace.Data.EF;
@@ -7,10 +7,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using marketplace.Data.UnitOfWorkPattern;
-using marketplace.DTOs.System.Users;
+using marketplace.DTO.SystemManager.User;
 using marketplace.Utilities.Const;
+using marketplace.DTO.Common;
+using marketplace.DTO.Catalog.Product;
 
-namespace vigalileo.BackendApi.Extensions
+namespace marketplace.BackendApi.Extensions
 {
     public static class MPServiceCollectionExtensions
     {
@@ -25,7 +27,7 @@ namespace vigalileo.BackendApi.Extensions
             return services;
         }
 
-        public static IServiceCollection AddViServices(this IServiceCollection services)
+        public static IServiceCollection AddMPServices(this IServiceCollection services)
         {
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -40,10 +42,16 @@ namespace vigalileo.BackendApi.Extensions
             return services;
         }
 
-        public static IServiceCollection AddViValidator(this IServiceCollection services)
+        public static IServiceCollection AddMPValidator(this IServiceCollection services)
         {
-            services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
-            services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
+            // USER
+            services.AddTransient<IValidator<RegisterDTO>, RegisterDTOValidator>();
+            services.AddTransient<IValidator<LoginDTO>, LoginDTOValidator>();
+            // PRODUCT
+            services.AddTransient<IValidator<CreateProductDTO>, CreateProductDTOValidator>();
+            services.AddTransient<IValidator<DetailProductDTO>, DetailProductDTOValidator>();
+            // COMMON
+            services.AddTransient<IValidator<CreateImageDTO>, CreateImageDTOValidator>();
             return services;
         }
     }

@@ -7,14 +7,15 @@ namespace marketplace.Data.Entities
     public class HinhAnh : IBaseEntity<int>
     {
         public int Id { get; set; }
+        public bool DaXoa { get; set; }
         public string MaHA { get; set; }
         public string MoTa { get; set; }
         public string Url { get; set; }
-        public string Caption { get; set; }
-        public bool IsDefault { get; set; }
+        public string TieuDe { get; set; }
+        public bool LaAnhMacDinh { get; set; }
         public string DoiTuongId { get; set; }
         public string Loai { get; set; }
-        public int SortOrder { get; set; }
-        public long FileSize { get; set; }
+        public int ThuTu { get; set; }
+        // public long KichThuocFile { get; set; }
     }
 }

@@ -40,7 +40,7 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("DonGia")
-                        .HasColumnType("decimal(10,8)");
+                        .HasColumnType("decimal(15,2)");
 
                     b.Property<int>("DonHangId")
                         .HasColumnType("int");
@@ -104,9 +104,7 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("HienThiTrangChu")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                        .HasColumnType("bit");
 
                     b.Property<string>("MaSo")
                         .HasColumnType("nvarchar(32)");
@@ -172,7 +170,7 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("ntext");
 
                     b.Property<decimal>("ThanhTien")
-                        .HasColumnType("decimal(10,8)");
+                        .HasColumnType("decimal(15,2)");
 
                     b.Property<int>("TrangThai")
                         .ValueGeneratedOnAdd()
@@ -211,10 +209,10 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("nvarchar(1024)");
 
                     b.Property<decimal>("Phi")
-                        .HasColumnType("decimal(10,8)");
+                        .HasColumnType("decimal(15,2)");
 
                     b.Property<decimal>("ThanhTien")
-                        .HasColumnType("decimal(10,8)");
+                        .HasColumnType("decimal(15,2)");
 
                     b.Property<int>("TrangThai")
                         .HasColumnType("int");
@@ -271,9 +269,6 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Caption")
-                        .HasColumnType("nvarchar(256)");
-
                     b.Property<string>("DoiTuongId")
                         .HasColumnType("nvarchar(32)");
 
@@ -294,6 +289,9 @@ namespace marketplace.Data.Migrations
 
                     b.Property<int>("SortOrder")
                         .HasColumnType("int");
+
+                    b.Property<string>("TieuDe")
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Url")
                         .HasColumnType("ntext");
@@ -467,10 +465,10 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("DonGia")
-                        .HasColumnType("decimal(10,8)");
+                        .HasColumnType("decimal(15,2)");
 
                     b.Property<decimal>("DonGiaGoc")
-                        .HasColumnType("decimal(10,8)");
+                        .HasColumnType("decimal(15,2)");
 
                     b.Property<int>("LuotXem")
                         .ValueGeneratedOnAdd()

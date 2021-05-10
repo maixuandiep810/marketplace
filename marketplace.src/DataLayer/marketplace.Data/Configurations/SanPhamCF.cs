@@ -14,10 +14,8 @@ namespace marketplace.Data.Configurations
 
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.MaSP).HasColumnType("nvarchar(32)").IsRequired();
-            builder.Property(x => x.Ten).HasColumnType("nvarchar(256)").IsRequired();
-            builder.Property(x => x.TenDayDu).HasColumnType("nvarchar(1024)").IsRequired();
-            builder.Property(x => x.DonGia).HasColumnType("decimal(10,8)");
-            builder.Property(x => x.DonGiaGoc).HasColumnType("decimal(10,8)").IsRequired();
+            builder.Property(x => x.DonGia).HasColumnType("decimal(15,2)");
+            builder.Property(x => x.DonGiaGoc).HasColumnType("decimal(15,2)").IsRequired();
             builder.Property(x => x.SoLuong).IsRequired().HasDefaultValue(0);
             builder.Property(x => x.LuotXem).IsRequired().HasDefaultValue(0);
         }

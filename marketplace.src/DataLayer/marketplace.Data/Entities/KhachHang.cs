@@ -6,6 +6,7 @@ namespace marketplace.Data.Entities
     public class KhachHang : IBaseEntity<int>
     {
         public int Id { get; set; }
+        public bool DaXoa { get; set; }
         public Guid TaiKhoanId { set; get; }
 
         

@@ -6,12 +6,14 @@ namespace marketplace.Data.Entities
 {
     public class TaiKhoan : IdentityUser<Guid>, IBaseEntity<Guid>
     {
+        public bool DaXoa { get; set; }
+
         public string HoTen { get; set; }
         public DateTime NgaySinh { get; set; }
         public DateTime NgayTao { get; set; }
         public DateTime NgayCapNhat { get; set; }
         public bool LaNguoiBan { get; set; }
-        
+
 
         public virtual KhachHang KhachHang { get; set; }
         public virtual NguoiBan NguoiBan { get; set; }

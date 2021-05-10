@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -9,13 +10,14 @@ namespace marketplace.Data.RepositoryPattern.IRepositories
     {
         Task<TEntity> GetByIdAsync(TPKey id);
         Task<IEnumerable<TEntity>> GetAllAsync();
-        Task<int> AddAsync(TEntity entity);
-        int Update(TEntity entity);
+        Task AddAsync(TEntity entity);
+        void Update(TEntity entity);
         void Delete(TEntity entity);
 
-        Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
-        
-        // TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
+        IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+
+
         // void AddRange(IEnumerable<TEntity> entities);
         // void RemoveRange(IEnumerable<TEntity> entities);
     }

@@ -2,11 +2,11 @@ using Microsoft.AspNetCore.Builder;
 using marketplace.BackendApi.Middlewares;
 using Microsoft.AspNetCore.Http;
 
-namespace vigalileo.BackendApi.Extensions
+namespace marketplace.BackendApi.Extensions
 {
     public static class MPApplicationBuilderExtensions
     {
-        public static IApplicationBuilder UseViExceptionHandler(this IApplicationBuilder app)
+        public static IApplicationBuilder UseMPExceptionHandler(this IApplicationBuilder app)
         {
             return app.UseMiddleware<MPExceptionHandlerMiddleware>();
         }

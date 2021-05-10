@@ -7,6 +7,7 @@ namespace marketplace.Data.Entities
     public class GioHang : IBaseEntity<int>
     {
         public int Id { set; get; }
+        public bool DaXoa { get; set; }
         public int SoLuong { set; get; }
         public DateTime NgayTao { get; set; }
         public DateTime NgayCapNhat { get; set; }
