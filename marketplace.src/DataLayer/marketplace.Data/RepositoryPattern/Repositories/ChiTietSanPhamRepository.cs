@@ -2,7 +2,7 @@ using marketplace.Data.RepositoryPattern.IRepositories;
 using marketplace.Data.Entities;
 using marketplace.Data.EF;
 using System.Threading.Tasks;
-using marketplace.Utilities.Constants;
+using marketplace.Utilities.Const;
 
 namespace marketplace.Data.RepositoryPattern.Repositories
 {

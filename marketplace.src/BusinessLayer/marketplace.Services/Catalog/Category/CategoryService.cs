@@ -42,11 +42,7 @@ namespace marketplace.Services.Catalog.Category
                 }
                 ChiTietDanhMuc detailCategory = null;
                 detailCategory = await _unitOfWork.ChiTietDanhMucRepository.GetByLanguageIdAsync(category.Id, languageId);
-                if (detailCategory == null)
-                {
-                    return new ApiResult<CategoryDTO>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, null, null);
-                }
-                var categoryDTO = new CategoryDTO(category, detailCategory);
+                var categoryDTO = detailCategory != null ? new CategoryDTO(category, detailCategory) : new CategoryDTO(category);
                 HinhAnh image = null;
                 try
                 {
@@ -62,6 +58,50 @@ namespace marketplace.Services.Catalog.Category
             catch (System.Exception ex)
             {
                 return DefaultApiResult.GetExceptionApiResult<CategoryDTO>(_env, ex, null);
+            }
+        }
+
+        public async Task<ApiResult<List<CategoryDTO>>> GetAllCategoryAsync(string languageId)
+        {
+            try
+            {
+                List<DanhMuc> categories = await _unitOfWork.DanhMucRepository.GetAllAsync();
+                var categoryDTOs = new List<CategoryDTO>();
+                foreach (var category in categories)
+                {
+                    ChiTietDanhMuc detailCategory = null;
+                    detailCategory = await _unitOfWork.ChiTietDanhMucRepository.GetByLanguageIdAsync(category.Id, languageId);
+                    var categoryDTO = detailCategory != null ? new CategoryDTO(category, detailCategory) : new CategoryDTO(category);
+                    HinhAnh image = null;
+                    try
+                    {
+                        image = await _unitOfWork.HinhAnhRepository.GetImageAsync(categoryDTO.Id.ToString(), TypeOfEntityConst.PRODUCT);
+                    }
+                    catch (System.Exception)
+                    {
+                    }
+                    var imageDTO = ImageDTO.FromHinhAnh(image);
+                    categoryDTO.ImageDTO = imageDTO;
+                    categoryDTOs.Add(categoryDTO);
+                }
+                return new ApiResult<List<CategoryDTO>>(ApiResultConst.CODE.SUCCESS, true, categoryDTOs, null);
+            }
+            catch (System.Exception ex)
+            {
+                return DefaultApiResult.GetExceptionApiResult<List<CategoryDTO>>(_env, ex, null);
+            }
+        }
+
+        public async Task<ApiResult<List<string>>> GetAllCategoryCodeAsync()
+        {
+            try
+            {
+                var codeValues = await _unitOfWork.DanhMucRepository.GetAllCodeValueAsync();
+                return new ApiResult<List<string>>(ApiResultConst.CODE.SUCCESS, true, codeValues, null);
+            }
+            catch (System.Exception ex)
+            {
+                return DefaultApiResult.GetExceptionApiResult<List<string>>(_env, ex, null);
             }
         }
 

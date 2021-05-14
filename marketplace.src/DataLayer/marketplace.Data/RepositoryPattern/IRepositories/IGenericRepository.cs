@@ -9,7 +9,7 @@ namespace marketplace.Data.RepositoryPattern.IRepositories
     public interface IGenericRepository<TEntity, TPKey> where TEntity : class
     {
         Task<TEntity> GetByIdAsync(TPKey id);
-        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<List<TEntity>> GetAllAsync();
         Task AddAsync(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);

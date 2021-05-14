@@ -14,19 +14,19 @@ namespace marketplace.Data.RepositoryPattern.Repositories
     public abstract class GenericRepository<TEntity, TPKey> : IGenericRepository<TEntity, TPKey> where TEntity : class, IBaseEntity<TPKey>
     {
         protected readonly marketplaceDbContext _context;
-        protected readonly DbSet<TEntity> entities;
+        protected readonly DbSet<TEntity> _entities;
 
         public GenericRepository(marketplaceDbContext context)
         {
             _context = context;
-            entities = _context.Set<TEntity>();
+            _entities = _context.Set<TEntity>();
         }
 
         public async Task<TEntity> GetByIdAsync(TPKey id)
         {
             try
             {
-                return await entities.FindAsync(id);
+                return await _entities.FindAsync(id);
             }
             catch (System.Exception ex)
             {
@@ -34,11 +34,11 @@ namespace marketplace.Data.RepositoryPattern.Repositories
             }
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<List<TEntity>> GetAllAsync()
         {
             try
             {
-                return await entities.ToListAsync();
+                return await _entities.ToListAsync();
             }
             catch (System.Exception ex)
             {
@@ -50,7 +50,7 @@ namespace marketplace.Data.RepositoryPattern.Repositories
         {
             try
             {
-                var result = await entities.AddAsync(entity);
+                var result = await _entities.AddAsync(entity);
             }
             catch (System.Exception ex)
             {
@@ -62,7 +62,7 @@ namespace marketplace.Data.RepositoryPattern.Repositories
         {
             try
             {
-                entities.Update(entity);
+                _entities.Update(entity);
             }
             catch (System.Exception ex)
             {
@@ -75,7 +75,7 @@ namespace marketplace.Data.RepositoryPattern.Repositories
         {
             try
             {
-                entities.Remove(entity);
+                _entities.Remove(entity);
             }
             catch (System.Exception ex)
             {
@@ -87,7 +87,7 @@ namespace marketplace.Data.RepositoryPattern.Repositories
         {
             try
             {
-                var query = entities.Where(predicate).AsQueryable();
+                var query = _entities.Where(predicate).AsQueryable();
                 return query;
             }
             catch (System.Exception ex)

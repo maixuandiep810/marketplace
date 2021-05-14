@@ -1,4 +1,4 @@
-namespace marketplace.Utilities.Constants
+namespace marketplace.Utilities.Const
 {
     public static class LaunguageConst
     {

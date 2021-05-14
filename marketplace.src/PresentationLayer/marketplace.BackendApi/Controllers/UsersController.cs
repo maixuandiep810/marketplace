@@ -9,10 +9,10 @@ using marketplace.BackendApi.Extensions;
 
 namespace marketplace.BackendApi.Controllers
 {
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        public UsersController(IUserService userService)
         {
             _userService = userService;
         }
@@ -20,7 +20,6 @@ namespace marketplace.BackendApi.Controllers
         [HttpPost(UriConst.API_USERS_REGISTER_POST_PATH)]
         public async Task<IActionResult> Register([FromBody] RegisterDTO request)
         {
-            var result = new ApiResult<bool>(false);
             // if (StringValues.IsNullOrEmpty(HttpContext.Request.Headers["Authorization"]) == false)
             // {
             //     throw new MPException(ApiResultConst.CODE.CLIENT_ERROR);
@@ -29,7 +28,7 @@ namespace marketplace.BackendApi.Controllers
             {
                 return Ok(new ApiResult<bool>(ApiResultConst.CODE.INVALID_REQUEST_DATA, false, false, null, ModelState.GetMessageList()));
             }
-            result = await _userService.RegisterAsync(request);
+            var result = await _userService.RegisterAsync(request);
             return Ok(result);
         }
     }

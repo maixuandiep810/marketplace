@@ -23,6 +23,16 @@ namespace marketplace.DTO.Catalog.Category
 
         }
 
+        public CategoryDTO(DanhMuc danhMuc) : this()
+        {
+            Id = danhMuc.Id;
+            Code = danhMuc.MaSo;
+            IsShownAtHome = danhMuc.HienThiTrangChu;
+            Status = (Status)((int)danhMuc.TrangThai);
+            Name = "";
+            Description = "";
+        }
+
         public CategoryDTO(DanhMuc danhMuc, ChiTietDanhMuc chiTietDanhMuc) : this()
         {
             Id = danhMuc.Id;
