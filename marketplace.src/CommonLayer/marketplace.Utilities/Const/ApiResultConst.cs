@@ -35,7 +35,7 @@ namespace marketplace.Utilities.Const
             // ---
             SUCCESSFULLY_REGISTER_S = 9001,
             SUCCESSFULLY_CREATING_ROLE_S = 9002,
-            SUCCESSFULLY_CREATING_PRODUCT_S = 9051,
+            SUCCESSFULLY_CREATING_ENTITY_S = 9051,
             SUCCESSFULLY_DELETING_ENTITY_S = 9101
         }
 
@@ -89,8 +89,8 @@ namespace marketplace.Utilities.Const
                     return "Your account has been succesfully created.";
                 case CODE.SUCCESSFULLY_CREATING_ROLE_S:
                     return "The role has been succesfully created.";
-                case CODE.SUCCESSFULLY_CREATING_PRODUCT_S:
-                    return "The product has been succesfully created.";
+                case CODE.SUCCESSFULLY_CREATING_ENTITY_S:
+                    return "Entity has been succesfully created.";
                 case CODE.SUCCESSFULLY_DELETING_ENTITY_S:
                     return "Entity has been succesfully deleted.";
 

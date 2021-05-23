@@ -16,6 +16,7 @@ namespace marketplace.Utilities.Const
         public const string API_CATEGORIES_CODE_GET_PATH = @"/categories/{categoryCode}";
         public const string API_CATEGORIES_POST_PATH = @"/categories";
         public const string API_CATEGORIES_CODE_DELETE_PATH = @"/categories/{categoryCode}";
+        public const string API_IMAGES_POST_PATH = @"/images";
 
 
 

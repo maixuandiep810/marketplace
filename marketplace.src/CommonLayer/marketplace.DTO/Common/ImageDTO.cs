@@ -29,6 +29,10 @@ namespace marketplace.DTO.Common
 
         public static ImageDTO FromHinhAnh(HinhAnh hinh)
         {
+            if (hinh == null)
+            {
+                return new ImageDTO();
+            }
             return new ImageDTO(hinh);
         }
     }

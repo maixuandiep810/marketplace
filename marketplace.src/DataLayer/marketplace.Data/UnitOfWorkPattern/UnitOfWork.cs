@@ -57,10 +57,27 @@ namespace marketplace.Data.UnitOfWorkPattern
         public UnitOfWork(marketplaceDbContext context)
         {
             _context = context;
-            _contextTransaction = _context.Database.BeginTransaction();
+            _contextTransaction = _context.Database.CurrentTransaction ?? _context.Database.BeginTransaction();
+            ChiTietDanhMucRepository = new ChiTietDanhMucRepository(_context);
+            ChiTietDonHangRepository = new ChiTietDonHangRepository(_context);
             ChiTietSanPhamRepository = new ChiTietSanPhamRepository(_context);
+            CuaHangRepository = new CuaHangRepository(_context);
+            DanhMucRepository = new DanhMucRepository(_context);
+            DonHangRepository = new DonHangRepository(_context);
+            GiaoDichRepository = new GiaoDichRepository(_context);
+            GioHangRepository = new GioHangRepository(_context);
             HinhAnhRepository = new HinhAnhRepository(_context);
+            KhachHangRepository = new KhachHangRepository(_context);
+            LangNgheDanhMucRepository = new LangNgheDanhMucRepository(_context);
+            LangNgheRepository = new LangNgheRepository(_context);
+            NgonNguRepository = new NgonNguRepository(_context);
+            NguoiBanRepository = new NguoiBanRepository(_context);
+            NguoiBanRepository = new NguoiBanRepository(_context);
+            QuanLyDonHangRepository = new QuanLyDonHangRepository(_context);
             SanPhamRepository = new SanPhamRepository(_context);
+            SanPhamDanhMucRepository = new SanPhamDanhMucRepository(_context);
+            TaiKhoanRepository = new TaiKhoanRepository(_context);
+            VaiTroRepository = new VaiTroRepository(_context);
         }
 
         public void Dispose()
@@ -99,15 +116,8 @@ namespace marketplace.Data.UnitOfWorkPattern
         /// <returns></returns>
         public async Task CommitTransactionAsync()
         {
-            try
-            {
                 await _context.SaveChangesAsync();
                 await _contextTransaction.CommitAsync();
-            }
-            catch (System.Exception ex)
-            {
-                throw ex;
-            }
         }
 
         public async Task RollbackTransactionAsync() {

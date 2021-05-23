@@ -13,22 +13,24 @@ using System;
 using marketplace.Data.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace marketplace.Services.Catalog.Product
 {
-    public class ProductService
+    public class ProductService : BaseService<ProductService>
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IImageService _imageService;
         private readonly IFileStorageService _fileStorageService;
-        private readonly IWebHostEnvironment _env;
 
-        public ProductService(IUnitOfWork unitOfWork, IImageService imageService, IFileStorageService fileStorageService, IWebHostEnvironment env)
+        public ProductService(IImageService imageService,
+            IFileStorageService fileStorageService,
+            IConfiguration configuration,
+            IUnitOfWork unitOfWork,
+            IWebHostEnvironment env,
+            ILogger<ProductService> logger) : base(configuration, unitOfWork, env, logger)
         {
-            _unitOfWork = unitOfWork;
             _imageService = imageService;
             _fileStorageService = fileStorageService;
-            _env = env;
         }
         public async Task<ApiResult<ProductDTO>> GetProductByCodeAsync(string productCode, string languageId)
         {
@@ -84,7 +86,22 @@ namespace marketplace.Services.Catalog.Product
                     {
                         var newImage = new HinhAnh();
                         newImage.Url = await _fileStorageService.SaveFileAsync(createImageDTO.FormImage, SystemConst.PRODUCT_IMAGE_FOLDER_NAME);
-                        newImage.LaAnhMacDinh = createImageDTO.IsDefault;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        // newImage.LaAnhMacDinh = createImageDTO.IsDefault;
                         newImage.Loai = TypeOfEntityConst.PRODUCT;
                         newImage.DoiTuongId = newProduct.Id.ToString();
                         await _imageService.CreateAsync(newImage);
@@ -94,7 +111,7 @@ namespace marketplace.Services.Catalog.Product
                     }
                 }
                 await _unitOfWork.CommitTransactionAsync();
-                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_CREATING_PRODUCT_S, false, false, null);
+                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_CREATING_ENTITY_S, false, false, null);
             }
             catch (System.Exception ex)
             {

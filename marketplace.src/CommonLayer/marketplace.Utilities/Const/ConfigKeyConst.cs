@@ -4,6 +4,6 @@ namespace marketplace.Utilities.Const
     {
         public const string TOKENS_KEY = "Tokens:Key";
         public const string TOKENS_ISSUER = "Tokens:Issuer";
-        public const string BASE_API_ADDRESS = "http://localhost:5000";
+        public const string BASE_API_ADDRESS = "BaseApiAddress";
     }
 }

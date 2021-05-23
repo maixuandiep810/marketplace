@@ -43,7 +43,7 @@ namespace marketplace.DTO.Common
             SetResult(code, isSuccessed, data, stackTrace, messages);
         }
 
-        public ApiResult(ApiResultConst.CODE code, bool isSuccessed, T data, string stackTrace,  List<string> messages)
+        public ApiResult(ApiResultConst.CODE code, bool isSuccessed, T data, string stackTrace, List<string> messages)
         {
             SetResult(code, isSuccessed, data, stackTrace, messages);
         }

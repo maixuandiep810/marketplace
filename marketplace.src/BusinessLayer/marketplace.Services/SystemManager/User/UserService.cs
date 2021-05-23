@@ -14,29 +14,24 @@ using marketplace.DTO.SystemManager.User;
 using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace marketplace.Services.SystemManager.User
 {
-    public class UserService : IUserService
+    public class UserService : BaseService<UserService>, IUserService
     {
         private readonly UserManager<TaiKhoan> _userManager;
         private readonly SignInManager<TaiKhoan> _signInManager;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IConfiguration _configuration;
-        private readonly IWebHostEnvironment _env;
-
 
         public UserService(UserManager<TaiKhoan> userManager,
             SignInManager<TaiKhoan> signInManager,
-            IUnitOfWork unitOfWork,
             IConfiguration configuration,
-            IWebHostEnvironment env)
+            IUnitOfWork unitOfWork,
+            IWebHostEnvironment env,
+            ILogger<UserService> logger) : base(configuration, unitOfWork, env, logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _unitOfWork = unitOfWork;
-            _configuration = configuration;
-            _env = env;
         }
         public async Task<ApiResult<bool>> RegisterAsync(RegisterDTO request)
         {

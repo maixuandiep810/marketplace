@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using marketplace.Data.EF;
 
 namespace marketplace.Data.Migrations
 {
     [DbContext(typeof(marketplaceDbContext))]
-    partial class marketplaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210520191529_ThirdMigration")]
+    partial class ThirdMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,7 +64,7 @@ namespace marketplace.Data.Migrations
 
                     b.HasIndex("NgonNguId");
 
-                    b.ToTable("ChiTietDanhMuc");
+                    b.ToTable("DanhMucDichThuat");
                 });
 
             modelBuilder.Entity("marketplace.Data.Entities.ChiTietDonHang", b =>
@@ -232,7 +234,7 @@ namespace marketplace.Data.Migrations
 
                     b.HasIndex("KhachHangId");
 
-                    b.ToTable("DonHang");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("marketplace.Data.Entities.GiaoDich", b =>

@@ -14,23 +14,35 @@ using marketplace.Data.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using marketplace.DTO.Catalog.Category;
+using Microsoft.Extensions.Logging;
+using marketplace.Utilities.Common;
 
 namespace marketplace.Services.Catalog.Category
 {
-    public class CategoryService
+    public class CategoryService : BaseService<CategoryService>, ICategoryService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IImageService _imageService;
         private readonly IFileStorageService _fileStorageService;
-        private readonly IWebHostEnvironment _env;
 
-        public CategoryService(IUnitOfWork unitOfWork, IImageService imageService, IFileStorageService fileStorageService, IWebHostEnvironment env)
+        public CategoryService(IImageService imageService,
+            IFileStorageService fileStorageService, 
+            IConfiguration configuration,
+            IUnitOfWork unitOfWork,
+            IWebHostEnvironment env,
+            ILogger<CategoryService> logger) : base(configuration, unitOfWork, env, logger)
         {
-            _unitOfWork = unitOfWork;
             _imageService = imageService;
             _fileStorageService = fileStorageService;
-            _env = env;
         }
+
+        /// <summary>
+        /// 
+        /// 
+        /// 
+        ///  
+        /// 
+        /// 
+        /// </summary>
         public async Task<ApiResult<CategoryDTO>> GetCategoryByCodeAsync(string categoryCode, string languageId)
         {
             try
@@ -46,7 +58,7 @@ namespace marketplace.Services.Catalog.Category
                 HinhAnh image = null;
                 try
                 {
-                    image = await _unitOfWork.HinhAnhRepository.GetImageAsync(categoryDTO.Id.ToString(), TypeOfEntityConst.PRODUCT);
+                    image = await _unitOfWork.HinhAnhRepository.GetImageAsync(TypeOfEntityConst.CATEGORY, categoryDTO.Id.ToString());
                 }
                 catch (System.Exception)
                 {
@@ -57,10 +69,13 @@ namespace marketplace.Services.Catalog.Category
             }
             catch (System.Exception ex)
             {
+                LogUtils.LogException<CategoryService>(_env, ex, _logger, "Marketplace LogInfomation Message");
                 return DefaultApiResult.GetExceptionApiResult<CategoryDTO>(_env, ex, null);
             }
         }
-
+        ///
+        /// 
+        /// 
         public async Task<ApiResult<List<CategoryDTO>>> GetAllCategoryAsync(string languageId)
         {
             try
@@ -88,10 +103,13 @@ namespace marketplace.Services.Catalog.Category
             }
             catch (System.Exception ex)
             {
+                LogUtils.LogException<CategoryService>(_env, ex, _logger, "Marketplace LogInfomation Message");
                 return DefaultApiResult.GetExceptionApiResult<List<CategoryDTO>>(_env, ex, null);
             }
         }
-
+        ///
+        /// 
+        /// 
         public async Task<ApiResult<List<string>>> GetAllCategoryCodeAsync()
         {
             try
@@ -101,10 +119,20 @@ namespace marketplace.Services.Catalog.Category
             }
             catch (System.Exception ex)
             {
+                LogUtils.LogException<CategoryService>(_env, ex, _logger, "Marketplace LogInfomation Message");
                 return DefaultApiResult.GetExceptionApiResult<List<string>>(_env, ex, null);
             }
         }
 
+        /// <summary>
+        /// 
+        /// 
+        /// 
+        /// CREATE CATEGORY: 1 cate, N cate
+        /// 
+        /// 
+        /// 
+        /// </summary>
         public async Task<ApiResult<bool>> CreateAsync(CreateCategoryDTO req)
         {
             try
@@ -119,28 +147,65 @@ namespace marketplace.Services.Catalog.Category
                     new Converter<DetailCategoryDTO, ChiTietDanhMuc>(DetailCategoryDTO.ToChiTietDanhMuc)
                     );
                 newCategory.ChiTietDanhMucs = newDetailCategory;
+                await _unitOfWork.DanhMucRepository.AddAsync(newCategory); // Vi Image khong chung Foreignkey la ID CATEGORY
+                await _unitOfWork.CommitTransactionAsync();
                 try
                 {
                     var newImage = new HinhAnh();
-                    newImage.Url = await _fileStorageService.SaveFileAsync(req.Image.FormImage, SystemConst.PRODUCT_IMAGE_FOLDER_NAME);
+                    newImage.Url = await _fileStorageService.SaveFileAsync(req.Image.FormImage, SystemConst.CATEGORY_IMAGE_FOLDER_NAME);
                     newImage.LaAnhMacDinh = true;
                     newImage.Loai = TypeOfEntityConst.CATEGORY;
                     newImage.DoiTuongId = newCategory.Id.ToString();
                     await _imageService.CreateAsync(newImage);
+                    await _unitOfWork.CommitTransactionAsync();
                 }
                 catch (System.Exception)
                 {
                 }
-                await _unitOfWork.CommitTransactionAsync();
-                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_CREATING_PRODUCT_S, false, false, null);
+                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_CREATING_ENTITY_S, false, false, null);
             }
             catch (System.Exception ex)
             {
                 await _unitOfWork.RollbackTransactionAsync();
+                LogUtils.LogException<CategoryService>(_env, ex, _logger, "Marketplace LogInfomation Message");
                 return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
             }
         }
-
+        ///
+        ///
+        /// 
+        public async Task<ApiResult<bool>> CreateAsync(List<CreateCategoryDTO> reqs)
+        {
+            var messages = new List<string>();
+            var successMessages = "";
+            var errorMessages = "";
+            foreach (var req in reqs)
+            {
+                var result = await CreateAsync(req);
+                if (result.IsSuccessed == true)
+                {
+                    var mess = "code: " + req.Code + ",";
+                    successMessages += mess;
+                }
+                else
+                {
+                    var mess = "code: " + req.Code + ",";
+                    errorMessages += mess;
+                }
+            }
+            messages.Add("success: " + successMessages);
+            messages.Add("error: " + errorMessages);
+            return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_CREATING_ENTITY_S, true, true, null, messages);
+        }
+        /// <summary>
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// </summary>
         public async Task<ApiResult<bool>> DeleteAsync(string productCode)
         {
             try
@@ -157,6 +222,7 @@ namespace marketplace.Services.Catalog.Category
             catch (System.Exception ex)
             {
                 await _unitOfWork.RollbackTransactionAsync();
+                LogUtils.LogException<CategoryService>(_env, ex, _logger, "Marketplace LogInfomation Message");
                 return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
             }
         }

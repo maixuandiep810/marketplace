@@ -49,7 +49,7 @@ namespace marketplace.BackendApi
 
             app.UseRouting();
 
-            app.UseMPExceptionHandler();
+            // app.UseMPExceptionHandler();
 
             app.UseAuthorization();
 

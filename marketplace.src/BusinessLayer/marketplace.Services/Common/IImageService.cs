@@ -8,5 +8,6 @@ namespace marketplace.Services.Common
     public interface IImageService
     {
         Task CreateAsync(HinhAnh image);
+        Task<ApiResult<string>> UploadImagesAsync(CreateImagesDTO req);
     }
 }

@@ -8,7 +8,7 @@ namespace marketplace.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ChiTietDanhMuc> builder)
         {
-            builder.ToTable("DanhMucDichThuat");
+            builder.ToTable("ChiTietDanhMuc");
 
             builder.HasKey(x => x.Id);
             builder.HasAlternateKey(x => new { x.DanhMucId, x.NgonNguId });

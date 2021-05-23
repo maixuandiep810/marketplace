@@ -12,7 +12,7 @@ namespace marketplace.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<DonHang> builder)
         {
-            builder.ToTable("Orders");
+            builder.ToTable("DonHang");
 
             builder.HasKey(x => x.Id);
 

@@ -1,5 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using marketplace.Services.SystemManager.User;
+using marketplace.Services.Catalog.Category;
+using marketplace.Services.Catalog.Product;
 using marketplace.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using marketplace.Data.EF;
@@ -11,6 +13,7 @@ using marketplace.DTO.SystemManager.User;
 using marketplace.Utilities.Const;
 using marketplace.DTO.Common;
 using marketplace.DTO.Catalog.Product;
+using marketplace.Services.Common;
 
 namespace marketplace.BackendApi.Extensions
 {
@@ -30,6 +33,10 @@ namespace marketplace.BackendApi.Extensions
         public static IServiceCollection AddMPServices(this IServiceCollection services)
         {
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            // services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IFileStorageService, FileStorageService>();
+            services.AddTransient<IImageService, ImageService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             return services;
         }

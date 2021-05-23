@@ -11,7 +11,7 @@ namespace marketplace.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<NgonNgu> builder)
         {
-            builder.ToTable("Languages");
+            builder.ToTable("NgonNgu");
 
             builder.HasKey(x => x.Id);
 
