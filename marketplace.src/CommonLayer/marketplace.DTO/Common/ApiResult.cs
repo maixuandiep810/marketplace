@@ -14,6 +14,11 @@ namespace marketplace.DTO.Common
         public List<string> Messages { get; set; }
         public string StackTrace { get; set; }
 
+        public ApiResult() : this(default(T))
+        {
+            
+        }
+
         public ApiResult(T defaultData)
         {
             Code = (int)ApiResultConst.CODE.ERROR;

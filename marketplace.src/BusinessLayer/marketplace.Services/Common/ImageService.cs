@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using marketplace.Data.Entities;
@@ -5,6 +6,7 @@ using marketplace.Data.UnitOfWorkPattern;
 using marketplace.DTO.Common;
 using marketplace.Utilities.Const;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -21,15 +23,37 @@ namespace marketplace.Services.Common
         {
             _fileStorageService = fileStorageService;
         }
-        public async Task CreateAsync(HinhAnh image)
+        public async Task CreateAsync(IFormFile formFile, 
+                                        string imageUrl, 
+                                        string relativeFolderPath,
+                                        string entityId)
         {
             try
             {
-                await _unitOfWork.HinhAnhRepository.AddAsync(image);
+                var newImage = new HinhAnh();
+                if (formFile != null)
+                {
+                    newImage.Url = await _fileStorageService.SaveFileAsync(formFile, relativeFolderPath);
+                }
+                else if (String.IsNullOrEmpty(imageUrl) == false)
+                {
+                    newImage.Url = await _fileStorageService.DownloadFileAsync(imageUrl, relativeFolderPath);
+                }
+                else
+                {
+                    newImage.Url = "";
+                }
+                if (String.IsNullOrEmpty(newImage.Url) == false)
+                {
+                    newImage.LaAnhMacDinh = true;
+                    newImage.Loai = TypeOfEntityConst.CATEGORY;
+                    newImage.DoiTuongId = entityId;
+                    await _unitOfWork.HinhAnhRepository.AddAsync(newImage);
+                    await _unitOfWork.SaveChangesAsync();
+                }
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
-                throw ex;
             }
         }
         public async Task<ApiResult<string>> UploadImagesAsync(CreateImagesDTO req)
@@ -41,18 +65,21 @@ namespace marketplace.Services.Common
                 {
                     var newImage = new HinhAnh();
                     newImage.Url = await _fileStorageService.SaveFileAsync(formImage, SystemConst.UPLOAD_IMAGE_FOLDER_NAME);
-                    newImage.LaAnhMacDinh = false;
-                    newImage.Loai = TypeOfEntityConst.USER_UPLOAD;
-                    newImage.DoiTuongId = "";
-                    await CreateAsync(newImage);
-                    await _unitOfWork.CommitTransactionAsync();
-                    imageRelUrls += newImage.Url + ", ";
+                    if (String.IsNullOrEmpty(newImage.Url) == false)
+                    {
+                        newImage.LaAnhMacDinh = false;
+                        newImage.Loai = TypeOfEntityConst.USER_UPLOAD;
+                        newImage.DoiTuongId = "";
+                        await _unitOfWork.HinhAnhRepository.AddAsync(newImage);
+                        await _unitOfWork.SaveChangesAsync();
+                        imageRelUrls += newImage.Url + ", ";
+                    }
                 }
-                catch (System.Exception ex)
+                catch (System.Exception)
                 {
                 }
             }
-            imageRelUrls = imageRelUrls.Substring(imageRelUrls.Length - 1);
+            imageRelUrls = imageRelUrls.Substring(0, imageRelUrls.Length - 2);
             return new ApiResult<string>(ApiResultConst.CODE.SUCCESS, true, imageRelUrls, "", "");
         }
     }

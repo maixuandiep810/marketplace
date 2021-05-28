@@ -6,7 +6,8 @@ namespace marketplace.Services.Common
 {
     public interface IFileStorageService
     {
-        Task<string> SaveFileAsync(IFormFile file, string folderName);
+        Task<string> SaveFileAsync(IFormFile file, string relativeFolderPath);
+        Task<string> DownloadFileAsync(string url, string relativeFolderPath);
         Task DeleteFileAsync(string fileUrl);
     }
 }

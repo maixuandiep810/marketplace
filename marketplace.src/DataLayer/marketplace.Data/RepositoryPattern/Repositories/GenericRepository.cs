@@ -46,11 +46,12 @@ namespace marketplace.Data.RepositoryPattern.Repositories
             }
         }
 
-        public async Task AddAsync(TEntity entity)
+        public async Task<string> AddAsync(TEntity entity)
         {
             try
             {
                 var result = await _entities.AddAsync(entity);
+                return entity.Id.ToString();
             }
             catch (System.Exception ex)
             {

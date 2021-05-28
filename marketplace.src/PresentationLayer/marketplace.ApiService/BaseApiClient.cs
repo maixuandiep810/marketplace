@@ -27,28 +27,24 @@ namespace marketplace.ApiService
         }
 
 
-        protected async Task<TResponse> GetAsync<TResponse>(string url)
+        protected async Task<ApiResult<T>> GetAsync<T>(string url)
         {
             try
             {
                 var client = _httpClientFactory.CreateClient();
                 client.BaseAddress = new Uri(_configuration[ConfigKeyConst.BASE_API_ADDRESS]);
-                var requestContent = new MultipartFormDataContent();
-
-
-
                 var response = await client.GetAsync(url);
-                var body = await response.Content.ReadAsStringAsync();
-                if (response.IsSuccessStatusCode)
+                var contentStream = await response.Content.ReadAsStreamAsync();
+                if (response.IsSuccessStatusCode && response.Content is object && response.Content.Headers.ContentType.MediaType == "application/json")
                 {
-                    TResponse myDeserializedObjList = (TResponse)JsonSerializer.Deserialize(body, typeof(TResponse));
-                    return myDeserializedObjList;
+                    var resultDeserializedObj = await JsonSerializer.DeserializeAsync<ApiResult<T>>(contentStream, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = false, PropertyNameCaseInsensitive = true });
+                    return resultDeserializedObj;
                 }
-                throw new Exception("BaseApiClient");
-            }
-            catch (System.Exception)
+                return new ApiResult<T>();
+            } 
+            catch (System.Exception ex)
             {
-                throw;
+                return new ApiResult<T>();
             }
         }
 

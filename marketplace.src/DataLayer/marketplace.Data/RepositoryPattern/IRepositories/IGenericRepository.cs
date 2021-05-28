@@ -10,7 +10,7 @@ namespace marketplace.Data.RepositoryPattern.IRepositories
     {
         Task<TEntity> GetByIdAsync(TPKey id);
         Task<List<TEntity>> GetAllAsync();
-        Task AddAsync(TEntity entity);
+        Task<string> AddAsync(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
 

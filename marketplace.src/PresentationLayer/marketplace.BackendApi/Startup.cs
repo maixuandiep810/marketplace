@@ -29,6 +29,7 @@ namespace marketplace.BackendApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddFluentValidation();
+            services.AddAspDotNetServices();
             services.AddDatabaseServices(Configuration);
             services.AddIdentityServices();
             services.AddMPServices();

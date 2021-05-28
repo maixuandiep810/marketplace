@@ -8,12 +8,10 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using marketplace.DTO.Common;
-using vigalileo.DTOs.System.Users;
 using marketplace.Utilities.Const;
 using marketplace.DTO.SystemManager.User;
 using System;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace marketplace.Services.SystemManager.User
@@ -35,27 +33,23 @@ namespace marketplace.Services.SystemManager.User
         }
         public async Task<ApiResult<bool>> RegisterAsync(RegisterDTO request)
         {
-            var apiResult = new ApiResult<bool>(false);
             try
             {
                 var user = await _userManager.FindByNameAsync(request.UserName);
                 if (user != null || await _userManager.FindByEmailAsync(request.Email) != null)
                 {
-                    apiResult.SetResult((int)ApiResultConst.CODE.USERNAME_EXISTS_E, false, false, null);
-                    return apiResult;
+                    return new ApiResult<bool>(ApiResultConst.CODE.USERNAME_EXISTS_E, false, false, null);
                 }
 
-                user = request.GetUser();
+                user = RegisterDTO.ToTaiKhoan(request);
                 var createResult = await _userManager.CreateAsync(user, request.Password);
                 if (createResult.Succeeded)
                 {
-                    apiResult.SetResult((int)ApiResultConst.CODE.SUCCESSFULLY_REGISTER_S, true, true, null);
-                    return apiResult;
+                    return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_REGISTER_S, true, true, null);
                 }
                 else
                 {
-                    apiResult.SetResult(ApiResultConst.CODE.REGISTER_FAILED_E, false, false, null);
-                    return apiResult;
+                    return new ApiResult<bool>(ApiResultConst.CODE.REGISTER_FAILED_E, false, false, null);
                 }
             }
             catch (System.Exception ex)

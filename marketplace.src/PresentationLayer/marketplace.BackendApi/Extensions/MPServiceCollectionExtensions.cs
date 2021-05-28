@@ -19,6 +19,12 @@ namespace marketplace.BackendApi.Extensions
 {
     public static class MPServiceCollectionExtensions
     {
+        public static IServiceCollection AddAspDotNetServices(this IServiceCollection services)
+        { 
+            services.AddHttpClient();
+            return services;
+        }
+
         public static IServiceCollection AddDatabaseServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<marketplaceDbContext>(options =>

@@ -27,7 +27,6 @@ namespace marketplace.Data.UnitOfWorkPattern
         IVaiTroRepository VaiTroRepository { get; }
 
 
-        Task CommitTransactionAsync();
-        Task RollbackTransactionAsync();
+        Task SaveChangesAsync();
     }
 }

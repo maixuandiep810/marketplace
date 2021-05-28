@@ -14,7 +14,6 @@ namespace marketplace.Data.UnitOfWorkPattern
     {
         private bool _disposed = false;
         private readonly marketplaceDbContext _context;
-        private readonly IDbContextTransaction _contextTransaction;
 
         public IChiTietDonHangRepository ChiTietDonHangRepository { get; }
 
@@ -57,7 +56,6 @@ namespace marketplace.Data.UnitOfWorkPattern
         public UnitOfWork(marketplaceDbContext context)
         {
             _context = context;
-            _contextTransaction = _context.Database.CurrentTransaction ?? _context.Database.BeginTransaction();
             ChiTietDanhMucRepository = new ChiTietDanhMucRepository(_context);
             ChiTietDonHangRepository = new ChiTietDonHangRepository(_context);
             ChiTietSanPhamRepository = new ChiTietSanPhamRepository(_context);
@@ -114,14 +112,9 @@ namespace marketplace.Data.UnitOfWorkPattern
         /// Save All Changes To Db using DbContext
         /// </summary>
         /// <returns></returns>
-        public async Task CommitTransactionAsync()
-        {
-                await _context.SaveChangesAsync();
-                await _contextTransaction.CommitAsync();
-        }
-
-        public async Task RollbackTransactionAsync() {
-            await _contextTransaction.RollbackAsync();
+        /// 
+        public async Task SaveChangesAsync() {
+            await _context.SaveChangesAsync();
         }
     }
 }

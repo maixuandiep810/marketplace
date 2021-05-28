@@ -49,4 +49,4 @@ namespace marketplace.DTO.Catalog.Category
         }
 
     }
-}
+}   

@@ -11,13 +11,13 @@ namespace marketplace.DTO.SystemManager.User
         public string ConfirmPassword { get; set; }
         public string FullName { get; set; }
 
-        public TaiKhoan GetUser()
+        public static TaiKhoan ToTaiKhoan(RegisterDTO registerDTO)
         {
             var taiKhoan = new TaiKhoan()
             {
-                Email = this.Email,
-                UserName = this.UserName,
-                HoTen = this.FullName
+                Email = registerDTO.Email,
+                UserName = registerDTO.UserName,
+                HoTen = registerDTO.FullName
             };
             return taiKhoan;
         }

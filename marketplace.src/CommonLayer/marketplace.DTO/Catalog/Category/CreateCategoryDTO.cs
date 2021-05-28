@@ -16,7 +16,6 @@ namespace marketplace.DTO.Catalog.Category
         public List<DetailCategoryDTO> DetailCategoryDTOs { get; set; }
         public CreateImageDTO Image { get; set; }
 
-
         public static DanhMuc ToDanhMuc(CreateCategoryDTO createCDTO)
         {
             var danhMuc = new DanhMuc()

@@ -80,42 +80,16 @@ namespace marketplace.Services.Catalog.Product
                     new Converter<DetailProductDTO, ChiTietSanPham>(DetailProductDTO.ToChiTietSanPham)
                     );
                 newProduct.ChiTietSanPhams = newDetailProducts;
+                await _unitOfWork.SanPhamRepository.AddAsync(newProduct);
+                await _unitOfWork.SaveChangesAsync();
                 foreach (var createImageDTO in req.Images)
                 {
-                    try
-                    {
-                        var newImage = new HinhAnh();
-                        newImage.Url = await _fileStorageService.SaveFileAsync(createImageDTO.FormImage, SystemConst.PRODUCT_IMAGE_FOLDER_NAME);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        // newImage.LaAnhMacDinh = createImageDTO.IsDefault;
-                        newImage.Loai = TypeOfEntityConst.PRODUCT;
-                        newImage.DoiTuongId = newProduct.Id.ToString();
-                        await _imageService.CreateAsync(newImage);
-                    }
-                    catch (System.Exception)
-                    {
-                    }
+                    await _imageService.CreateAsync(createImageDTO.FormImage, createImageDTO.ImageUrl, SystemConst.PRODUCT_IMAGE_FOLDER_NAME, newProduct.Id.ToString());
                 }
-                await _unitOfWork.CommitTransactionAsync();
                 return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_CREATING_ENTITY_S, false, false, null);
             }
             catch (System.Exception ex)
             {
-                await _unitOfWork.RollbackTransactionAsync();
                 return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
             }
         }
@@ -130,12 +104,11 @@ namespace marketplace.Services.Catalog.Product
                     return new ApiResult<bool>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, false, null);
                 }
                 product.DaXoa = true;
-                await _unitOfWork.CommitTransactionAsync();
+                await _unitOfWork.SaveChangesAsync();
                 return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_DELETING_ENTITY_S, true, true, null);
             }
             catch (System.Exception ex)
             {
-                await _unitOfWork.RollbackTransactionAsync();
                 return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
             }
         }

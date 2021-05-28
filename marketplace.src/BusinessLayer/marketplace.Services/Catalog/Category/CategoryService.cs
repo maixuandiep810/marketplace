@@ -25,7 +25,7 @@ namespace marketplace.Services.Catalog.Category
         private readonly IFileStorageService _fileStorageService;
 
         public CategoryService(IImageService imageService,
-            IFileStorageService fileStorageService, 
+            IFileStorageService fileStorageService,
             IConfiguration configuration,
             IUnitOfWork unitOfWork,
             IWebHostEnvironment env,
@@ -148,25 +148,12 @@ namespace marketplace.Services.Catalog.Category
                     );
                 newCategory.ChiTietDanhMucs = newDetailCategory;
                 await _unitOfWork.DanhMucRepository.AddAsync(newCategory); // Vi Image khong chung Foreignkey la ID CATEGORY
-                await _unitOfWork.CommitTransactionAsync();
-                try
-                {
-                    var newImage = new HinhAnh();
-                    newImage.Url = await _fileStorageService.SaveFileAsync(req.Image.FormImage, SystemConst.CATEGORY_IMAGE_FOLDER_NAME);
-                    newImage.LaAnhMacDinh = true;
-                    newImage.Loai = TypeOfEntityConst.CATEGORY;
-                    newImage.DoiTuongId = newCategory.Id.ToString();
-                    await _imageService.CreateAsync(newImage);
-                    await _unitOfWork.CommitTransactionAsync();
-                }
-                catch (System.Exception)
-                {
-                }
+                await _unitOfWork.SaveChangesAsync();
+                await _imageService.CreateAsync(req.Image.FormImage, req.Image.ImageUrl, SystemConst.CATEGORY_IMAGE_FOLDER_NAME, newCategory.Id.ToString());
                 return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_CREATING_ENTITY_S, false, false, null);
             }
             catch (System.Exception ex)
             {
-                await _unitOfWork.RollbackTransactionAsync();
                 LogUtils.LogException<CategoryService>(_env, ex, _logger, "Marketplace LogInfomation Message");
                 return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
             }
@@ -216,12 +203,11 @@ namespace marketplace.Services.Catalog.Category
                     return new ApiResult<bool>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, false, null);
                 }
                 category.DaXoa = true;
-                await _unitOfWork.CommitTransactionAsync();
+                await _unitOfWork.SaveChangesAsync();
                 return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_DELETING_ENTITY_S, true, true, null);
             }
             catch (System.Exception ex)
             {
-                await _unitOfWork.RollbackTransactionAsync();
                 LogUtils.LogException<CategoryService>(_env, ex, _logger, "Marketplace LogInfomation Message");
                 return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
             }

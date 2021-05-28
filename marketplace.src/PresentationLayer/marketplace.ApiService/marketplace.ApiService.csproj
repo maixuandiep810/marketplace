@@ -3,7 +3,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CommonLayer\marketplace.DTO\marketplace.DTO.csproj" />
     <ProjectReference Include="..\..\CommonLayer\marketplace.Utilities\marketplace.Utilities.csproj" />
-    <ProjectReference Include="..\marketplace.BackendApi\marketplace.BackendApi.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

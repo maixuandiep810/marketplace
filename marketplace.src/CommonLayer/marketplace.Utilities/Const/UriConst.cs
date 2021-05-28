@@ -12,6 +12,7 @@ namespace marketplace.Utilities.Const
         public const string API_USERS_UPDATE_PASSWORD_PUTCH_PATH = @"/users/login/{userId}/update-password";
         public const string API_PRODUCTS_CODE_GET_PATH = @"/products/{code}";
         public const string API_CATEGORIES_GET_PATH = @"/categories";
+        public const string API_CATEGORIES_GET_PATH_RELATIVE = @"/categories";
         public const string API_CATEGORIES_CODES_GET_PATH = @"/categories/codes";
         public const string API_CATEGORIES_CODE_GET_PATH = @"/categories/{categoryCode}";
         public const string API_CATEGORIES_POST_PATH = @"/categories";
