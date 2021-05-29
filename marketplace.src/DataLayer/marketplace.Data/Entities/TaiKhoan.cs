@@ -17,5 +17,6 @@ namespace marketplace.Data.Entities
 
         public virtual KhachHang KhachHang { get; set; }
         public virtual NguoiBan NguoiBan { get; set; }
-    }
+        public List<QuyenEntityTaiKhoan> QuyenEntityTaiKhoans { get; set; }
+}
 }

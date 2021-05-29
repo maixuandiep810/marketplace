@@ -24,91 +24,107 @@ namespace marketplace.Data.RepositoryPattern.Repositories
 
         public async Task<TEntity> GetByIdAsync(TPKey id)
         {
-            try
-            {
-                return await _entities.FindAsync(id);
-            }
-            catch (System.Exception ex)
-            {
-                throw ex;
-            }
+            return await _entities.FindAsync(id);
+            // try
+            // {
+            //     return await _entities.FindAsync(id);
+            // }
+            // catch (System.Exception ex)
+            // {
+            //     throw ex;
+            // }
         }
 
         public async Task<List<TEntity>> GetAllAsync()
         {
-            try
-            {
-                return await _entities.ToListAsync();
-            }
-            catch (System.Exception ex)
-            {
-                throw ex;
-            }
+            return await _entities.ToListAsync();
+
+            // try
+            // {
+            //     return await _entities.ToListAsync();
+            // }
+            // catch (System.Exception ex)
+            // {
+            //     throw ex;
+            // }
         }
 
         public async Task<string> AddAsync(TEntity entity)
         {
-            try
-            {
-                var result = await _entities.AddAsync(entity);
-                return entity.Id.ToString();
-            }
-            catch (System.Exception ex)
-            {
-                throw ex;
-            }
+            var result = await _entities.AddAsync(entity);
+            return entity.Id.ToString();
+
+            // try
+            // {
+            //     var result = await _entities.AddAsync(entity);
+            //     return entity.Id.ToString();
+            // }
+            // catch (System.Exception ex)
+            // {
+            //     throw ex;
+            // }
         }
 
         public void Update(TEntity entity)
         {
-            try
-            {
-                _entities.Update(entity);
-            }
-            catch (System.Exception ex)
-            {
-                throw ex;
-            }
 
+            _entities.Update(entity);
+
+            // try
+            // {
+            //     _entities.Update(entity);
+            // }
+            // catch (System.Exception ex)
+            // {
+            //     throw ex;
+            // }
         }
 
         public void Delete(TEntity entity)
         {
-            try
-            {
-                _entities.Remove(entity);
-            }
-            catch (System.Exception ex)
-            {
-                throw ex;
-            }
+            _entities.Remove(entity);
+
+            // try
+            // {
+            //     _entities.Remove(entity);
+            // }
+            // catch (System.Exception ex)
+            // {
+            //     throw ex;
+            // }
         }
 
         public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            try
-            {
-                var query = _entities.Where(predicate).AsQueryable();
-                return query;
-            }
-            catch (System.Exception ex)
-            {
-                throw ex;
-            }
+            var query = _entities.Where(predicate).AsQueryable();
+            return query;
+            // try
+            // {
+            //     var query = _entities.Where(predicate).AsQueryable();
+            //     return query;
+            // }
+            // catch (System.Exception ex)
+            // {
+            //     throw ex;
+            // }
         }
 
         public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            try
-            {
-                var query = Find(predicate);
-                var result = await query.FirstOrDefaultAsync<TEntity>();
-                return result;
-            }
-            catch (System.Exception ex)
-            {
-                throw ex;
-            }
+            var query = Find(predicate);
+            var result = await query.FirstOrDefaultAsync<TEntity>();
+            return result;
+
+            // try
+            // {
+            //     var query = Find(predicate);
+            //     var result = await query.FirstOrDefaultAsync<TEntity>();
+            //     return result;
+            // }
+            // catch (System.Exception ex)
+            // {
+            //     throw ex;
+            // }
         }
 
     }

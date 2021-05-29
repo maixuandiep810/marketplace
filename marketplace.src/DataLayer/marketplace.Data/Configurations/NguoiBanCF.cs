@@ -16,7 +16,7 @@ namespace marketplace.Data.Configurations
             builder.HasKey(x => x.Id);
             builder.HasAlternateKey(x => x.TaiKhoanId);
 
-            builder.Property(x => x.MaNB).HasColumnType("nvarchar(32)").IsRequired();
+            builder.Property(x => x.MaNB).HasColumnType("nvarchar(256)").IsRequired();
             builder.Property(x => x.MoTa).HasColumnType("ntext").IsRequired();
 
             builder.HasOne<CuaHang>(x => x.CuaHang).WithMany(x => x.NguoiBans).HasForeignKey(x => x.CuaHangId);

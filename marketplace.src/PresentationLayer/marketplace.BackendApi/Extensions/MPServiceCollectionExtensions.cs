@@ -14,13 +14,16 @@ using marketplace.Utilities.Const;
 using marketplace.DTO.Common;
 using marketplace.DTO.Catalog.Product;
 using marketplace.Services.Common;
+using marketplace.Services.SystemManager.RBAC;
+using marketplace.Services.SystemManager.Auth;
+
 
 namespace marketplace.BackendApi.Extensions
 {
     public static class MPServiceCollectionExtensions
     {
         public static IServiceCollection AddAspDotNetServices(this IServiceCollection services)
-        { 
+        {
             services.AddHttpClient();
             return services;
         }
@@ -43,6 +46,9 @@ namespace marketplace.BackendApi.Extensions
             // services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IFileStorageService, FileStorageService>();
             services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<IJWTService, JWTService>();
+            services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IRoutePermissionService, RoutePermissionService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             return services;
         }

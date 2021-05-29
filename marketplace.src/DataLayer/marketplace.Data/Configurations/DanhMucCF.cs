@@ -14,7 +14,7 @@ namespace marketplace.Data.Configurations
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).UseIdentityColumn();
-            builder.Property(x => x.MaSo).HasColumnType("nvarchar(32)");
+            builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.HoatDong);
         }
     }

@@ -15,9 +15,9 @@ namespace marketplace.Data.Configurations
             builder.HasAlternateKey(x => x.Ten);
 
             builder.Property(x => x.Id).UseIdentityColumn();
-            builder.Property(x => x.MaLN).HasColumnType("nvarchar(32)").IsRequired();
+            builder.Property(x => x.MaLN).HasColumnType("nvarchar(256)").IsRequired();
             builder.Property(x => x.Ten).HasColumnType("nvarchar(256)").IsRequired();
-            builder.Property(x => x.TenDayDu).HasColumnType("nvarchar(1024)").IsRequired();
+            builder.Property(x => x.TenDayDu).HasColumnType("ntext").IsRequired();
             builder.Property(x => x.MoTa).HasColumnType("ntext").IsRequired();
         }
     }

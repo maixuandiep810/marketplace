@@ -34,7 +34,14 @@ namespace marketplace.Data.EF
 
             modelBuilder.ApplyConfiguration(new NgonNguCF());
             modelBuilder.ApplyConfiguration(new NguoiBanCF());
+
             modelBuilder.ApplyConfiguration(new QuanLyDonHangCF());
+            modelBuilder.ApplyConfiguration(new QuyenEntityCF());
+            modelBuilder.ApplyConfiguration(new QuyenEntityTaiKhoanCF());
+            modelBuilder.ApplyConfiguration(new QuyenEntityVaiTroCF());
+            modelBuilder.ApplyConfiguration(new QuyenRouteCF());
+            modelBuilder.ApplyConfiguration(new QuyenRouteVaiTroCF());
+
 
             modelBuilder.ApplyConfiguration(new SanPhamCF());
             modelBuilder.ApplyConfiguration(new SanPhamDanhMucCF());
@@ -81,6 +88,14 @@ namespace marketplace.Data.EF
         public DbSet<NguoiBan> NguoiBans { get; set; }
 
         public DbSet<QuanLyDonHang> QuanLyDonHangs { get; set; }
+        public DbSet<QuyenEntity> QuyenEntities { get; set; }
+        public DbSet<QuyenEntityTaiKhoan> QuyenEntityTaiKhoans { get; set; }
+        public DbSet<QuyenEntityVaiTro> QuyenEntityVaiTros { get; set; }
+        public DbSet<QuyenRoute> QuyenRoutes { get; set; }
+        public DbSet<QuyenRouteVaiTro> QuyenRouteVaiTros { get; set; }
+
+
+
         public DbSet<SanPham> SanPhams { get; set; }
         public DbSet<SanPhamDanhMuc> SanPhamDanhMucs { get; set; }
         public DbSet<ChiTietSanPham> ChiTietSanPhams { get; set; }

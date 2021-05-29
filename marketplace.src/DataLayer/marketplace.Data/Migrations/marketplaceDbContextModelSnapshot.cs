@@ -50,7 +50,7 @@ namespace marketplace.Data.Migrations
 
                     b.Property<string>("NgonNguId")
                         .IsRequired()
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("Ten")
                         .IsRequired()
@@ -111,7 +111,7 @@ namespace marketplace.Data.Migrations
 
                     b.Property<string>("NgonNguId")
                         .IsRequired()
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<int>("SanPhamId")
                         .HasColumnType("int");
@@ -121,7 +121,7 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("TenDayDu")
-                        .HasColumnType("nvarchar(1024)");
+                        .HasColumnType("ntext");
 
                     b.HasKey("Id");
 
@@ -148,7 +148,7 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("MaCH")
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("MoTa")
                         .HasColumnType("ntext");
@@ -158,7 +158,7 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("TenDayDu")
-                        .HasColumnType("nvarchar(1024)");
+                        .HasColumnType("ntext");
 
                     b.HasKey("Id");
 
@@ -185,7 +185,7 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("MaSo")
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("TrangThai")
                         .ValueGeneratedOnAdd()
@@ -214,7 +214,7 @@ namespace marketplace.Data.Migrations
 
                     b.Property<string>("MaDH")
                         .IsRequired()
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("MoTa")
                         .IsRequired()
@@ -257,10 +257,10 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("ntext");
 
                     b.Property<string>("MaGD")
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NhaCungCap")
-                        .HasColumnType("nvarchar(1024)");
+                        .HasColumnType("ntext");
 
                     b.Property<decimal>("Phi")
                         .HasColumnType("decimal(15,2)");
@@ -330,19 +330,19 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("DoiTuongId")
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("LaAnhMacDinh")
                         .HasColumnType("bit");
 
                     b.Property<string>("Loai")
-                        .HasColumnType("nvarchar(1024)");
+                        .HasColumnType("ntext");
 
                     b.Property<string>("MaHA")
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("MoTa")
-                        .HasColumnType("nvarchar(1024)");
+                        .HasColumnType("ntext");
 
                     b.Property<int>("ThuTu")
                         .HasColumnType("int");
@@ -392,7 +392,7 @@ namespace marketplace.Data.Migrations
 
                     b.Property<string>("MaLN")
                         .IsRequired()
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("MoTa")
                         .IsRequired()
@@ -404,7 +404,7 @@ namespace marketplace.Data.Migrations
 
                     b.Property<string>("TenDayDu")
                         .IsRequired()
-                        .HasColumnType("nvarchar(1024)");
+                        .HasColumnType("ntext");
 
                     b.HasKey("Id");
 
@@ -441,14 +441,14 @@ namespace marketplace.Data.Migrations
             modelBuilder.Entity("marketplace.Data.Entities.NgonNgu", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<bool>("DaXoa")
                         .HasColumnType("bit");
 
                     b.Property<string>("MaNN")
                         .IsRequired()
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<bool>("MacDinh")
                         .HasColumnType("bit");
@@ -477,7 +477,7 @@ namespace marketplace.Data.Migrations
 
                     b.Property<string>("MaNB")
                         .IsRequired()
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("MoTa")
                         .IsRequired()
@@ -530,6 +530,154 @@ namespace marketplace.Data.Migrations
                     b.ToTable("QuanLyDonHang");
                 });
 
+            modelBuilder.Entity("marketplace.Data.Entities.QuyenEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BitFields")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<bool>("DaXoa")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("HanhDong")
+                        .IsRequired()
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("MoTa")
+                        .IsRequired()
+                        .HasColumnType("ntext");
+
+                    b.Property<string>("Ten")
+                        .IsRequired()
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("TenEntity")
+                        .IsRequired()
+                        .HasColumnType("varchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("QuyenEntity");
+                });
+
+            modelBuilder.Entity("marketplace.Data.Entities.QuyenEntityTaiKhoan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("DaXoa")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("EntityId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuyenEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("TaiKhoanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuyenEntityId");
+
+                    b.HasIndex("TaiKhoanId");
+
+                    b.ToTable("QuyenEntityTaiKhoan");
+                });
+
+            modelBuilder.Entity("marketplace.Data.Entities.QuyenEntityVaiTro", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("DaXoa")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("QuyenEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("VaiTroId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuyenEntityId");
+
+                    b.HasIndex("VaiTroId");
+
+                    b.ToTable("QuyenEntityVaiTro");
+                });
+
+            modelBuilder.Entity("marketplace.Data.Entities.QuyenRoute", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("DaXoa")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("HanhDong")
+                        .IsRequired()
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<bool>("LaRouteCanXacThuc")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MoTa")
+                        .IsRequired()
+                        .HasColumnType("ntext");
+
+                    b.Property<string>("PathRegex")
+                        .IsRequired()
+                        .HasColumnType("ntext");
+
+                    b.Property<string>("Ten")
+                        .IsRequired()
+                        .HasColumnType("varchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("QuyenRoute");
+                });
+
+            modelBuilder.Entity("marketplace.Data.Entities.QuyenRouteVaiTro", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("DaXoa")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("QuyenRouteId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("VaiTroId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuyenRouteId");
+
+                    b.HasIndex("VaiTroId");
+
+                    b.ToTable("QuyenRouteVaiTro");
+                });
+
             modelBuilder.Entity("marketplace.Data.Entities.SanPham", b =>
                 {
                     b.Property<int>("Id")
@@ -555,7 +703,7 @@ namespace marketplace.Data.Migrations
 
                     b.Property<string>("MaSP")
                         .IsRequired()
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("SoLuong")
                         .ValueGeneratedOnAdd()
@@ -678,7 +826,7 @@ namespace marketplace.Data.Migrations
 
                     b.Property<string>("MoTa")
                         .IsRequired()
-                        .HasColumnType("nvarchar(1024)");
+                        .HasColumnType("ntext");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -843,6 +991,51 @@ namespace marketplace.Data.Migrations
                         .WithMany("QuanLyDonHangs")
                         .HasForeignKey("NguoiBanId")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("marketplace.Data.Entities.QuyenEntityTaiKhoan", b =>
+                {
+                    b.HasOne("marketplace.Data.Entities.QuyenEntity", "QuyenEntity")
+                        .WithMany("QuyenEntityTaiKhoans")
+                        .HasForeignKey("QuyenEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("marketplace.Data.Entities.TaiKhoan", "TaiKhoan")
+                        .WithMany("QuyenEntityTaiKhoans")
+                        .HasForeignKey("TaiKhoanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("marketplace.Data.Entities.QuyenEntityVaiTro", b =>
+                {
+                    b.HasOne("marketplace.Data.Entities.QuyenEntity", "QuyenEntity")
+                        .WithMany("QuyenEntityVaiTros")
+                        .HasForeignKey("QuyenEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("marketplace.Data.Entities.VaiTro", "VaiTro")
+                        .WithMany("QuyenEntityVaiTros")
+                        .HasForeignKey("VaiTroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("marketplace.Data.Entities.QuyenRouteVaiTro", b =>
+                {
+                    b.HasOne("marketplace.Data.Entities.QuyenRoute", "QuyenRoute")
+                        .WithMany("QuyenRouteVaiTros")
+                        .HasForeignKey("QuyenRouteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("marketplace.Data.Entities.VaiTro", "VaiTro")
+                        .WithMany("QuyenRouteVaiTros")
+                        .HasForeignKey("VaiTroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("marketplace.Data.Entities.SanPhamDanhMuc", b =>

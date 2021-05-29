@@ -45,6 +45,12 @@ namespace marketplace.Data.UnitOfWorkPattern
 
         public IQuanLyDonHangRepository QuanLyDonHangRepository { get; }
 
+        public IQuyenEntityRepository QuyenEntityRepository { get; }
+        public IQuyenEntityTaiKhoanRepository QuyenEntityTaiKhoanRepository { get; }
+        public IQuyenEntityVaiTroRepository QuyenEntityVaiTroRepository { get; }
+        public IQuyenRouteRepository QuyenRouteRepository { get; }
+        public IQuyenRouteVaiTroRepository QuyenRouteVaiTroRepository { get; }
+
         public ISanPhamRepository SanPhamRepository { get; }
 
         public ISanPhamDanhMucRepository SanPhamDanhMucRepository { get; }
@@ -72,6 +78,11 @@ namespace marketplace.Data.UnitOfWorkPattern
             NguoiBanRepository = new NguoiBanRepository(_context);
             NguoiBanRepository = new NguoiBanRepository(_context);
             QuanLyDonHangRepository = new QuanLyDonHangRepository(_context);
+            QuyenEntityRepository = new QuyenEntityRepository(_context);
+            QuyenEntityTaiKhoanRepository = new QuyenEntityTaiKhoanRepository(_context);
+            QuyenEntityVaiTroRepository = new QuyenEntityVaiTroRepository(_context);
+            QuyenRouteRepository = new QuyenRouteRepository(_context);
+            QuyenRouteVaiTroRepository = new QuyenRouteVaiTroRepository(_context);
             SanPhamRepository = new SanPhamRepository(_context);
             SanPhamDanhMucRepository = new SanPhamDanhMucRepository(_context);
             TaiKhoanRepository = new TaiKhoanRepository(_context);
@@ -113,7 +124,8 @@ namespace marketplace.Data.UnitOfWorkPattern
         /// </summary>
         /// <returns></returns>
         /// 
-        public async Task SaveChangesAsync() {
+        public async Task SaveChangesAsync()
+        {
             await _context.SaveChangesAsync();
         }
     }

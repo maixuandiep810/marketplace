@@ -13,7 +13,7 @@ namespace marketplace.Data.Configurations
         {
             builder.ToTable("VaiTro");
 
-            builder.Property(x => x.MoTa).HasColumnType("nvarchar(1024)").IsRequired();
+            builder.Property(x => x.MoTa).HasColumnType("ntext").IsRequired();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using marketplace.Data.UnitOfWorkPattern;
 using marketplace.Data.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -88,6 +89,30 @@ namespace marketplace.Services.SystemManager.User
             catch (System.Exception ex)
             {
                 return DefaultApiResult.GetExceptionApiResult<string>(_env, ex, "");
+            }
+        }
+
+        public async Task<List<string>> GetRoleNameAsync(string userId)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    return null;
+                }
+
+                var result = new List<string>();
+                var roleNames = await _userManager.GetRolesAsync(user);
+                if (roleNames != null)
+                {
+                    result.AddRange(roleNames);
+                }
+                return result;
+            }
+            catch (System.Exception)
+            {
+                return null;
             }
         }
     }

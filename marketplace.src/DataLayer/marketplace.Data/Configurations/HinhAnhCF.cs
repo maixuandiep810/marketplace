@@ -16,12 +16,12 @@ namespace marketplace.Data.Configurations
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).UseIdentityColumn();
-            builder.Property(x => x.MaHA).HasColumnType("nvarchar(32)");
-            builder.Property(x => x.MoTa).HasColumnType("nvarchar(1024)");
+            builder.Property(x => x.MaHA).HasColumnType("nvarchar(256)");
+            builder.Property(x => x.MoTa).HasColumnType("ntext");
             builder.Property(x => x.Url).HasColumnType("ntext");
             builder.Property(x => x.TieuDe).HasColumnType("nvarchar(256)");
-            builder.Property(x => x.DoiTuongId).HasColumnType("nvarchar(32)");
-            builder.Property(x => x.Loai).HasColumnType("nvarchar(1024)");
+            builder.Property(x => x.DoiTuongId).HasColumnType("nvarchar(256)");
+            builder.Property(x => x.Loai).HasColumnType("ntext");
 
         }
     }

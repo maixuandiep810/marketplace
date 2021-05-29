@@ -15,8 +15,8 @@ namespace marketplace.Data.Configurations
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).HasColumnType("varchar(16)").IsRequired();
-            builder.Property(x => x.MaNN).HasColumnType("varchar(32)").IsRequired();
+            builder.Property(x => x.Id).HasColumnType("varchar(256)").IsRequired();
+            builder.Property(x => x.MaNN).HasColumnType("varchar(256)").IsRequired();
             builder.Property(x => x.Ten).HasColumnType("nvarchar(256)").IsRequired();
         }
     }

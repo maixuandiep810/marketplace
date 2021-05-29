@@ -21,6 +21,13 @@ namespace marketplace.Data.UnitOfWorkPattern
         INgonNguRepository NgonNguRepository { get; }
         INguoiBanRepository NguoiBanRepository { get; }
         IQuanLyDonHangRepository QuanLyDonHangRepository { get; }
+        
+        IQuyenEntityRepository QuyenEntityRepository { get; }
+        IQuyenEntityTaiKhoanRepository QuyenEntityTaiKhoanRepository { get; }
+        IQuyenEntityVaiTroRepository QuyenEntityVaiTroRepository { get; }
+        IQuyenRouteRepository QuyenRouteRepository { get; }
+        IQuyenRouteVaiTroRepository QuyenRouteVaiTroRepository { get; }
+
         ISanPhamRepository SanPhamRepository { get; }
         ISanPhamDanhMucRepository SanPhamDanhMucRepository { get; }
         ITaiKhoanRepository TaiKhoanRepository { get; }
