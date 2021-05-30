@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using marketplace.DTO.Common;
 using marketplace.DTO.SystemManager.User;
@@ -29,6 +30,40 @@ namespace marketplace.BackendApi.Controllers
                 return Ok(new ApiResult<bool>(ApiResultConst.CODE.INVALID_REQUEST_DATA, false, false, null, ModelState.GetMessageList()));
             }
             var result = await _userService.RegisterAsync(request);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 
+        ///         RRR         RR          RR
+        /// 
+        /// 
+        /// </summary>
+
+        [HttpPost(UriConst.API_USERS_LOGIN_POST_PATH)]
+        public async Task<IActionResult> Login([FromBody] LoginDTO req)
+        {
+            var roleNames = (List<string>)HttpContext.Items[HttpContextConst.ROLE_NAMES_ITEM_KEY];
+            if (roleNames.Count > 1)
+            {
+                return Ok(new ApiResult<bool>(ApiResultConst.CODE.BE_LOGGED_DONT_LOGIN, false, false, null, ModelState.GetMessageList()));
+            }
+            if (!ModelState.IsValid)
+            {
+                return Ok(new ApiResult<bool>(ApiResultConst.CODE.INVALID_REQUEST_DATA, false, false, null, ModelState.GetMessageList()));
+            }
+            var result = await _userService.LoginAsync(req);
+            return Ok(result);
+        }
+
+        [HttpGet(UriConst.API_USERS_USER_NAME_GET_PATH)]
+        public async Task<IActionResult> GetUserByUserName(string userName)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok(new ApiResult<bool>(ApiResultConst.CODE.INVALID_REQUEST_DATA, false, false, null, ModelState.GetMessageList()));
+            }
+            var result = await _userService.GetByUserNameAsync(userName);
             return Ok(result);
         }
     }

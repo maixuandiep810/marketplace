@@ -24,6 +24,8 @@ namespace marketplace.Utilities.Const
             REGISTER_FAILED_E = 6005,
             NOT_AUTHORIZED_PLEASE_LOGIN_E = 6006,
             NOT_AUTHORIZED_LOGGEDIN_E = 6007,
+            TOKEN_EXPIRED = 6008,
+            BE_LOGGED_DONT_LOGIN = 6009,
             // ---
             ENTITY_CODE_EXISTS = 6101,
             ENTITY_NOT_FOUND_E = 6102,
@@ -79,6 +81,10 @@ namespace marketplace.Utilities.Const
                     return "You are not authorized to access this route. Please login!";
                 case CODE.NOT_AUTHORIZED_LOGGEDIN_E:
                     return "You are not authorized to access this route";
+                case CODE.TOKEN_EXPIRED:
+                    return "Token has expired. Please login again!";
+                    case CODE.BE_LOGGED_DONT_LOGIN:
+                    return "You are logged in. Please dont login again";
                 // ---
                 case CODE.ENTITY_CODE_EXISTS:
                     return "The entity code already exists.";

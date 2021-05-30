@@ -9,6 +9,7 @@ using marketplace.Services.SystemManager.RBAC;
 using marketplace.Services.SystemManager.User;
 using marketplace.Utilities.Const;
 using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 
 namespace marketplace.BackendApi.Middlewares
 {
@@ -18,7 +19,7 @@ namespace marketplace.BackendApi.Middlewares
         public MPAuthenticationMiddleware(RequestDelegate next) => _next = next;
         public async Task Invoke(HttpContext httpContext, IJWTService jWTService, IUserService userService, IRoutePermissionService routePermissionService)
         {
-            var path = httpContext.Request.Path;
+            var path = httpContext.Request.Path.ToString();
             var action = httpContext.Request.Method;
 
             var currentRoutePermisisonDTO = await routePermissionService.GetRoutePermissionByPathActionAsync(path, action);
@@ -30,41 +31,55 @@ namespace marketplace.BackendApi.Middlewares
             }
             if (currentRoutePermisisonDTO.IsAuthenticatedRoute == false)
             {
-                httpContext.Items["IsAuthenticatedRoute"] = false;
+                httpContext.Items[HttpContextConst.IS_AUTHENTICATED_ROUTE_ITEM_KEY] = false;
                 await _next(httpContext);
+                return;
             }
 
-            httpContext.Items["IsAuthenticatedRoute"] = true;
+            httpContext.Items[HttpContextConst.IS_AUTHENTICATED_ROUTE_ITEM_KEY] = true;
 
-            var jwtToken = httpContext.Request.Headers["Authorization"].ToString();
+            var jwtToken = httpContext.Request.Headers[HttpContextConst.AUTHORIZATION_ITEM_KEY].ToString();
             var roleList = new List<string>();
 
             if (String.IsNullOrEmpty(jwtToken) == true || String.IsNullOrWhiteSpace(jwtToken) == true)
             {
-                roleList.Add("Guest");
-                httpContext.Items["RoleNameList"] = roleList;
+                roleList.Add(RBACConst.GUEST_USER_NAME);
+                httpContext.Items[HttpContextConst.ROLE_NAMES_ITEM_KEY] = roleList;
                 httpContext.Items["UserId"] = "";
                 await _next(httpContext);
+                return;
             }
             else
             {
-                roleList.Add("Guest");
+                roleList.Add(RBACConst.GUEST_USER_NAME);
                 try
                 {
                     var principal = jWTService.ValidateToken(jwtToken);
                     httpContext.User = principal;
+
                     var userId = "";
-                    userId = principal.Claims.Where(x => x.Type == "Id").Select(x => x.Value).SingleOrDefault();
-                    httpContext.Items["UserId"] = userId;
+                    userId = principal.Claims.Where(x => x.Type == HttpContextConst.ID_JWT_KEY).Select(x => x.Value).SingleOrDefault();
+                    httpContext.Items[RBACConst.GUEST_USER_NAME] = userId;
                     roleList.AddRange(await userService.GetRoleNameAsync(userId));
-                    httpContext.Items["RoleNameList"] = roleList;
+
+                    httpContext.Items[HttpContextConst.ROLE_NAMES_ITEM_KEY] = roleList;
+                    httpContext.Items[HttpContextConst.USER_ID_ITEM_KEY] = userId;
+                    await _next(httpContext);
+                    return;
+                }
+                catch (SecurityTokenInvalidLifetimeException)
+                {
+                    var apiResult = new ApiResult<bool>(ApiResultConst.CODE.TOKEN_EXPIRED, false, false, null);
+                    await httpContext.WriteJsonResponseAsync(200, apiResult);
+                    return;
                 }
                 catch (System.Exception)
                 {
-                    httpContext.Items["RoleNameList"] = roleList;
-                    httpContext.Items["UserId"] = "";
+                    httpContext.Items[HttpContextConst.ROLE_NAMES_ITEM_KEY] = roleList;
+                    httpContext.Items[HttpContextConst.USER_ID_ITEM_KEY] = "";
+                    await _next(httpContext);
+                    return;
                 }
-                await _next(httpContext);
             }
         }
     }

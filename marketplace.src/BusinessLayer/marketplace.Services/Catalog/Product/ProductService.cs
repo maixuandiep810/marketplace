@@ -14,6 +14,7 @@ using marketplace.Data.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using marketplace.Services.Utils;
 
 namespace marketplace.Services.Catalog.Product
 {
@@ -56,7 +57,7 @@ namespace marketplace.Services.Catalog.Product
                 catch (System.Exception)
                 {
                 }
-                var imageDTOs = images.ConvertAll(new Converter<HinhAnh, ImageDTO>(ImageDTO.FromHinhAnh));
+                var imageDTOs = images != null ? ConverterDTOEntity.GetImageDTOsFromHinhAnhs(images) : null;
                 productDTO.ImageDTOs = imageDTOs;
                 return new ApiResult<ProductDTO>(ApiResultConst.CODE.SUCCESS, true, productDTO, null);
             }
@@ -75,17 +76,7 @@ namespace marketplace.Services.Catalog.Product
                 {
                     return new ApiResult<bool>(ApiResultConst.CODE.ENTITY_CODE_EXISTS, false, false, null);
                 }
-                var newProduct = CreateProductDTO.ToSanPham(req);
-                var newDetailProducts = req.DetailProductDTOs.ConvertAll(
-                    new Converter<DetailProductDTO, ChiTietSanPham>(DetailProductDTO.ToChiTietSanPham)
-                    );
-                newProduct.ChiTietSanPhams = newDetailProducts;
-                await _unitOfWork.SanPhamRepository.AddAsync(newProduct);
-                await _unitOfWork.SaveChangesAsync();
-                foreach (var createImageDTO in req.Images)
-                {
-                    await _imageService.CreateAsync(createImageDTO.FormImage, createImageDTO.ImageUrl, SystemConst.PRODUCT_IMAGE_FOLDER_NAME, newProduct.Id.ToString());
-                }
+                await CreateSanPhamFromCreateProductDTO(req);
                 return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_CREATING_ENTITY_S, false, false, null);
             }
             catch (System.Exception ex)
@@ -94,6 +85,26 @@ namespace marketplace.Services.Catalog.Product
             }
         }
 
+        public async Task CreateSanPhamFromCreateProductDTO(CreateProductDTO req)
+        {
+            var newProduct = ConverterDTOEntity.GetSanPhamFromCreateProductDTO(req);
+            var newDetailProducts = req.DetailProductDTOs.ConvertAll(
+                new Converter<DetailProductDTO, ChiTietSanPham>(DetailProductDTO.ToChiTietSanPham)
+                );
+            newProduct.ChiTietSanPhams = newDetailProducts;
+            await _unitOfWork.SanPhamRepository.AddAsync(newProduct);
+            await _unitOfWork.SaveChangesAsync();
+            foreach (var createImageDTO in req.Images)
+            {
+                await _imageService.CreateAsync(createImageDTO.FormImage, createImageDTO.ImageUrl, SystemConst.PRODUCT_IMAGE_FOLDER_NAME, newProduct.Id.ToString());
+            }
+        }
+        /// <summary>
+        /// 
+        ///                 D
+        /// 
+        /// 
+        /// </summary>
         public async Task<ApiResult<bool>> DeleteAsync(string productCode)
         {
             try

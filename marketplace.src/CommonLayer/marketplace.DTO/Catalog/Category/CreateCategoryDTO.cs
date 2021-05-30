@@ -15,17 +15,6 @@ namespace marketplace.DTO.Catalog.Category
         public bool IsShownAtHome { get; set; }
         public List<DetailCategoryDTO> DetailCategoryDTOs { get; set; }
         public CreateImageDTO Image { get; set; }
-
-        public static DanhMuc ToDanhMuc(CreateCategoryDTO createCDTO)
-        {
-            var danhMuc = new DanhMuc()
-            {
-                MaSo = createCDTO.Code,
-                TrangThai = (TrangThai)((int)createCDTO.Status),
-                HienThiTrangChu = createCDTO.IsShownAtHome
-            };
-            return danhMuc;
-        }
     }
 
     public class CreateCategoryDTOValidator : AbstractValidator<CreateCategoryDTO>

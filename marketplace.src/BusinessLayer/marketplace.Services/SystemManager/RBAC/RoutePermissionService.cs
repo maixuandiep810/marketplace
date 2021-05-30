@@ -44,10 +44,6 @@ namespace marketplace.Services.SystemManager.RBAC
                 {
                     var routePerm = routePermissions.Find(x =>
                         {
-                            if (x.LaRouteCanXacThuc == false)
-                            {
-                                return false;
-                            }
                             var isRightPath = Regex.IsMatch(path, x.PathRegex);
                             var isRightMethod = action == x.HanhDong;
                             var isRightRoute = isRightPath && isRightMethod;

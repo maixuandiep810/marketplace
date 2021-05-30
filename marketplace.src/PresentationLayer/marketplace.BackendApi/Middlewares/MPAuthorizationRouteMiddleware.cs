@@ -18,20 +18,21 @@ namespace marketplace.BackendApi.Middlewares
         public MPAuthorizationRouteMiddleware(RequestDelegate next) => _next = next;
         public async Task Invoke(HttpContext httpContext, IUserService userService, IRoleService roleService)
         {
-            var isAuthenticatedRoute = (bool)httpContext.Items["IsAuthenticatedRoute"];
+            var isAuthenticatedRoute = (bool)httpContext.Items[HttpContextConst.IS_AUTHENTICATED_ROUTE_ITEM_KEY];
 
             if (isAuthenticatedRoute == false)
             {
                 await _next(httpContext);
+                return;
             }
 
             var path = httpContext.Request.Path;
             var action = httpContext.Request.Method;
-            var roleNames = (List<string>)httpContext.Items["RoleNameList"];
+            var roleNames = (List<string>)httpContext.Items[HttpContextConst.ROLE_NAMES_ITEM_KEY];
 
             var currentRoleDTONames = await roleService.GetRoleNameByPathActionPermissionAsync(path, action);
 
-            if (currentRoleDTONames.Contains<string>("Guest"))
+            if (currentRoleDTONames.Contains<string>(RBACConst.GUEST_USER_NAME))
             {
                 await _next(httpContext);
                 return;
@@ -52,6 +53,7 @@ namespace marketplace.BackendApi.Middlewares
             }
 
             await _next(httpContext);
+            return;
         }
     }
 }

@@ -14,26 +14,20 @@ namespace marketplace.DTO.Common
 
         public ImageDTO()
         {
-            
+
         }
 
-        public ImageDTO(HinhAnh img)
+        public ImageDTO(HinhAnh image) : this()
         {
-            Code = img.MaHA;
-            Description = img.MoTa;
-            Url = img.Url;
-            Caption = img.TieuDe;
-            IsDefault = img.LaAnhMacDinh;
-            SortOrder = img.ThuTu;
-        }
-
-        public static ImageDTO FromHinhAnh(HinhAnh hinh)
-        {
-            if (hinh == null)
+            if (image != null)
             {
-                return new ImageDTO();
+                Code = image.MaHA;
+                Description = image.MoTa;
+                Url = image.Url;
+                Caption = image.TieuDe;
+                IsDefault = image.LaAnhMacDinh;
+                SortOrder = image.ThuTu;
             }
-            return new ImageDTO(hinh);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using marketplace.Data.Entities;
+using marketplace.DTO.Common;
 
 namespace marketplace.DTO.SystemManager.User
 {
@@ -10,6 +11,7 @@ namespace marketplace.DTO.SystemManager.User
         public string HoTen { get; set; }
         public DateTime NgaySinh { get; set; }
         public bool LaNguoiBan { get; set; }
+        public ImageDTO ImageDTO { get; set; }
 
         public UserDTO(TaiKhoan user)
         {

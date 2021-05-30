@@ -9,17 +9,6 @@ namespace marketplace.DTO.Catalog.Category
         public string LanguageId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-
-        public static ChiTietDanhMuc ToChiTietDanhMuc(DetailCategoryDTO detailCD)
-        {
-            var chiTietDanhMuc = new ChiTietDanhMuc()
-            {
-                NgonNguId = detailCD.LanguageId,
-                Ten = detailCD.Name,
-                MoTa = detailCD.Description
-            };
-            return chiTietDanhMuc;
-        }
     }
 
     public class DetailCategoryDTOValidator : AbstractValidator<DetailCategoryDTO>

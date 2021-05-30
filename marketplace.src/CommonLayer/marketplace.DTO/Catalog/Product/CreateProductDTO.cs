@@ -13,19 +13,6 @@ namespace marketplace.DTO.Catalog.Product
         public int Quantity { set; get; }
         public List<DetailProductDTO> DetailProductDTOs { get; set; }
         public List<CreateImageDTO> Images { get; set; }
-
-        public static SanPham ToSanPham(CreateProductDTO createPDTO)
-        {
-            var sanPham = new SanPham()
-            {
-                MaSP = createPDTO.Code,
-                DonGiaGoc = createPDTO.OriginalPrice,
-                DonGia = createPDTO.OriginalPrice,
-                SoLuong = createPDTO.Quantity,
-                LuotXem = 0,
-            };
-            return sanPham;
-        }
     }
 
     public class CreateProductDTOValidator : AbstractValidator<CreateProductDTO>

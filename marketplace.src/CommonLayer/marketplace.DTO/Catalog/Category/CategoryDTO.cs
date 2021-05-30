@@ -25,28 +25,30 @@ namespace marketplace.DTO.Catalog.Category
 
         public CategoryDTO(DanhMuc danhMuc) : this()
         {
-            Id = danhMuc.Id;
-            Code = danhMuc.MaSo;
-            IsShownAtHome = danhMuc.HienThiTrangChu;
-            Status = (Status)((int)danhMuc.TrangThai);
-            Name = "";
-            Description = "";
+            if (danhMuc != null)
+            {
+
+                Id = danhMuc.Id;
+                Code = danhMuc.MaSo;
+                IsShownAtHome = danhMuc.HienThiTrangChu;
+                Status = (Status)((int)danhMuc.TrangThai);
+                Name = "";
+                Description = "";
+            }
         }
 
-        public CategoryDTO(DanhMuc danhMuc, ChiTietDanhMuc chiTietDanhMuc) : this()
+        public CategoryDTO(DanhMuc danhMuc, ChiTietDanhMuc chiTietDanhMuc) : this(danhMuc)
         {
-            Id = danhMuc.Id;
-            Code = danhMuc.MaSo;
-            IsShownAtHome = danhMuc.HienThiTrangChu;
-            Status = (Status)((int)danhMuc.TrangThai);
-            Name = chiTietDanhMuc.Ten;
-            Description = chiTietDanhMuc.MoTa;
+            if (chiTietDanhMuc != null)
+            {
+                IsShownAtHome = danhMuc.HienThiTrangChu;
+                Status = (Status)((int)danhMuc.TrangThai);
+            }
         }
 
         public CategoryDTO(DanhMuc danhMuc, ChiTietDanhMuc chiTietDanhMuc, ImageDTO imageDTO) : this(danhMuc, chiTietDanhMuc)
         {
             ImageDTO = imageDTO;
         }
-
     }
-}   
+}
