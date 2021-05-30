@@ -2,6 +2,7 @@
 {
     public enum TrangThaiGiaoDich
     {
+        DangXuLy,
         ThanhCong,
         ThatBai
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using marketplace.Data.Enums;
 
 namespace marketplace.Data.Entities
 {
@@ -7,6 +8,8 @@ namespace marketplace.Data.Entities
     {
         public int Id { set; get; }
         public bool DaXoa { get; set; }
+        public TrangThai TrangThai { set; get; }
+
         public string MaSP { get; set; }
         public decimal DonGia { set; get; }
         public decimal DonGiaGoc { set; get; }

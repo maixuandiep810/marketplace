@@ -1,6 +1,7 @@
 ﻿using marketplace.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using marketplace.Data.Enums;
 
 namespace marketplace.Data.Configurations
 {
@@ -13,6 +14,10 @@ namespace marketplace.Data.Configurations
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).UseIdentityColumn();
+
+            builder.Property(x => x.DaXoa).HasDefaultValue(0);
+            builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
+
             builder.Property(x => x.MaSP).HasColumnType("nvarchar(256)").IsRequired();
             builder.Property(x => x.DonGia).HasColumnType("decimal(15,2)");
             builder.Property(x => x.DonGiaGoc).HasColumnType("decimal(15,2)").IsRequired();

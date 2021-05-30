@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using marketplace.Data.Enums;
 
 namespace marketplace.Data.Configurations
 {
@@ -15,6 +16,9 @@ namespace marketplace.Data.Configurations
 
             builder.HasKey(x => x.Id);
             builder.HasAlternateKey(x => x.Ten);
+
+            builder.Property(x => x.DaXoa).HasDefaultValue(0);
+            builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
 
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.MaCH).HasColumnType("nvarchar(256)");

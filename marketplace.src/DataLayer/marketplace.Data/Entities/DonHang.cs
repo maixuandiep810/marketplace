@@ -9,11 +9,12 @@ namespace marketplace.Data.Entities
     {
         public int Id { set; get; }
         public bool DaXoa { get; set; }
+        public TrangThai TrangThai { set; get; }
 
         public string MaDH { get; set; }
         public string MoTa { get; set; }
         public decimal ThanhTien { get; set; }
-        public TrangThaiDonHang TrangThai { set; get; }
+        public TrangThaiDonHang TrangThaiDonHang { set; get; }
         public int KhachHangId { set; get; }
 
 

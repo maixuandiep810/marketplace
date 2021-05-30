@@ -15,6 +15,10 @@ namespace marketplace.Data.Configurations
             builder.HasAlternateKey(x => x.Ten);
 
             builder.Property(x => x.Id).UseIdentityColumn();
+
+            builder.Property(x => x.DaXoa).HasDefaultValue(0);
+            builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
+
             builder.Property(x => x.MaLN).HasColumnType("nvarchar(256)").IsRequired();
             builder.Property(x => x.Ten).HasColumnType("nvarchar(256)").IsRequired();
             builder.Property(x => x.TenDayDu).HasColumnType("ntext").IsRequired();

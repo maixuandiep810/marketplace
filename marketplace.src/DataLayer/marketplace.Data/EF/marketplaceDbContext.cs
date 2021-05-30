@@ -48,16 +48,17 @@ namespace marketplace.Data.EF
             modelBuilder.ApplyConfiguration(new TaiKhoanCF());
             modelBuilder.ApplyConfiguration(new VaiTroCF());
 
-            // modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("ApplicationUserClaims");
+            modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("ApplicationUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("TaiKhoanVaiTro").HasKey(x => new { x.UserId, x.RoleId });
-            // modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("ApplicationUserLogins").HasKey(x => x.UserId);
+            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("ApplicationUserLogins").HasKey(x => x.UserId);
 
-            // modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("ApplicationRoleClaims");
-            // modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("ApplicationUserTokens").HasKey(x => x.UserId);
-            modelBuilder.Ignore<IdentityUserLogin<Guid>>();
-            modelBuilder.Ignore<IdentityUserClaim<Guid>>();
-            modelBuilder.Ignore<IdentityUserToken<Guid>>();
-            modelBuilder.Ignore<IdentityRoleClaim<Guid>>();
+            modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("ApplicationRoleClaims");
+            modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("ApplicationUserTokens").HasKey(x => x.UserId);
+            
+            // modelBuilder.Ignore<IdentityUserLogin<Guid>>();
+            // modelBuilder.Ignore<IdentityUserClaim<Guid>>();
+            // modelBuilder.Ignore<IdentityUserToken<Guid>>();
+            // modelBuilder.Ignore<IdentityRoleClaim<Guid>>();
 
             //Data seeding
             // modelBuilder.Seed();

@@ -1,11 +1,16 @@
 using System.Collections.Generic;
 using System;
+using marketplace.Data.Enums;
+
 namespace marketplace.Data.Entities
 {
     public class CuaHang : IBaseEntity<int>
     {
         public int Id { set; get; }
         public bool DaXoa { get; set; }
+        public TrangThai TrangThai { set; get; }
+
+
         public string MaCH { get; set; }
         public string Ten { get; set; }
         public string TenDayDu { set; get; }

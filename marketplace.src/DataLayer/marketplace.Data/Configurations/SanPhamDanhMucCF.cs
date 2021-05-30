@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using marketplace.Data.Enums;
 
 namespace marketplace.Data.Configurations
 {
@@ -15,6 +16,9 @@ namespace marketplace.Data.Configurations
 
             builder.HasKey(x => x.Id);
             builder.HasAlternateKey(x => new { x.DanhMucId, x.SanPhamId });
+
+            builder.Property(x => x.DaXoa).HasDefaultValue(0);
+            builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
 
             builder.HasOne<SanPham>(x => x.SanPham).WithMany(x => x.SanPhamDanhMucs)
                 .HasForeignKey(x => x.SanPhamId);

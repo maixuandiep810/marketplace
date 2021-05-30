@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using marketplace.Data.EF;
 
 namespace marketplace.Data.Migrations
 {
     [DbContext(typeof(marketplaceDbContext))]
-    partial class marketplaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210529212310_RemoveIgnoreIdentityTable")]
+    partial class RemoveIgnoreIdentityTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,9 +124,7 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<int>("DanhMucId")
                         .HasColumnType("int");
@@ -139,11 +139,6 @@ namespace marketplace.Data.Migrations
                     b.Property<string>("Ten")
                         .IsRequired()
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -162,9 +157,7 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("DonGia")
                         .HasColumnType("decimal(15,2)");
@@ -177,11 +170,6 @@ namespace marketplace.Data.Migrations
 
                     b.Property<int>("SoLuong")
                         .HasColumnType("int");
-
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -200,9 +188,7 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("MoTa")
                         .HasColumnType("ntext");
@@ -220,11 +206,6 @@ namespace marketplace.Data.Migrations
 
                     b.Property<string>("TenDayDu")
                         .HasColumnType("ntext");
-
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -245,9 +226,7 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<int>("LangNgheId")
                         .HasColumnType("int");
@@ -264,11 +243,6 @@ namespace marketplace.Data.Migrations
 
                     b.Property<string>("TenDayDu")
                         .HasColumnType("ntext");
-
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -289,9 +263,7 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<bool>("HienThiTrangChu")
                         .HasColumnType("bit");
@@ -319,9 +291,7 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<int>("KhachHangId")
                         .HasColumnType("int");
@@ -338,11 +308,6 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("decimal(15,2)");
 
                     b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
-
-                    b.Property<int>("TrangThaiDonHang")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValue(0);
@@ -364,9 +329,7 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<int>("DonHangId")
                         .HasColumnType("int");
@@ -390,14 +353,7 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("decimal(15,2)");
 
                     b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
-
-                    b.Property<int>("TrangThaiGiaoDich")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -419,9 +375,7 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<int>("KhachHangId")
                         .HasColumnType("int");
@@ -437,11 +391,6 @@ namespace marketplace.Data.Migrations
 
                     b.Property<int>("SoLuong")
                         .HasColumnType("int");
-
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -462,9 +411,7 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("DoiTuongId")
                         .HasColumnType("nvarchar(256)");
@@ -487,11 +434,6 @@ namespace marketplace.Data.Migrations
                     b.Property<string>("TieuDe")
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
-
                     b.Property<string>("Url")
                         .HasColumnType("ntext");
 
@@ -508,17 +450,10 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("TaiKhoanId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -537,9 +472,7 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("MaLN")
                         .IsRequired()
@@ -557,11 +490,6 @@ namespace marketplace.Data.Migrations
                         .IsRequired()
                         .HasColumnType("ntext");
 
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
-
                     b.HasKey("Id");
 
                     b.HasAlternateKey("Ten");
@@ -577,20 +505,13 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<int>("DanhMucId")
                         .HasColumnType("int");
 
                     b.Property<int>("LangNgheId")
                         .HasColumnType("int");
-
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -607,9 +528,7 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("varchar(256)");
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("MaNN")
                         .IsRequired()
@@ -621,11 +540,6 @@ namespace marketplace.Data.Migrations
                     b.Property<string>("Ten")
                         .IsRequired()
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -643,9 +557,7 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("MaNB")
                         .IsRequired()
@@ -657,11 +569,6 @@ namespace marketplace.Data.Migrations
 
                     b.Property<Guid>("TaiKhoanId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -686,20 +593,13 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<int>("DonHangId")
                         .HasColumnType("int");
 
                     b.Property<int?>("NguoiBanId")
                         .HasColumnType("int");
-
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -727,9 +627,7 @@ namespace marketplace.Data.Migrations
                         .HasDefaultValue(0);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("HanhDong")
                         .IsRequired()
@@ -747,11 +645,6 @@ namespace marketplace.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(256)");
 
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
-
                     b.HasKey("Id");
 
                     b.ToTable("QuyenEntity");
@@ -765,9 +658,7 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("EntityId")
                         .HasColumnType("nvarchar(max)");
@@ -777,11 +668,6 @@ namespace marketplace.Data.Migrations
 
                     b.Property<Guid>("TaiKhoanId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -800,17 +686,10 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<int>("QuyenEntityId")
                         .HasColumnType("int");
-
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.Property<Guid>("VaiTroId")
                         .HasColumnType("uniqueidentifier");
@@ -832,9 +711,7 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("HanhDong")
                         .IsRequired()
@@ -855,11 +732,6 @@ namespace marketplace.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(256)");
 
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
-
                     b.HasKey("Id");
 
                     b.ToTable("QuyenRoute");
@@ -873,17 +745,10 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<int>("QuyenRouteId")
                         .HasColumnType("int");
-
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.Property<Guid>("VaiTroId")
                         .HasColumnType("uniqueidentifier");
@@ -907,9 +772,7 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("DonGia")
                         .HasColumnType("decimal(15,2)");
@@ -931,11 +794,6 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
-
                     b.HasKey("Id");
 
                     b.ToTable("SanPham");
@@ -949,20 +807,13 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<int>("DanhMucId")
                         .HasColumnType("int");
 
                     b.Property<int>("SanPhamId")
                         .HasColumnType("int");
-
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -986,9 +837,7 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -1036,11 +885,6 @@ namespace marketplace.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -1062,9 +906,7 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("DaXoa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("MoTa")
                         .IsRequired()
@@ -1075,11 +917,6 @@ namespace marketplace.Data.Migrations
 
                     b.Property<string>("NormalizedName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TrangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
