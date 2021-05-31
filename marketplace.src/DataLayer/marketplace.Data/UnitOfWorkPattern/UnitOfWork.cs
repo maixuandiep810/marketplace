@@ -15,6 +15,12 @@ namespace marketplace.Data.UnitOfWorkPattern
         private bool _disposed = false;
         private readonly marketplaceDbContext _context;
 
+
+        public ICapTinhRepository CapTinhRepository { get; }
+        public ICapHuyenRepository CapHuyenRepository { get; }
+        public ICapXaRepository CapXaRepository { get; }
+
+
         public IChiTietDonHangRepository ChiTietDonHangRepository { get; }
 
         public ICuaHangRepository CuaHangRepository { get; }
@@ -45,9 +51,9 @@ namespace marketplace.Data.UnitOfWorkPattern
 
         public IQuanLyDonHangRepository QuanLyDonHangRepository { get; }
 
-        public IQuyenEntityRepository QuyenEntityRepository { get; }
-        public IQuyenEntityTaiKhoanRepository QuyenEntityTaiKhoanRepository { get; }
-        public IQuyenEntityVaiTroRepository QuyenEntityVaiTroRepository { get; }
+        // public IQuyenEntityRepository QuyenEntityRepository { get; }
+        // public IQuyenEntityTaiKhoanRepository QuyenEntityTaiKhoanRepository { get; }
+        // public IQuyenEntityVaiTroRepository QuyenEntityVaiTroRepository { get; }
         public IQuyenRouteRepository QuyenRouteRepository { get; }
         public IQuyenRouteVaiTroRepository QuyenRouteVaiTroRepository { get; }
 
@@ -62,6 +68,9 @@ namespace marketplace.Data.UnitOfWorkPattern
         public UnitOfWork(marketplaceDbContext context)
         {
             _context = context;
+            CapTinhRepository = new CapTinhRepository(_context);
+            CapHuyenRepository = new CapHuyenRepository(_context);
+            CapXaRepository = new CapXaRepository(_context);
             ChiTietDanhMucRepository = new ChiTietDanhMucRepository(_context);
             ChiTietDonHangRepository = new ChiTietDonHangRepository(_context);
             ChiTietSanPhamRepository = new ChiTietSanPhamRepository(_context);
@@ -78,9 +87,9 @@ namespace marketplace.Data.UnitOfWorkPattern
             NguoiBanRepository = new NguoiBanRepository(_context);
             NguoiBanRepository = new NguoiBanRepository(_context);
             QuanLyDonHangRepository = new QuanLyDonHangRepository(_context);
-            QuyenEntityRepository = new QuyenEntityRepository(_context);
-            QuyenEntityTaiKhoanRepository = new QuyenEntityTaiKhoanRepository(_context);
-            QuyenEntityVaiTroRepository = new QuyenEntityVaiTroRepository(_context);
+            // QuyenEntityRepository = new QuyenEntityRepository(_context);
+            // QuyenEntityTaiKhoanRepository = new QuyenEntityTaiKhoanRepository(_context);
+            // QuyenEntityVaiTroRepository = new QuyenEntityVaiTroRepository(_context);
             QuyenRouteRepository = new QuyenRouteRepository(_context);
             QuyenRouteVaiTroRepository = new QuyenRouteVaiTroRepository(_context);
             SanPhamRepository = new SanPhamRepository(_context);

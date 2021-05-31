@@ -89,7 +89,7 @@ namespace marketplace.Services.SystemManager.User
                     return new ApiResult<bool>(ApiResultConst.CODE.CONFIRM_EMAIL_FAILED, false, false, null);
                 }
 
-                _unitOfWork.TaiKhoanRepository.ActiveEntity(user);
+                _unitOfWork.TaiKhoanRepository.ActivateEntity(user);
                 await _unitOfWork.SaveChangesAsync();
 
                 return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_CONFIRM_EMAIL_ENTITY_S, true, true, null);
@@ -129,7 +129,7 @@ namespace marketplace.Services.SystemManager.User
             var path = UriConst.API_USERS_CONFIRM_EMAIL_GET_PATH_WITHOUT_PARAMS;
 
             var confirmationLink = String.Format("{0}{1}?useremail={2}&token={3}", host, path, email, encodeToken);
-        
+
             var messageContent = $"Please confirm your email, {confirmationLink}";
 
             await _emailSender.SendEmailAsync(email, EmailConst.CONFIRM_EMAIL_SUBJECT, messageContent);
@@ -229,6 +229,85 @@ namespace marketplace.Services.SystemManager.User
             catch (System.Exception)
             {
                 return null;
+            }
+        }
+        /// <summary>
+        /// 
+        /// 
+        /// 
+        ///                     U
+        /// 
+        /// 
+        /// 
+        /// </summary>
+        public async Task<ApiResult<bool>> ChangeStatusAsync(string userName, bool status)
+        {
+            try
+            {
+                var user = await _userManager.FindByNameAsync(userName);
+                if (user == null)
+                {
+                    return new ApiResult<bool>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, false, null);
+                }
+                if (status == false)
+                {
+                    _unitOfWork.TaiKhoanRepository.DeactivateEntity(user);
+                }
+                else
+                {
+                    _unitOfWork.TaiKhoanRepository.ActivateEntity(user);
+                }
+                await _unitOfWork.SaveChangesAsync();
+                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_DELETING_ENTITY_S, true, true, null);
+            }
+            catch (System.Exception ex)
+            {
+                LogUtils.LogException<UserService>(_env, ex, _logger, "Marketplace LogInfomation Message");
+                return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
+            }
+        }
+        /// <summary>
+        /// 
+        /// 
+        /// 
+        ///                                 D
+        /// 
+        /// 
+        /// 
+        /// </summary>
+        public async Task<ApiResult<bool>> DeleteAsync(string userName)
+        {
+            try
+            {
+                var user = await _userManager.FindByNameAsync(userName);
+                if (user == null)
+                {
+                    return new ApiResult<bool>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, false, null);
+                }
+                _unitOfWork.TaiKhoanRepository.DeleteEntity(user);
+                await _unitOfWork.SaveChangesAsync();
+                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_DELETING_ENTITY_S, true, true, null);
+            }
+            catch (System.Exception ex)
+            {
+                LogUtils.LogException<UserService>(_env, ex, _logger, "Marketplace LogInfomation Message");
+                return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
+            }
+        }
+        //
+        public async Task<ApiResult<bool>> DeleteDataAllDetetedUserAsync()
+        {
+            try
+            {
+                var deletedEntities = await _unitOfWork.TaiKhoanRepository.GetAllDeletedEntityAsync();
+                _unitOfWork.TaiKhoanRepository.DeleteDataAllDeletedEntity(deletedEntities);
+                await _unitOfWork.SaveChangesAsync();
+                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESS, true, true, null);
+            }
+            catch (System.Exception ex)
+            {
+                LogUtils.LogException<UserService>(_env, ex, _logger, "Marketplace LogInfomation Message");
+                return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
             }
         }
     }

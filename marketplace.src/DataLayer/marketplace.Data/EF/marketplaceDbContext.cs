@@ -17,6 +17,10 @@ namespace marketplace.Data.EF
         {
             //Configure using Fluent API
 
+            modelBuilder.ApplyConfiguration(new CapTinhCF());
+            modelBuilder.ApplyConfiguration(new CapHuyenCF());
+            modelBuilder.ApplyConfiguration(new CapXaCF());
+
             modelBuilder.ApplyConfiguration(new ChiTietDonHangCF());
             modelBuilder.ApplyConfiguration(new CuaHangCF());
             modelBuilder.ApplyConfiguration(new DanhMucCF());
@@ -36,9 +40,9 @@ namespace marketplace.Data.EF
             modelBuilder.ApplyConfiguration(new NguoiBanCF());
 
             modelBuilder.ApplyConfiguration(new QuanLyDonHangCF());
-            modelBuilder.ApplyConfiguration(new QuyenEntityCF());
-            modelBuilder.ApplyConfiguration(new QuyenEntityTaiKhoanCF());
-            modelBuilder.ApplyConfiguration(new QuyenEntityVaiTroCF());
+            // modelBuilder.ApplyConfiguration(new QuyenEntityCF());
+            // modelBuilder.ApplyConfiguration(new QuyenEntityTaiKhoanCF());
+            // modelBuilder.ApplyConfiguration(new QuyenEntityVaiTroCF());
             modelBuilder.ApplyConfiguration(new QuyenRouteCF());
             modelBuilder.ApplyConfiguration(new QuyenRouteVaiTroCF());
 
@@ -54,7 +58,7 @@ namespace marketplace.Data.EF
 
             modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("ApplicationRoleClaims");
             modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("ApplicationUserTokens").HasKey(x => x.UserId);
-            
+
             // modelBuilder.Ignore<IdentityUserLogin<Guid>>();
             // modelBuilder.Ignore<IdentityUserClaim<Guid>>();
             // modelBuilder.Ignore<IdentityUserToken<Guid>>();
@@ -70,6 +74,11 @@ namespace marketplace.Data.EF
         // public DbSet<IdentityUserRole<Guid>> ApplicationUserRoles { get; set; }
         // // public DbSet<AppConfig> AppConfigs { get; set; }
         // // public DbSet<AppConfig> AppConfigs { get; set; }
+
+
+        public DbSet<CapTinh> CapTinhs { get; set; }
+        public DbSet<CapHuyen> CapHuyens { get; set; }
+        public DbSet<CapXa> CapXas { get; set; }
 
 
         public DbSet<ChiTietDonHang> ChiTietDonHangs { get; set; }
@@ -89,9 +98,9 @@ namespace marketplace.Data.EF
         public DbSet<NguoiBan> NguoiBans { get; set; }
 
         public DbSet<QuanLyDonHang> QuanLyDonHangs { get; set; }
-        public DbSet<QuyenEntity> QuyenEntities { get; set; }
-        public DbSet<QuyenEntityTaiKhoan> QuyenEntityTaiKhoans { get; set; }
-        public DbSet<QuyenEntityVaiTro> QuyenEntityVaiTros { get; set; }
+        // public DbSet<QuyenEntity> QuyenEntities { get; set; }
+        // public DbSet<QuyenEntityTaiKhoan> QuyenEntityTaiKhoans { get; set; }
+        // public DbSet<QuyenEntityVaiTro> QuyenEntityVaiTros { get; set; }
         public DbSet<QuyenRoute> QuyenRoutes { get; set; }
         public DbSet<QuyenRouteVaiTro> QuyenRouteVaiTros { get; set; }
 

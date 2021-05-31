@@ -13,5 +13,7 @@ namespace marketplace.Services.SystemManager.User
         Task<ApiResult<UserDTO>> GetByUserNameAsync(string userName);
         Task<ApiResult<bool>> ConfirmUserEmail(string userEmail, string token);
         Task<ApiResult<bool>> ResendConfirmEmail(string userEmail);
+        Task<ApiResult<bool>> DeleteAsync(string userName);
+        Task<ApiResult<bool>> ChangeStatusAsync(string userName, bool status);
     }
 }

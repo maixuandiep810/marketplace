@@ -42,6 +42,15 @@ namespace marketplace.Services.SystemManager.RBAC
             _routePermissionService = routePermissionService;
         }
 
+
+        /// <summary>
+        ///
+        /// 
+        ///                                       R
+        /// 
+        /// 
+        /// </summary>
+
         public async Task<List<RoleDTO>> GetRoleDTOsByRoutePermissionAsync(RoutePermissionDTO routePermissionDTO)
         {
             var roleIds = await _unitOfWork.QuyenRouteVaiTroRepository.GetRouteIdByPermissionIdAsync(routePermissionDTO.Id);
@@ -60,7 +69,7 @@ namespace marketplace.Services.SystemManager.RBAC
             }
             return roleDTOs;
         }
-
+        ///
         public async Task<List<string>> GetRoleNameByPathActionPermissionAsync(string path, string action)
         {
             var routePermissionDTO = await _routePermissionService.GetRoutePermissionByPathActionAsync(path, action);
@@ -71,6 +80,42 @@ namespace marketplace.Services.SystemManager.RBAC
             var roleDTOs = await GetRoleDTOsByRoutePermissionAsync(routePermissionDTO);
             var roleDTONames = roleDTOs.Select(x => x.Name).ToList();
             return roleDTONames;
+        }
+
+        /// <summary>
+        /// 
+        /// 
+        /// 
+        ///                     U
+        /// 
+        /// 
+        /// 
+        /// </summary>
+        public async Task<ApiResult<bool>> ChangeStatusAsync(string roleName, bool status)
+        {
+            try
+            {
+                var role = await _roleManager.FindByNameAsync(roleName);
+                if (role == null)
+                {
+                    return new ApiResult<bool>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, false, null);
+                }
+                if (status == false)
+                {
+                    _unitOfWork.VaiTroRepository.DeactivateEntity(role);
+                }
+                else
+                {
+                    _unitOfWork.VaiTroRepository.ActivateEntity(role);
+                }
+                await _unitOfWork.SaveChangesAsync();
+                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_DELETING_ENTITY_S, true, true, null);
+            }
+            catch (System.Exception ex)
+            {
+                LogUtils.LogException<RoleService>(_env, ex, _logger, "Marketplace LogInfomation Message");
+                return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
+            }
         }
     }
 }

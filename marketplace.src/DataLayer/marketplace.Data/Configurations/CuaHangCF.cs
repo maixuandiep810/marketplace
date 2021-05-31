@@ -25,6 +25,7 @@ namespace marketplace.Data.Configurations
             builder.Property(x => x.Ten).HasColumnType("nvarchar(256)").IsRequired();
             builder.Property(x => x.TenDayDu).HasColumnType("ntext");
             builder.Property(x => x.MoTa).HasColumnType("ntext");
+            builder.Property(x => x.DiaChi).HasColumnType("ntext");
 
             builder.HasOne<LangNghe>(x => x.LangNghe).WithMany(x => x.CuaHangs).HasForeignKey(x => x.LangNgheId);
         }

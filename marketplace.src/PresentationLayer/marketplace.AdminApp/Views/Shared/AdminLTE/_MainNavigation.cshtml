@@ -1,4 +1,4 @@
-@using static marketplace.Utilities.WebMVC.Extensions.NavigationIndicatorHelper;
+@using static marketplace.Utilities.WebMVC.Extensions.NavigationIndicatorHelper n;
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="~/Home" class="brand-link">
@@ -12,7 +12,7 @@
                 <img src="~/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">Guest</a>
             </div>
         </div>
         <nav class="mt-2">
@@ -26,11 +26,11 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a asp-controller="Home" asp-action="Privacy"
-                        class='nav-link @Url.MakeActiveClass("home","privacy")'>
+                    <a asp-controller="Users" asp-action="Login"
+                        class='nav-link @Url.MakeActiveClass("users","login")'>
                         <i class="nav-icon fas fa-lock"></i>
                         <p>
-                            Privacy
+                            Login
                         </p>
                     </a>
                 </li>

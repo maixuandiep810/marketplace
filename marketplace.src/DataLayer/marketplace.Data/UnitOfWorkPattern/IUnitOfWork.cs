@@ -6,6 +6,10 @@ namespace marketplace.Data.UnitOfWorkPattern
 {
     public interface IUnitOfWork : IDisposable
     {
+        ICapTinhRepository CapTinhRepository { get; }
+        ICapHuyenRepository CapHuyenRepository { get; }
+        ICapXaRepository CapXaRepository { get; }
+
         IChiTietDonHangRepository ChiTietDonHangRepository { get; }
         ICuaHangRepository CuaHangRepository { get; }
         IDanhMucRepository DanhMucRepository { get; }
@@ -21,10 +25,10 @@ namespace marketplace.Data.UnitOfWorkPattern
         INgonNguRepository NgonNguRepository { get; }
         INguoiBanRepository NguoiBanRepository { get; }
         IQuanLyDonHangRepository QuanLyDonHangRepository { get; }
-        
-        IQuyenEntityRepository QuyenEntityRepository { get; }
-        IQuyenEntityTaiKhoanRepository QuyenEntityTaiKhoanRepository { get; }
-        IQuyenEntityVaiTroRepository QuyenEntityVaiTroRepository { get; }
+
+        // IQuyenEntityRepository QuyenEntityRepository { get; }
+        // IQuyenEntityTaiKhoanRepository QuyenEntityTaiKhoanRepository { get; }
+        // IQuyenEntityVaiTroRepository QuyenEntityVaiTroRepository { get; }
         IQuyenRouteRepository QuyenRouteRepository { get; }
         IQuyenRouteVaiTroRepository QuyenRouteVaiTroRepository { get; }
 

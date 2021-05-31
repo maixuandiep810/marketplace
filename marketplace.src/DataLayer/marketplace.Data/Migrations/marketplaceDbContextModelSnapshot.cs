@@ -114,6 +114,115 @@ namespace marketplace.Data.Migrations
                     b.ToTable("ApplicationUserTokens");
                 });
 
+            modelBuilder.Entity("marketplace.Data.Entities.CapHuyen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CapTinhId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("DaXoa")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("MaHuyen")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Ten")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("TrangThai")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("Ten");
+
+                    b.HasIndex("CapTinhId");
+
+                    b.ToTable("CapHuyen");
+                });
+
+            modelBuilder.Entity("marketplace.Data.Entities.CapTinh", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("DaXoa")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("MaTinh")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Ten")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("TrangThai")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("Ten");
+
+                    b.ToTable("CapTinh");
+                });
+
+            modelBuilder.Entity("marketplace.Data.Entities.CapXa", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CapHuyenId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("DaXoa")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("MaXa")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Ten")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("TrangThai")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("Ten");
+
+                    b.HasIndex("CapHuyenId");
+
+                    b.ToTable("CapXa");
+                });
+
             modelBuilder.Entity("marketplace.Data.Entities.ChiTietDanhMuc", b =>
                 {
                     b.Property<int>("Id")
@@ -248,6 +357,9 @@ namespace marketplace.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<string>("DiaChi")
+                        .HasColumnType("ntext");
 
                     b.Property<int>("LangNgheId")
                         .HasColumnType("int");
@@ -536,10 +648,16 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CapXaId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("DaXoa")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<string>("DiaChi")
+                        .HasColumnType("ntext");
 
                     b.Property<string>("MaLN")
                         .IsRequired()
@@ -565,6 +683,8 @@ namespace marketplace.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasAlternateKey("Ten");
+
+                    b.HasIndex("CapXaId");
 
                     b.ToTable("LangNghe");
                 });
@@ -1086,6 +1206,24 @@ namespace marketplace.Data.Migrations
                     b.ToTable("VaiTro");
                 });
 
+            modelBuilder.Entity("marketplace.Data.Entities.CapHuyen", b =>
+                {
+                    b.HasOne("marketplace.Data.Entities.CapTinh", "CapTinh")
+                        .WithMany("CapHuyens")
+                        .HasForeignKey("CapTinhId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("marketplace.Data.Entities.CapXa", b =>
+                {
+                    b.HasOne("marketplace.Data.Entities.CapHuyen", "CapHuyen")
+                        .WithMany("CapXas")
+                        .HasForeignKey("CapHuyenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("marketplace.Data.Entities.ChiTietDanhMuc", b =>
                 {
                     b.HasOne("marketplace.Data.Entities.DanhMuc", "DanhMuc")
@@ -1182,6 +1320,15 @@ namespace marketplace.Data.Migrations
                     b.HasOne("marketplace.Data.Entities.TaiKhoan", "TaiKhoan")
                         .WithOne("KhachHang")
                         .HasForeignKey("marketplace.Data.Entities.KhachHang", "TaiKhoanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("marketplace.Data.Entities.LangNghe", b =>
+                {
+                    b.HasOne("marketplace.Data.Entities.CapXa", "CapXa")
+                        .WithMany("LangNghes")
+                        .HasForeignKey("CapXaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

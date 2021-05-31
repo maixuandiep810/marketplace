@@ -128,9 +128,34 @@ namespace marketplace.Data.RepositoryPattern.Repositories
             // }
         }
 
-        public void ActiveEntity(TEntity entity) {
+        public void DeactivateEntity(TEntity entity)
+        {
+            entity.TrangThai = TrangThai.KhongHoatDong;
+        }
+
+        public void ActivateEntity(TEntity entity)
+        {
             entity.TrangThai = TrangThai.HoatDong;
         }
 
+        public void DeleteEntity(TEntity entity)
+        {
+            entity.DaXoa = true;
+        }
+
+        public async Task<List<TEntity>> GetAllDeletedEntityAsync()
+        {
+            var deletedEntities = await _entities.Where(x => x.DaXoa == true).ToListAsync();
+            return deletedEntities;
+        }
+
+        public void DeleteDataAllDeletedEntity(List<TEntity> deletedEntities)
+        {
+            if (deletedEntities == null)
+            {
+                return;
+            }
+            _entities.RemoveRange(deletedEntities);
+        }
     }
 }

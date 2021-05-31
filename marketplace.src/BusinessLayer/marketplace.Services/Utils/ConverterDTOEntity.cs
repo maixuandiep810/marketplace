@@ -6,11 +6,15 @@ using marketplace.DTO.SystemManager.User;
 using marketplace.DTO.Catalog.Category;
 using marketplace.DTO.Catalog.Product;
 using marketplace.Data.Enums;
+using marketplace.DTO.Catalog.Branch;
 
 namespace marketplace.Services.Utils
 {
     public static class ConverterDTOEntity
     {
+
+
+
         public static ImageDTO GetImageDTOFromHinhAnh(HinhAnh hinh)
         {
             return new ImageDTO(hinh);
@@ -29,6 +33,15 @@ namespace marketplace.Services.Utils
             }
             return imageDTOs;
         }
+
+
+
+
+
+
+
+
+
 
         public static CategoryDTO GetCategoryDTOFromDanhMuc(DanhMuc danhMuc)
         {
@@ -117,6 +130,28 @@ namespace marketplace.Services.Utils
         public static UserDTO GetUserDTOFromTaiKhoan(TaiKhoan user)
         {
             return new UserDTO(user);
+        }
+
+
+
+
+        public static BranchDTO GetBranchDTOFromLangNghe(LangNghe langNghe)
+        {
+            return new BranchDTO(langNghe);
+        }
+        public static LangNghe GetLangNgheFromCreateBranchDTO(CreateBranchDTO createBranchDTO)
+        {
+            var langNghe = new LangNghe()
+            {
+                MaLN = createBranchDTO.Code,
+                TrangThai = (TrangThai)((int)createBranchDTO.Status),
+                Ten = createBranchDTO.Name,
+                TenDayDu = createBranchDTO.FullName,
+                MoTa = createBranchDTO.Description,
+                CapXaId = createBranchDTO.CommuneId,
+                DiaChi = createBranchDTO.Address
+            };
+            return langNghe;
         }
     }
 }

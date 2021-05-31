@@ -17,7 +17,8 @@ using marketplace.DTO.Catalog.Product;
 using marketplace.Services.Common;
 using marketplace.Services.SystemManager.RBAC;
 using marketplace.Services.SystemManager.Auth;
-
+using marketplace.Services.Catalog.Branch;
+using marketplace.Services.Catalog.Store;
 
 namespace marketplace.BackendApi.Extensions
 {
@@ -54,6 +55,8 @@ namespace marketplace.BackendApi.Extensions
             services.AddTransient<IJWTService, JWTService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IRoutePermissionService, RoutePermissionService>();
+            services.AddTransient<IBranchService, BranchService>();
+            services.AddTransient<IStoreService, StoreService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             return services;
         }

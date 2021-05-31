@@ -20,6 +20,7 @@ namespace marketplace.Data.RepositoryPattern.Repositories
             try
             {
                 var category = await FirstOrDefaultAsync(x => x.MaSo == code);
+                // KO CAN VI AUTO NULL voi CLASS
                 // if (category == null)
                 // {
                 //     return null;

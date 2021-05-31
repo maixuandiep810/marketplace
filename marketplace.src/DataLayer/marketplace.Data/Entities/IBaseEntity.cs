@@ -1,7 +1,5 @@
 using marketplace.Data.Enums;
 
-using marketplace.Data.Enums;
-
 namespace marketplace.Data.Entities
 {
     public interface IBaseEntity<TPKey>

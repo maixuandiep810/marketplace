@@ -58,6 +58,42 @@ namespace marketplace.Services.SystemManager.RBAC
                 return null;
             }
         }
+
+        /// <summary>
+        /// 
+        /// 
+        /// 
+        ///                     U
+        /// 
+        /// 
+        /// 
+        /// </summary>
+        public async Task<ApiResult<bool>> ChangeStatusAsync(int routePrmissionId, bool status)
+        {
+            try
+            {
+                var routePermission = await _unitOfWork.QuyenRouteRepository.GetByIdAsync(routePrmissionId);
+                if (routePermission == null)
+                {
+                    return new ApiResult<bool>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, false, null);
+                }
+                if (status == false)
+                {
+                    _unitOfWork.QuyenRouteRepository.DeactivateEntity(routePermission);
+                }
+                else
+                {
+                    _unitOfWork.QuyenRouteRepository.ActivateEntity(routePermission);
+                }
+                await _unitOfWork.SaveChangesAsync();
+                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_DELETING_ENTITY_S, true, true, null);
+            }
+            catch (System.Exception ex)
+            {
+                LogUtils.LogException<RoutePermissionService>(_env, ex, _logger, "Marketplace LogInfomation Message");
+                return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
+            }
+        }
     }
 }
 

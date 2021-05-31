@@ -15,6 +15,7 @@ namespace marketplace.Data.Entities
         public string Ten { get; set; }
         public string TenDayDu { set; get; }
         public string MoTa { get; set; }
+        public string DiaChi { get; set; }
 
         public int LangNgheId { get; set; }
 

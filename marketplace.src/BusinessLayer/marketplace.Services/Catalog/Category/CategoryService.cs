@@ -112,11 +112,11 @@ namespace marketplace.Services.Catalog.Category
         {
             ChiTietDanhMuc detailCategory = null;
             detailCategory = await _unitOfWork.ChiTietDanhMucRepository.GetByLanguageIdAsync(category.Id, languageId);
-            var categoryDTO = detailCategory != null ? new CategoryDTO(category, detailCategory) : new CategoryDTO(category);
+            var categoryDTO = ConverterDTOEntity.GetCategoryDTOFromDanhMuc(category, detailCategory);
             HinhAnh image = null;
             try
             {
-                image = await _unitOfWork.HinhAnhRepository.GetImageAsync(categoryDTO.Id.ToString(), TypeOfEntityConst.PRODUCT);
+                image = await _unitOfWork.HinhAnhRepository.GetImageAsync(categoryDTO.Id.ToString(), TypeOfEntityConst.CATEGORY);
             }
             catch (System.Exception)
             {
@@ -204,16 +204,16 @@ namespace marketplace.Services.Catalog.Category
         /// 
         /// 
         /// 
-        /// 
+        ///                         D
         /// 
         /// 
         /// 
         /// </summary>
-        public async Task<ApiResult<bool>> DeleteAsync(string productCode)
+        public async Task<ApiResult<bool>> DeleteAsync(string categoryCode)
         {
             try
             {
-                var category = await _unitOfWork.DanhMucRepository.GetByCodeAsync(productCode);
+                var category = await _unitOfWork.DanhMucRepository.GetByCodeAsync(categoryCode);
                 if (category == null)
                 {
                     return new ApiResult<bool>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, false, null);
