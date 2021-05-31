@@ -41,6 +41,8 @@ namespace marketplace.Data.UnitOfWorkPattern
 
         public IKhachHangRepository KhachHangRepository { get; }
 
+        public IJwtTokenRepository JwtTokenRepository { get; }
+
         public ILangNgheRepository LangNgheRepository { get; }
 
         public ILangNgheDanhMucRepository LangNgheDanhMucRepository { get; }
@@ -81,6 +83,7 @@ namespace marketplace.Data.UnitOfWorkPattern
             GioHangRepository = new GioHangRepository(_context);
             HinhAnhRepository = new HinhAnhRepository(_context);
             KhachHangRepository = new KhachHangRepository(_context);
+            JwtTokenRepository = new JwtTokenRepository(_context);
             LangNgheDanhMucRepository = new LangNgheDanhMucRepository(_context);
             LangNgheRepository = new LangNgheRepository(_context);
             NgonNguRepository = new NgonNguRepository(_context);

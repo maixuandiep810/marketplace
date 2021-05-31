@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using marketplace.Data.Entities;
 using marketplace.DTO.Common;
@@ -152,6 +153,17 @@ namespace marketplace.Services.Utils
                 DiaChi = createBranchDTO.Address
             };
             return langNghe;
+        }
+
+
+
+        public static JwtToken GetJwtTokenFromUser(Guid userId, string token)
+        {
+            var jwtToken = new JwtToken() {
+                TaiKhoanId = userId,
+                Token = token
+            };
+            return jwtToken;
         }
     }
 }

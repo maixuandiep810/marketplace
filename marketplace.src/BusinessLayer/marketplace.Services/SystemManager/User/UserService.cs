@@ -170,12 +170,40 @@ namespace marketplace.Services.SystemManager.User
                     expires: DateTime.Now.AddHours(3),
                     signingCredentials: creds);
                 var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
+                var jwtTokenEntity = ConverterDTOEntity.GetJwtTokenFromUser(user.Id, jwtToken);
+
+                await _unitOfWork.JwtTokenRepository.AddAsync(jwtTokenEntity);
+                await _unitOfWork.SaveChangesAsync();
 
                 return new ApiResult<string>(ApiResultConst.CODE.SUCCESS, true, jwtToken, null);
             }
             catch (System.Exception ex)
             {
                 return DefaultApiResult.GetExceptionApiResult<string>(_env, ex, "");
+            }
+        }
+        public async Task<ApiResult<bool>> LogoutAsync(string userName, string token)
+        {
+            try
+            {
+                var user = await _userManager.FindByNameAsync(userName);
+                if (user == null)
+                {
+                    return new ApiResult<bool>(ApiResultConst.CODE.LOGOUT_FAILED, false, false, null);
+                }
+                var jwtToken = await _unitOfWork.JwtTokenRepository.GetJwtTokenAsync(user.Id, token);
+                if (jwtToken == null)
+                {
+                    return new ApiResult<bool>(ApiResultConst.CODE.LOGOUT_FAILED, false, false, null);
+                }
+                jwtToken.TrangThai = TrangThai.KhongHoatDong;
+                await _unitOfWork.SaveChangesAsync();
+                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_LOGOUT, false, false, null);
+            }
+            catch (Exception ex)
+            {
+                LogUtils.LogException<UserService>(_env, ex, _logger, "Marketplace LogInfomation Message");
+                return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
             }
         }
 
@@ -294,25 +322,29 @@ namespace marketplace.Services.SystemManager.User
                 return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
             }
         }
-        //
-        public async Task<ApiResult<bool>> DeleteDataAllDetetedUserAsync()
-        {
-            try
-            {
-                var deletedEntities = await _unitOfWork.TaiKhoanRepository.GetAllDeletedEntityAsync();
-                _unitOfWork.TaiKhoanRepository.DeleteDataAllDeletedEntity(deletedEntities);
-                await _unitOfWork.SaveChangesAsync();
-                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESS, true, true, null);
-            }
-            catch (System.Exception ex)
-            {
-                LogUtils.LogException<UserService>(_env, ex, _logger, "Marketplace LogInfomation Message");
-                return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
-            }
-        }
     }
 
 
 }
 
+
+
+
+
+//
+// public async Task<ApiResult<bool>> DeleteDataAllDetetedUserAsync()
+// {
+//     try
+//     {
+//         var deletedEntities = await _unitOfWork.TaiKhoanRepository.GetAllDeletedEntityAsync();
+//         _unitOfWork.TaiKhoanRepository.DeleteDataAllDeletedEntity(deletedEntities);
+//         await _unitOfWork.SaveChangesAsync();
+//         return new ApiResult<bool>(ApiResultConst.CODE.SUCCESS, true, true, null);
+//     }
+//     catch (System.Exception ex)
+//     {
+//         LogUtils.LogException<UserService>(_env, ex, _logger, "Marketplace LogInfomation Message");
+//         return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
+//     }
+// }
 // if (user == null || (await _signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, true)).Succeeded == false)\

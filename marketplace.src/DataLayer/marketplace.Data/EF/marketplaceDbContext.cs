@@ -32,6 +32,8 @@ namespace marketplace.Data.EF
             modelBuilder.ApplyConfiguration(new GiaoDichCF());
             modelBuilder.ApplyConfiguration(new GioHangCF());
             modelBuilder.ApplyConfiguration(new HinhAnhCF());
+            modelBuilder.ApplyConfiguration(new JwtTokenCF());
+
             modelBuilder.ApplyConfiguration(new KhachHangCF());
             modelBuilder.ApplyConfiguration(new LangNgheCF());
             modelBuilder.ApplyConfiguration(new LangNgheDanhMucCF());
@@ -92,6 +94,8 @@ namespace marketplace.Data.EF
         public DbSet<HinhAnh> HinhAnhs { get; set; }
 
         public DbSet<KhachHang> KhachHangs { get; set; }
+        public DbSet<JwtToken> JwtTokens { get; set; }
+
         public DbSet<LangNghe> LangNghes { get; set; }
         public DbSet<LangNgheDanhMuc> LangNgheDanhMucs { get; set; }
         public DbSet<NgonNgu> NgonNgus { get; set; }

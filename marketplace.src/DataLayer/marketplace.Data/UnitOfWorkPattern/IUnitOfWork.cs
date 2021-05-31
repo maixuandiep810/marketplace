@@ -20,6 +20,7 @@ namespace marketplace.Data.UnitOfWorkPattern
         IGioHangRepository GioHangRepository { get; }
         IHinhAnhRepository HinhAnhRepository { get; }
         IKhachHangRepository KhachHangRepository { get; }
+        IJwtTokenRepository JwtTokenRepository { get; }
         ILangNgheRepository LangNgheRepository { get; }
         ILangNgheDanhMucRepository LangNgheDanhMucRepository { get; }
         INgonNguRepository NgonNguRepository { get; }

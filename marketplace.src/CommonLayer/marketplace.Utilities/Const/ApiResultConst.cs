@@ -28,6 +28,7 @@ namespace marketplace.Utilities.Const
             BE_LOGGED_DONT_LOGIN = 6009,
             ACCOUNT_NOT_ACTIVATED = 6010,
             CONFIRM_EMAIL_FAILED = 6011,
+            LOGOUT_FAILED = 6012,
             // ---
             ENTITY_CODE_EXISTS = 6101,
             ENTITY_NOT_FOUND_E = 6102,
@@ -46,6 +47,7 @@ namespace marketplace.Utilities.Const
             SUCCESSFULLY_CREATING_ENTITY_S = 9003,
             SUCCESSFULLY_CONFIRM_EMAIL_ENTITY_S = 9004,
             SUCCESSFULLY_RESEND_CONFIRM_EMAIL_ENTITY_S = 9005,
+            SUCCESSFULLY_LOGOUT = 9006,
             SUCCESSFULLY_DELETING_ENTITY_S = 9101
         }
 
@@ -61,46 +63,48 @@ namespace marketplace.Utilities.Const
 
                 // ERROR
                 case CODE.ERROR:
-                    return "Error.";
+                    return "Lỗi.";
                 case CODE.CLIENT_ERROR:
-                    return "Error.";
+                    return "Lỗi.";
                 case CODE.SERVER_ERROR:
-                    return "Error.";
+                    return "Lỗi.";
                 case CODE.SUCCESS:
-                    return "Successed.";
+                    return "Thành công.";
 
                 // CLIENT-ERROR
                 //---
                 case CODE.USERNAME_EXISTS_E:
-                    return "The username or email already exists.";
+                    return "Tên tài khoản hoặc email đã tồn tại.";
                 case CODE.USERNAME_PASSWORD_INCORRECT_E:
-                    return "The username or password is incorrect.";
+                    return "Tên tài khoản hoặc mật khẩu không đúng.";
                 case CODE.ROLE_EXISTS_E:
-                    return "The role already exists.";
+                    return "Vai trò đã tồn tại.";
                 case CODE.INVALID_REQUEST_DATA:
-                    return "Could not parse request data. Invalid Request Data.";
+                    return "Dữ liệu nhập không đúng.";
                 case CODE.REGISTER_FAILED_E:
-                    return "Registration failed";
+                    return "Đăng ký thất bại";
                 case CODE.NOT_AUTHORIZED_PLEASE_LOGIN_E:
-                    return "You are not authorized to access this route. Please login!";
+                    return "Người dùng cần có tài khoản xác thực để thực hiện hành động này, vui lòng đăng nhập.";
                 case CODE.NOT_AUTHORIZED_LOGGEDIN_E:
-                    return "You are not authorized to access this route";
+                    return "Người dùng không có đủ quyền thực hiện hành động này.";
                 case CODE.TOKEN_EXPIRED:
-                    return "Token has expired. Please login again!";
+                    return "Đăng nhập hết hạn, vui lòng đăng nhập lại.";
                 case CODE.BE_LOGGED_DONT_LOGIN:
-                    return "You are logged in. Please dont login again";
+                    return "Người dùng đang đăng nhập, vui lòng không đăng nhập lại.";
                 case CODE.ACCOUNT_NOT_ACTIVATED:
-                    return "Your account has not been activated";
+                    return "Tài khoản chưa xác thực";
                 case CODE.CONFIRM_EMAIL_FAILED:
-                    return "Email verification failed!";
+                    return "Xác thực email lỗi.";
+                case CODE.LOGOUT_FAILED:
+                    return "Đăng xuất lỗi.";
                 // ---
                 case CODE.ENTITY_CODE_EXISTS:
-                    return "The entity code already exists.";
+                    return "Thực thể đã tồn tại.";
                 case CODE.ENTITY_NOT_FOUND_E:
-                    return "Requested entity is not found";
+                    return "Không tìm thấy thực thể";
                 // ---
                 case CODE.ROUTE_NOT_FOUND:
-                    return "Route is not found";
+                    return "Không tìm thấy route này.";
 
                 // SERVER_ERROR
                 // ---
@@ -110,17 +114,19 @@ namespace marketplace.Utilities.Const
                 // SUCCESS
                 // ---
                 case CODE.SUCCESSFULLY_REGISTER_S:
-                    return "Your account has been succesfully created.";
+                    return "Đăng ký thành công";
                 case CODE.SUCCESSFULLY_CREATING_ROLE_S:
-                    return "The role has been succesfully created.";
+                    return "Vai trò đã được tạo thành công.";
                 case CODE.SUCCESSFULLY_CREATING_ENTITY_S:
-                    return "Entity has been succesfully created.";
+                    return "Thực thể đã được tạo thành công.";
                 case CODE.SUCCESSFULLY_DELETING_ENTITY_S:
-                    return "Entity has been succesfully deleted.";
+                    return "Thực thể đã được xóa thành công.";
                 case CODE.SUCCESSFULLY_CONFIRM_EMAIL_ENTITY_S:
-                    return "Email verification succeeded";
+                    return "Xác thực email thành công";
                 case CODE.SUCCESSFULLY_RESEND_CONFIRM_EMAIL_ENTITY_S:
-                    return "Succeeded";
+                    return "Thành công.";
+                case CODE.SUCCESSFULLY_LOGOUT:
+                    return "Thành công.";
 
                 default:
                     return "Error.";
