@@ -91,5 +91,32 @@ namespace marketplace.Services.Utils
             };
             return sanPham;
         }
+
+
+
+
+
+
+
+
+
+
+
+        public static TaiKhoan GetTaiKhoanFromRegisterDTO(RegisterDTO registerDTO)
+        {
+            var taiKhoan = new TaiKhoan()
+            {
+                Email = registerDTO.Email,
+                UserName = registerDTO.UserName,
+                HoTen = registerDTO.FullName,
+                TrangThai = TrangThai.KhongHoatDong
+            };
+            return taiKhoan;
+        }
+
+        public static UserDTO GetUserDTOFromTaiKhoan(TaiKhoan user)
+        {
+            return new UserDTO(user);
+        }
     }
 }

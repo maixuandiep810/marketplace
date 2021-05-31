@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using marketplace.WebApp.Extensions;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 
 namespace marketplace.WebApp
@@ -43,9 +45,14 @@ namespace marketplace.WebApp
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            
-            app.UseStaticFiles();
 
+            var wwwrootParentFolder = Directory.GetParent(Directory.GetCurrentDirectory()).ToString();
+
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(wwwrootParentFolder, "wwwroot"))
+            });
+            
             app.UseRouting();
 
             app.UseAuthorization();

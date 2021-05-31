@@ -9,7 +9,7 @@ namespace marketplace.Data.RepositoryPattern.Repositories
     {
         public TaiKhoanRepository(marketplaceDbContext marketplaceDbContext) : base(marketplaceDbContext)
         {
-
+        
         }
     }
 }

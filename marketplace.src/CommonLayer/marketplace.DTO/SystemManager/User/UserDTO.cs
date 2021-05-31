@@ -13,13 +13,21 @@ namespace marketplace.DTO.SystemManager.User
         public bool LaNguoiBan { get; set; }
         public ImageDTO ImageDTO { get; set; }
 
-        public UserDTO(TaiKhoan user)
+        public UserDTO()
         {
-            Id = user.Id.ToString();
-            Username = user.UserName;
-            HoTen = user.HoTen;
-            NgaySinh = user.NgaySinh;
-            LaNguoiBan = user.LaNguoiBan;
+            
+        }
+
+        public UserDTO(TaiKhoan user) : this()
+        {
+            if (user != null)
+            {
+                Id = user.Id.ToString();
+                Username = user.UserName;
+                HoTen = user.HoTen;
+                NgaySinh = user.NgaySinh;
+                LaNguoiBan = user.LaNguoiBan;
+            }
         }
     }
 }

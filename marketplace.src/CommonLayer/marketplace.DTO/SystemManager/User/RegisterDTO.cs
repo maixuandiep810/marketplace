@@ -10,17 +10,6 @@ namespace marketplace.DTO.SystemManager.User
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
         public string FullName { get; set; }
-
-        public static TaiKhoan ToTaiKhoan(RegisterDTO registerDTO)
-        {
-            var taiKhoan = new TaiKhoan()
-            {
-                Email = registerDTO.Email,
-                UserName = registerDTO.UserName,
-                HoTen = registerDTO.FullName
-            };
-            return taiKhoan;
-        }
     }
 
     public class RegisterDTOValidator : AbstractValidator<RegisterDTO>

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.DependencyInjection;
 using marketplace.Services.SystemManager.User;
 using marketplace.Services.Catalog.Category;
@@ -33,9 +34,13 @@ namespace marketplace.BackendApi.Extensions
             services.AddDbContext<marketplaceDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString(SystemConst.MAIN_CONNECTION_STRING)));
 
-            services.AddIdentity<TaiKhoan, VaiTro>()
-                .AddEntityFrameworkStores<marketplaceDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<TaiKhoan, VaiTro>(
+                options =>
+                {
+                    options.SignIn.RequireConfirmedEmail = true;
+                }
+            ).AddEntityFrameworkStores<marketplaceDbContext>()
+             .AddDefaultTokenProviders();
             return services;
         }
 
@@ -58,6 +63,7 @@ namespace marketplace.BackendApi.Extensions
             services.AddTransient<UserManager<TaiKhoan>, UserManager<TaiKhoan>>();
             services.AddTransient<SignInManager<TaiKhoan>, SignInManager<TaiKhoan>>();
             services.AddTransient<RoleManager<VaiTro>, RoleManager<VaiTro>>();
+            services.AddTransient<IEmailSender, EmailSender>();
             return services;
         }
 

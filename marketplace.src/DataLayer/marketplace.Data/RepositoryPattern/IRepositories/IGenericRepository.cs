@@ -16,6 +16,7 @@ namespace marketplace.Data.RepositoryPattern.IRepositories
 
         IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
         Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+        void ActiveEntity(TEntity entity);
 
 
         // void AddRange(IEnumerable<TEntity> entities);

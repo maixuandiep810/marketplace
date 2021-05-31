@@ -8,6 +8,7 @@ using marketplace.Data.Entities;
 using System.Linq.Expressions;
 using System.Linq;
 using marketplace.Utilities.Const;
+using marketplace.Data.Enums;
 
 namespace marketplace.Data.RepositoryPattern.Repositories
 {
@@ -125,6 +126,10 @@ namespace marketplace.Data.RepositoryPattern.Repositories
             // {
             //     throw ex;
             // }
+        }
+
+        public void ActiveEntity(TEntity entity) {
+            entity.TrangThai = TrangThai.HoatDong;
         }
 
     }

@@ -11,5 +11,7 @@ namespace marketplace.Services.SystemManager.User
         Task<ApiResult<string>> LoginAsync(LoginDTO request);
         Task<List<string>> GetRoleNameAsync(string userId);
         Task<ApiResult<UserDTO>> GetByUserNameAsync(string userName);
+        Task<ApiResult<bool>> ConfirmUserEmail(string userEmail, string token);
+        Task<ApiResult<bool>> ResendConfirmEmail(string userEmail);
     }
 }

@@ -66,5 +66,26 @@ namespace marketplace.BackendApi.Controllers
             var result = await _userService.GetByUserNameAsync(userName);
             return Ok(result);
         }
+
+        [HttpGet(UriConst.API_USERS_CONFIRM_EMAIL_GET_PATH)]
+        public async Task<IActionResult> ConfirmUserEmail([FromQuery] string userEmail, [FromQuery] string token)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok(new ApiResult<bool>(ApiResultConst.CODE.INVALID_REQUEST_DATA, false, false, null, ModelState.GetMessageList()));
+            }
+            var result = await _userService.ConfirmUserEmail(userEmail, token);
+            return Ok(result);
+        }
+        [HttpGet(UriConst.API_USERS_RESEND_CONFIRM_EMAIL_GET_PATH)]
+        public async Task<IActionResult> ResendConfirmUserEmail(string userEmail)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok(new ApiResult<bool>(ApiResultConst.CODE.INVALID_REQUEST_DATA, false, false, null, ModelState.GetMessageList()));
+            }
+            var result = await _userService.ResendConfirmEmail(userEmail);
+            return Ok(result);
+        }
     }
 }

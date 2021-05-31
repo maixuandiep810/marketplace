@@ -6,6 +6,10 @@ namespace marketplace.Utilities.Const
         public const string API_USERS_USER_NAME_GET_PATH = @"/users/{userName}";
         public const string API_USERS_REGISTER_POST_PATH = @"/users/register";
         public const string API_USERS_REGISTER_POST_REQUEST = @"/users/register";
+        public const string API_USERS_CONFIRM_EMAIL_GET_PATH = @"/users/confirmemail";
+        public const string API_USERS_CONFIRM_EMAIL_GET_PATH_WITHOUT_PARAMS = @"/users/confirmemail";
+        public const string API_USERS_RESEND_CONFIRM_EMAIL_GET_PATH = @"/users/resendconfirmemail/{userEmail}";
+        public const string API_USERS_RESEND_CONFIRM_EMAIL_GET_PATH_WITHOUT_PARAMS = @"/users/resendconfirmemail";
         public const string API_USERS_LOGIN_POST_PATH = @"/users/login";
         public const string API_USERS_LOGIN_POST_REQUEST = @"/users/login";
         public const string API_USERS_UPDATE_PUTCH_PATH = @"/users/login/{userId}";

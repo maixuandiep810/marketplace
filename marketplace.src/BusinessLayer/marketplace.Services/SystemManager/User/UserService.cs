@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Collections.Generic;
 using marketplace.Data.UnitOfWorkPattern;
 using marketplace.Data.Entities;
@@ -16,6 +17,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using marketplace.Services.Common;
 using marketplace.Utilities.Common;
+using marketplace.Services.Utils;
+using marketplace.Data.Enums;
+using System.Security.Policy;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Web;
 
 namespace marketplace.Services.SystemManager.User
 {
@@ -23,10 +29,12 @@ namespace marketplace.Services.SystemManager.User
     {
         private readonly UserManager<TaiKhoan> _userManager;
         private readonly SignInManager<TaiKhoan> _signInManager;
+        private readonly IEmailSender _emailSender;
         private readonly IImageService _imageService;
 
         public UserService(UserManager<TaiKhoan> userManager,
             SignInManager<TaiKhoan> signInManager,
+            IEmailSender emailSender,
             IImageService imageService,
             IConfiguration configuration,
             IUnitOfWork unitOfWork,
@@ -35,6 +43,7 @@ namespace marketplace.Services.SystemManager.User
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailSender = emailSender;
             _imageService = imageService;
         }
         public async Task<ApiResult<bool>> RegisterAsync(RegisterDTO request)
@@ -47,21 +56,83 @@ namespace marketplace.Services.SystemManager.User
                     return new ApiResult<bool>(ApiResultConst.CODE.USERNAME_EXISTS_E, false, false, null);
                 }
 
-                user = RegisterDTO.ToTaiKhoan(request);
+                user = ConverterDTOEntity.GetTaiKhoanFromRegisterDTO(request);
                 var createResult = await _userManager.CreateAsync(user, request.Password);
-                if (createResult.Succeeded)
-                {
-                    return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_REGISTER_S, true, true, null);
-                }
-                else
+                if (createResult.Succeeded == false)
                 {
                     return new ApiResult<bool>(ApiResultConst.CODE.REGISTER_FAILED_E, false, false, null);
                 }
+
+                await SendConfirmEmail(user);
+
+                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_REGISTER_S, true, true, null);
             }
             catch (System.Exception ex)
             {
                 return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
             }
+        }
+
+        public async Task<ApiResult<bool>> ConfirmUserEmail(string userEmail, string token)
+        {
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(userEmail);
+                if (user == null)
+                {
+                    return new ApiResult<bool>(ApiResultConst.CODE.CONFIRM_EMAIL_FAILED, false, false, null);
+                }
+
+                var resultConfirm = await _userManager.ConfirmEmailAsync(user, token);
+                if (resultConfirm.Succeeded == false)
+                {
+                    return new ApiResult<bool>(ApiResultConst.CODE.CONFIRM_EMAIL_FAILED, false, false, null);
+                }
+
+                _unitOfWork.TaiKhoanRepository.ActiveEntity(user);
+                await _unitOfWork.SaveChangesAsync();
+
+                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_CONFIRM_EMAIL_ENTITY_S, true, true, null);
+            }
+            catch (System.Exception ex)
+            {
+                return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
+            }
+        }
+
+        public async Task<ApiResult<bool>> ResendConfirmEmail(string userEmail)
+        {
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(userEmail);
+                if (user == null)
+                {
+                    return new ApiResult<bool>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, false, null);
+                }
+
+                await SendConfirmEmail(user);
+
+                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_RESEND_CONFIRM_EMAIL_ENTITY_S, true, true, null);
+            }
+            catch (System.Exception ex)
+            {
+                return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
+            }
+        }
+
+        private async Task SendConfirmEmail(TaiKhoan user)
+        {
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var encodeToken = HttpUtility.UrlEncode(token);
+            var email = user.Email;
+            var host = _configuration[ConfigKeyConst.BASE_API_ADDRESS];
+            var path = UriConst.API_USERS_CONFIRM_EMAIL_GET_PATH_WITHOUT_PARAMS;
+
+            var confirmationLink = String.Format("{0}{1}?useremail={2}&token={3}", host, path, email, encodeToken);
+        
+            var messageContent = $"Please confirm your email, {confirmationLink}";
+
+            await _emailSender.SendEmailAsync(email, EmailConst.CONFIRM_EMAIL_SUBJECT, messageContent);
         }
 
         /// <summary>
@@ -81,6 +152,10 @@ namespace marketplace.Services.SystemManager.User
                 if (user == null || (await _signInManager.PasswordSignInAsync(user, request.Password, true, true)).Succeeded == false)
                 {
                     return new ApiResult<string>(ApiResultConst.CODE.USERNAME_PASSWORD_INCORRECT_E, false, null, null);
+                }
+                if (user.TrangThai == TrangThai.KhongHoatDong)
+                {
+                    return new ApiResult<string>(ApiResultConst.CODE.ACCOUNT_NOT_ACTIVATED, false, null, null);
                 }
 
                 var claims = new[]
@@ -113,7 +188,7 @@ namespace marketplace.Services.SystemManager.User
                 {
                     return new ApiResult<UserDTO>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, null, null);
                 }
-                var userDTO = new UserDTO(user);
+                var userDTO = ConverterDTOEntity.GetUserDTOFromTaiKhoan(user);
                 HinhAnh image = null;
                 try
                 {
@@ -122,7 +197,7 @@ namespace marketplace.Services.SystemManager.User
                 catch (System.Exception)
                 {
                 }
-                var imageDTO = image != null ? new ImageDTO(image) : new ImageDTO();
+                var imageDTO = image != null ? new ImageDTO(image) : null;
                 userDTO.ImageDTO = imageDTO;
                 return new ApiResult<UserDTO>(ApiResultConst.CODE.SUCCESS, true, userDTO, null);
             }

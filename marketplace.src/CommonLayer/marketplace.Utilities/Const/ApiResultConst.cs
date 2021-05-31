@@ -26,6 +26,8 @@ namespace marketplace.Utilities.Const
             NOT_AUTHORIZED_LOGGEDIN_E = 6007,
             TOKEN_EXPIRED = 6008,
             BE_LOGGED_DONT_LOGIN = 6009,
+            ACCOUNT_NOT_ACTIVATED = 6010,
+            CONFIRM_EMAIL_FAILED = 6011,
             // ---
             ENTITY_CODE_EXISTS = 6101,
             ENTITY_NOT_FOUND_E = 6102,
@@ -41,7 +43,9 @@ namespace marketplace.Utilities.Const
             // ---
             SUCCESSFULLY_REGISTER_S = 9001,
             SUCCESSFULLY_CREATING_ROLE_S = 9002,
-            SUCCESSFULLY_CREATING_ENTITY_S = 9051,
+            SUCCESSFULLY_CREATING_ENTITY_S = 9003,
+            SUCCESSFULLY_CONFIRM_EMAIL_ENTITY_S = 9004,
+            SUCCESSFULLY_RESEND_CONFIRM_EMAIL_ENTITY_S = 9005,
             SUCCESSFULLY_DELETING_ENTITY_S = 9101
         }
 
@@ -83,8 +87,12 @@ namespace marketplace.Utilities.Const
                     return "You are not authorized to access this route";
                 case CODE.TOKEN_EXPIRED:
                     return "Token has expired. Please login again!";
-                    case CODE.BE_LOGGED_DONT_LOGIN:
+                case CODE.BE_LOGGED_DONT_LOGIN:
                     return "You are logged in. Please dont login again";
+                case CODE.ACCOUNT_NOT_ACTIVATED:
+                    return "Your account has not been activated";
+                case CODE.CONFIRM_EMAIL_FAILED:
+                    return "Email verification failed!";
                 // ---
                 case CODE.ENTITY_CODE_EXISTS:
                     return "The entity code already exists.";
@@ -109,6 +117,10 @@ namespace marketplace.Utilities.Const
                     return "Entity has been succesfully created.";
                 case CODE.SUCCESSFULLY_DELETING_ENTITY_S:
                     return "Entity has been succesfully deleted.";
+                case CODE.SUCCESSFULLY_CONFIRM_EMAIL_ENTITY_S:
+                    return "Email verification succeeded";
+                case CODE.SUCCESSFULLY_RESEND_CONFIRM_EMAIL_ENTITY_S:
+                    return "Succeeded";
 
                 default:
                     return "Error.";
