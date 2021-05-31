@@ -12,7 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using marketplace.BackendApi.Extensions;
 using FluentValidation.AspNetCore;
-
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace marketplace.BackendApi
 {
@@ -28,7 +29,7 @@ namespace marketplace.BackendApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddFluentValidation();
+            services.AddControllersWithViews().AddFluentValidation();
             services.AddAspDotNetServices();
             services.AddDatabaseServices(Configuration);
             services.AddIdentityServices();
@@ -43,11 +44,16 @@ namespace marketplace.BackendApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            // app.UseHttpsRedirection();
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+            app.UseHttpsRedirection();
 
             app.UseStaticFiles();
-
+            
             app.UseRouting();
 
             // app.UseMPExceptionHandler();
@@ -59,7 +65,9 @@ namespace marketplace.BackendApi
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
