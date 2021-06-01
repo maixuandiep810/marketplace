@@ -20,6 +20,8 @@ namespace marketplace.Data.Configurations
 
             builder.Property(x => x.DaXoa).HasDefaultValue(0);
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
+            builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
+
 
             builder.HasOne<SanPham>(x => x.SanPham).WithMany(x => x.ChiTietDonHangs).HasForeignKey(x => x.SanPhamId);
             builder.HasOne<DonHang>(x => x.DonHang).WithMany(x => x.ChiTietDonHangs).HasForeignKey(x => x.DonHangId);

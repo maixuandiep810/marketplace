@@ -16,7 +16,7 @@
         return;
     }
 
-    //// NULL 
+    //// NULL
     var userDTOs = apiResult.Data.PageContent;
     var currentPage = apiResult.Data.Page;
 }
@@ -35,20 +35,29 @@
                             <th style="width: 10px">#</th>
                             <th>Username</th>
                             <th>Email</th>
-                            <th style="width: 40px">Label</th>
+                            <th>Status</th>
+                            <th style="width: 20%">Label</th>
                         </tr>
                     </thead>
                     <tbody>
                         @{
                             var i = 1;
-
                             foreach (var userDTO in userDTOs)
                             {
+                                var detailLink = "/user/" + userDTO.Username;
                                 <tr>
                                     <td>@i.</td>
                                     <td>@userDTO.Username</td>
                                     <td>@userDTO.Email</td>
-                                    <td><span class="badge bg-danger">Delete</span></td>
+                                    <td>NULL</td>
+                                    <td>
+                                        <span class="badge bg-danger">
+                                            <a href="@detailLink">Detail</a>
+                                        </span>
+                                        <span class="badge bg-danger">
+                                            <a asp-action="Index" asp-controller="User">Delete</a>
+                                        </span>
+                                    </td>
                                 </tr>
                                 i += 1;
                             }

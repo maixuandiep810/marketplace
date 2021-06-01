@@ -5,6 +5,7 @@ namespace marketplace.Data.Entities
     public class LangNghe : IBaseEntity<int>
     {
         public int Id { get; set; }
+        public string MaSo { get; set; }
         public bool DaXoa { get; set; }
         public TrangThai TrangThai { set; get; }
 
@@ -16,7 +17,7 @@ namespace marketplace.Data.Entities
         public int CapXaId { get; set; }
 
 
-        
+
         public virtual CapXa CapXa { get; set; }
         public virtual List<LangNgheDanhMuc> LangNgheDanhMucs { get; set; }
         public virtual List<CuaHang> CuaHangs { get; set; }

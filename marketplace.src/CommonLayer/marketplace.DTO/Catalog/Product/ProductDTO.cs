@@ -21,20 +21,20 @@ namespace marketplace.DTO.Catalog.Product
         {
         }
 
-        public ProductDTO(SanPham prd, ChiTietSanPham detail) : this()
+        public ProductDTO(SanPham prd) : this()
         {
             Id = prd.Id;
-            Code = prd.MaSP;
+            Code = prd.MaSo;
             Price = prd.DonGia;
             OriginalPrice = prd.DonGiaGoc;
             Quantity = prd.SoLuong;
             ViewCount = prd.LuotXem;
-            Name = detail.Ten;
-            FullName = detail.TenDayDu;
-            Description = detail.MoTa;
+            Name = prd.Ten;
+            FullName = prd.TenDayDu;
+            Description = prd.MoTa;
         }
 
-        public ProductDTO(SanPham prd, ChiTietSanPham detail, List<ImageDTO> imageDTOs) : this(prd, detail)
+        public ProductDTO(SanPham prd, List<ImageDTO> imageDTOs) : this(prd)
         {
             ImageDTOs = new List<ImageDTO>();
             ImageDTOs = imageDTOs;

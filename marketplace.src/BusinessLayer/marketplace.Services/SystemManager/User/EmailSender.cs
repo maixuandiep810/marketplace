@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace marketplace.Services.SystemManager.User
             message.Body = messageContent;
             // message.Body ="<html><body> " + htmlMessage + " </body></html>";
             // message.IsBodyHtml = true;
- 
+            await Task.Delay(1);
             var smtpClient = new SmtpClient(_configuration[ConfigKeyConst.STMP_CLIENT])
             {
                 Port = 587,

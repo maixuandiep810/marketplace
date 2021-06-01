@@ -8,15 +8,16 @@ namespace marketplace.Data.Entities
     public class DanhMuc : IBaseEntity<int>
     {
         public int Id { set; get; }
+        public string MaSo { get; set; }
         public bool DaXoa { get; set; }
         public TrangThai TrangThai { set; get; }
 
-        public string MaSo { get; set; }
+        public string Ten { set; get; }
+        public string MoTa { set; get; }
         public bool HienThiTrangChu { set; get; }
 
         public virtual List<SanPhamDanhMuc> SanPhamDanhMucs { get; set; }
         public virtual List<LangNgheDanhMuc> LangNgheDanhMucs { get; set; }
-        public virtual List<ChiTietDanhMuc> ChiTietDanhMucs { get; set; }
     }
 }
 

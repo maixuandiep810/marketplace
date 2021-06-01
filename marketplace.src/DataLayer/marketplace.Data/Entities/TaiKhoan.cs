@@ -8,6 +8,7 @@ namespace marketplace.Data.Entities
 {
     public class TaiKhoan : IdentityUser<Guid>, IBaseEntity<Guid>
     {
+        public string MaSo { get; set; }
         public bool DaXoa { get; set; }
         public TrangThai TrangThai { set; get; }
 

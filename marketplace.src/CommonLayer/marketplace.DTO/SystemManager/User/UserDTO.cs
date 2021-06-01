@@ -8,9 +8,10 @@ namespace marketplace.DTO.SystemManager.User
     {
         public string Id { get; set; }
         public string Username { get; set; }
-        public string HoTen { get; set; }
-        public DateTime NgaySinh { get; set; }
-        public bool LaNguoiBan { get; set; }
+        public string Email { get; set; }
+        public string FullName { get; set; }
+        public DateTime Dob { get; set; }
+        public bool IsSeller { get; set; }
         public ImageDTO ImageDTO { get; set; }
         public string JwtToken { get; set; }
 
@@ -25,9 +26,10 @@ namespace marketplace.DTO.SystemManager.User
             {
                 Id = user.Id.ToString();
                 Username = user.UserName;
-                HoTen = user.HoTen;
-                NgaySinh = user.NgaySinh;
-                LaNguoiBan = user.LaNguoiBan;
+                Email = user.Email;
+                FullName = user.HoTen;
+                Dob = user.NgaySinh;
+                IsSeller = user.LaNguoiBan;
             }
         }
     }

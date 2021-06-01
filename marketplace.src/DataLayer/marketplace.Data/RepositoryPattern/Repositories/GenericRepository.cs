@@ -157,5 +157,15 @@ namespace marketplace.Data.RepositoryPattern.Repositories
             }
             _entities.RemoveRange(deletedEntities);
         }
+
+        public async Task<int> CountRecordAsync()
+        {
+            return await _entities.CountAsync();
+        }
+
+        public async Task<List<TEntity>> GetPageByIdAsync(int start, int limit)
+        {
+            return await _entities.Select(x => x).OrderByDescending(x => x.Id).Skip(start).Take(limit).ToListAsync();
+        }
     }
 }

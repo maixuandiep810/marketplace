@@ -24,8 +24,11 @@ namespace marketplace.Data.EF
             modelBuilder.ApplyConfiguration(new ChiTietDonHangCF());
             modelBuilder.ApplyConfiguration(new CuaHangCF());
             modelBuilder.ApplyConfiguration(new DanhMucCF());
-            modelBuilder.ApplyConfiguration(new ChiTietDanhMucCF());
-            modelBuilder.ApplyConfiguration(new ChiTietSanPhamCF());
+            
+            // modelBuilder.ApplyConfiguration(new ChiTietDanhMucCF());
+            // modelBuilder.ApplyConfiguration(new ChiTietSanPhamCF());
+            // modelBuilder.ApplyConfiguration(new NgonNguCF());
+
             modelBuilder.ApplyConfiguration(new DonHangCF());
 
 
@@ -38,7 +41,6 @@ namespace marketplace.Data.EF
             modelBuilder.ApplyConfiguration(new LangNgheCF());
             modelBuilder.ApplyConfiguration(new LangNgheDanhMucCF());
 
-            modelBuilder.ApplyConfiguration(new NgonNguCF());
             modelBuilder.ApplyConfiguration(new NguoiBanCF());
 
             modelBuilder.ApplyConfiguration(new QuanLyDonHangCF());
@@ -86,7 +88,6 @@ namespace marketplace.Data.EF
         public DbSet<ChiTietDonHang> ChiTietDonHangs { get; set; }
         public DbSet<CuaHang> CuaHangs { get; set; }
         public DbSet<DanhMuc> DanhMucs { get; set; }
-        public DbSet<ChiTietDanhMuc> ChiTietDanhMucs { get; set; }
         public DbSet<DonHang> DonHangs { get; set; }
 
         public DbSet<GiaoDich> GiaoDichs { get; set; }
@@ -94,17 +95,22 @@ namespace marketplace.Data.EF
         public DbSet<HinhAnh> HinhAnhs { get; set; }
 
         public DbSet<KhachHang> KhachHangs { get; set; }
-        // public DbSet<JwtToken> JwtTokens { get; set; }
 
         public DbSet<LangNghe> LangNghes { get; set; }
         public DbSet<LangNgheDanhMuc> LangNgheDanhMucs { get; set; }
-        public DbSet<NgonNgu> NgonNgus { get; set; }
         public DbSet<NguoiBan> NguoiBans { get; set; }
 
         public DbSet<QuanLyDonHang> QuanLyDonHangs { get; set; }
+
+        // public DbSet<JwtToken> JwtTokens { get; set; }
+        // public DbSet<NgonNgu> NgonNgus { get; set; }
         // public DbSet<QuyenEntity> QuyenEntities { get; set; }
         // public DbSet<QuyenEntityTaiKhoan> QuyenEntityTaiKhoans { get; set; }
         // public DbSet<QuyenEntityVaiTro> QuyenEntityVaiTros { get; set; }
+        // public DbSet<ChiTietDanhMuc> ChiTietDanhMucs { get; set; }
+        // public DbSet<ChiTietSanPham> ChiTietSanPhams { get; set; }
+
+
         public DbSet<QuyenRoute> QuyenRoutes { get; set; }
         public DbSet<QuyenRouteVaiTro> QuyenRouteVaiTros { get; set; }
 
@@ -112,7 +118,6 @@ namespace marketplace.Data.EF
 
         public DbSet<SanPham> SanPhams { get; set; }
         public DbSet<SanPhamDanhMuc> SanPhamDanhMucs { get; set; }
-        public DbSet<ChiTietSanPham> ChiTietSanPhams { get; set; }
         public DbSet<TaiKhoan> TaiKhoans { get; set; }
         public DbSet<VaiTro> VaiTros { get; set; }
     }

@@ -8,10 +8,10 @@ namespace marketplace.Data.Entities
     public class DonHang : IBaseEntity<int>
     {
         public int Id { set; get; }
+        public string MaSo { get; set; }
         public bool DaXoa { get; set; }
         public TrangThai TrangThai { set; get; }
 
-        public string MaDH { get; set; }
         public string MoTa { get; set; }
         public decimal ThanhTien { get; set; }
         public TrangThaiDonHang TrangThaiDonHang { set; get; }

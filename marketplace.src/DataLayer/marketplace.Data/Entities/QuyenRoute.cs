@@ -6,6 +6,7 @@ namespace marketplace.Data.Entities
     public class QuyenRoute : IBaseEntity<int>
     {
         public int Id { get; set; }
+        public string MaSo { get; set; }
         public bool DaXoa { get; set; }
         public TrangThai TrangThai { set; get; }
 
@@ -14,7 +15,6 @@ namespace marketplace.Data.Entities
         public string HanhDong { get; set; }
         public string PathRegex { get; set; }
         public bool LaRouteCanXacThuc { get; set; }
-        public int BitFields { get; set; }
 
         public List<QuyenRouteVaiTro> QuyenRouteVaiTros { get; set; }
     }

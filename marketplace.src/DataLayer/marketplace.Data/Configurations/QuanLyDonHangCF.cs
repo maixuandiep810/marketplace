@@ -17,6 +17,7 @@ namespace marketplace.Data.Configurations
             builder.HasKey(x => x.Id);
             builder.HasAlternateKey(x => new { x.CuaHangId, x.DonHangId });
 
+            builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
             builder.Property(x => x.DaXoa).HasDefaultValue(0);
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
 

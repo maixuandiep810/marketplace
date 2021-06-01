@@ -59,6 +59,8 @@ namespace marketplace.BackendApi
 
             app.UseRouting();
 
+            app.UseMPCommonMiddleware();
+
             // app.UseMPExceptionHandler();
 
             // app.UseMPAuthenticationMiddleware();

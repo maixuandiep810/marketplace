@@ -27,9 +27,9 @@ namespace marketplace.Data.UnitOfWorkPattern
 
         public IDanhMucRepository DanhMucRepository { get; }
 
-        public IChiTietDanhMucRepository ChiTietDanhMucRepository { get; }
+        // public IChiTietDanhMucRepository ChiTietDanhMucRepository { get; }
 
-        public IChiTietSanPhamRepository ChiTietSanPhamRepository { get; }
+        // public IChiTietSanPhamRepository ChiTietSanPhamRepository { get; }
 
         public IDonHangRepository DonHangRepository { get; }
 
@@ -47,7 +47,7 @@ namespace marketplace.Data.UnitOfWorkPattern
 
         public ILangNgheDanhMucRepository LangNgheDanhMucRepository { get; }
 
-        public INgonNguRepository NgonNguRepository { get; }
+        // public INgonNguRepository NgonNguRepository { get; }
 
         public INguoiBanRepository NguoiBanRepository { get; }
 
@@ -73,9 +73,9 @@ namespace marketplace.Data.UnitOfWorkPattern
             CapTinhRepository = new CapTinhRepository(_context);
             CapHuyenRepository = new CapHuyenRepository(_context);
             CapXaRepository = new CapXaRepository(_context);
-            ChiTietDanhMucRepository = new ChiTietDanhMucRepository(_context);
+            // ChiTietDanhMucRepository = new ChiTietDanhMucRepository(_context);
             ChiTietDonHangRepository = new ChiTietDonHangRepository(_context);
-            ChiTietSanPhamRepository = new ChiTietSanPhamRepository(_context);
+            // ChiTietSanPhamRepository = new ChiTietSanPhamRepository(_context);
             CuaHangRepository = new CuaHangRepository(_context);
             DanhMucRepository = new DanhMucRepository(_context);
             DonHangRepository = new DonHangRepository(_context);
@@ -86,7 +86,7 @@ namespace marketplace.Data.UnitOfWorkPattern
             // JwtTokenRepository = new JwtTokenRepository(_context);
             LangNgheDanhMucRepository = new LangNgheDanhMucRepository(_context);
             LangNgheRepository = new LangNgheRepository(_context);
-            NgonNguRepository = new NgonNguRepository(_context);
+            // NgonNguRepository = new NgonNguRepository(_context);
             NguoiBanRepository = new NguoiBanRepository(_context);
             NguoiBanRepository = new NguoiBanRepository(_context);
             QuanLyDonHangRepository = new QuanLyDonHangRepository(_context);

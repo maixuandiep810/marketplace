@@ -17,7 +17,7 @@ namespace marketplace.Data.RepositoryPattern.Repositories
         {
             try
             {
-                var product = await FirstOrDefaultAsync(x => x.MaSP == code);
+                var product = await FirstOrDefaultAsync(x => x.MaSo == code);
                 // if (product == null)
                 // {
                 //     return null;

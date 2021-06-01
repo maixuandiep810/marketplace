@@ -48,13 +48,9 @@ namespace marketplace.Services.Utils
         {
             return new CategoryDTO(danhMuc);
         }
-        public static CategoryDTO GetCategoryDTOFromDanhMuc(DanhMuc danhMuc, ChiTietDanhMuc chiTietDanhMuc)
+        public static CategoryDTO GetCategoryDTOFromDanhMuc(DanhMuc danhMuc, ImageDTO imageDTO)
         {
-            return new CategoryDTO(danhMuc, chiTietDanhMuc);
-        }
-        public static CategoryDTO GetCategoryDTOFromDanhMuc(DanhMuc danhMuc, ChiTietDanhMuc chiTietDanhMuc, ImageDTO imageDTO)
-        {
-            return new CategoryDTO(danhMuc, chiTietDanhMuc, imageDTO);
+            return new CategoryDTO(danhMuc, imageDTO);
         }
 
         public static DanhMuc GetDanhMucFromCreateCategoryDTO(CreateCategoryDTO createCategoryDTO)
@@ -68,36 +64,17 @@ namespace marketplace.Services.Utils
             return danhMuc;
         }
 
-        public static ChiTietDanhMuc GetChiTietDanhMucFromDetailCategoryDTO(DetailCategoryDTO detailCD)
-        {
-            var chiTietDanhMuc = new ChiTietDanhMuc()
-            {
-                NgonNguId = detailCD.LanguageId,
-                Ten = detailCD.Name,
-                MoTa = detailCD.Description
-            };
-            return chiTietDanhMuc;
+
+        public static ProductDTO GetProductDTOFromProduct(SanPham product) {
+            return new ProductDTO(product);
         }
-        public static List<ChiTietDanhMuc> GetChiTietDanhMucsFromDetailCategoryDTOs(List<DetailCategoryDTO> detailCD)
-        {
-            if (detailCD == null)
-            {
-                return null;
-            }
-            var categories = new List<ChiTietDanhMuc>();
-            foreach (var item in detailCD)
-            {
-                var category = GetChiTietDanhMucFromDetailCategoryDTO(item);
-                categories.Add(category);
-            }
-            return categories;
-        }
+
 
         public static SanPham GetSanPhamFromCreateProductDTO(CreateProductDTO createPDTO)
         {
             var sanPham = new SanPham()
             {
-                MaSP = createPDTO.Code,
+                MaSo = createPDTO.Code,
                 DonGiaGoc = createPDTO.OriginalPrice,
                 DonGia = createPDTO.OriginalPrice,
                 SoLuong = createPDTO.Quantity,
@@ -105,6 +82,9 @@ namespace marketplace.Services.Utils
             };
             return sanPham;
         }
+
+
+
 
 
 
@@ -132,6 +112,40 @@ namespace marketplace.Services.Utils
         {
             return new UserDTO(user);
         }
+
+
+        public static RoleDTO GetRoleDTOFromVaiTro(VaiTro vaiTro)
+        {
+            return new RoleDTO(vaiTro);
+        }
+
+
+
+        public static RoutePermissionDTO GetRoutePermissionDTOFromQuyenRoute(QuyenRoute quyenRoute)
+        {
+            return new RoutePermissionDTO(quyenRoute);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

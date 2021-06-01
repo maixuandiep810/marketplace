@@ -11,7 +11,9 @@ namespace marketplace.DTO.Catalog.Product
         public string Code { get; set; }
         public decimal OriginalPrice { set; get; }
         public int Quantity { set; get; }
-        public List<DetailProductDTO> DetailProductDTOs { get; set; }
+        public string Name { get; set; }
+        public string FullName { get; set; }
+        public string Description { get; set; }
         public List<CreateImageDTO> Images { get; set; }
     }
 

@@ -1,5 +1,6 @@
 @using marketplace.Utilities.Const
-@using static marketplace.Utilities.WebMVC.Extensions.NavigationIndicatorHelper n;
+@using static marketplace.Utilities.WebMVC.Extensions.NavigationIndicatorHelper;
+
 @{
     var userName = Context.Request.Cookies[CookieConst.UserName];
     var userImage = Context.Request.Cookies[CookieConst.UserImage];
@@ -24,7 +25,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item ">
-                    <a asp-controller="Home" asp-action="Index" class='nav-link @Url.MakeActiveClass("home","index")'>
+                    <a href="@UrlConst.g_home_get" class='nav-link @Url.MakeActiveClass("home","index")'>
                         <i class="nav-icon fas fa-home"></i>
                         <p>
                             Home
@@ -34,7 +35,7 @@
                 @if (roleGroup == RoleConst.Group.Admin)
                 {
                     <li class="nav-item ">
-                        <a asp-controller="Home" asp-action="Index" class='nav-link @Url.MakeActiveClass("home","index")'>
+                        <a href="@UrlConst.g_home_get" class='nav-link @Url.MakeActiveClass("home","index")'>
                             <i class="nav-icon fas fa-home"></i>
                             <p>
                                 VIP 1
@@ -45,7 +46,7 @@
                 @if (String.IsNullOrEmpty(userName))
                 {
                     <li class="nav-item ">
-                        <a asp-controller="User" asp-action="Login" class='nav-link @Url.MakeActiveClass("user","login")'>
+                        <a href="@UrlConst.g_user_login_post" class='nav-link @Url.MakeActiveClass("user","login")'>
                             <i class="nav-icon fas fa-lock"></i>
                             <p>
                                 Login

@@ -21,7 +21,7 @@ namespace marketplace.DTO.Common
         {
             if (image != null)
             {
-                Code = image.MaHA;
+                Code = image.MaSo;
                 Description = image.MoTa;
                 Url = image.Url;
                 Caption = image.TieuDe;

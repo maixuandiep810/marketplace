@@ -25,8 +25,8 @@ namespace marketplace.BackendApi.Controllers
             _userService = userService;
         }
 
-        [HttpGet(UrlConst.user_index_get)]
-        public async Task<IActionResult> Index(int? page = 0)
+        [HttpGet(UrlConst.ad_user_all_get)]
+        public async Task<IActionResult> Ad_GetAll(int? page = 0)
         {
             var result = await _userService.GetPageAsync(page);
             ViewData["ApiResult"] = result;
@@ -35,13 +35,13 @@ namespace marketplace.BackendApi.Controllers
         }
 
 
-        [HttpGet(UrlConst.user_login_get)]
+        [HttpGet(UrlConst.g_user_login_get)]
         public IActionResult Login()
         {
             return View();
         }
 
-        [HttpPost(UrlConst.user_login_post)]
+        [HttpPost(UrlConst.g_user_login_post)]
         public async Task<IActionResult> Login([FromForm] LoginDTO request)
         {
             /// <summary>
@@ -64,7 +64,8 @@ namespace marketplace.BackendApi.Controllers
             return View();
         }
 
-        [HttpGet(UrlConst.user_logout_get)]
+
+        [HttpGet(UrlConst.acc_user_logout_get)]
         public IActionResult Logout()
         {
             HttpContext.Session.Remove(CookieConst.SessionMP);
@@ -73,8 +74,20 @@ namespace marketplace.BackendApi.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet(UrlConst.user_username_get)]
-        public async Task<IActionResult> GetUser(string username)
+
+        [HttpGet(UrlConst.ad_user_username_detail_get)]
+        public async Task<IActionResult> Ad_DetailUser(string username)
+        {
+            /// <summary>
+            /// VALIDATE
+            /// </summary>
+            var result = await _userService.GetByUserNameAsync(username);
+            return View(result.Data);
+        }
+
+
+        [HttpGet(UrlConst.ad_user_username_detail_get)]
+        public async Task<IActionResult> U_DetailUser(string username)
         {
             /// <summary>
             /// VALIDATE

@@ -30,6 +30,7 @@ namespace marketplace.Utilities.Const
             CONFIRM_EMAIL_FAILED = 6011,
             LOGOUT_FAILED = 6012,
             EMAIL_CONFIRM_FAIL = 6013,
+            NOT_IN_ROLE_GROUP = 6014,
             // ---
             ENTITY_CODE_EXISTS = 6101,
             ENTITY_NOT_FOUND_E = 6102,
@@ -100,6 +101,8 @@ namespace marketplace.Utilities.Const
                     return "Đăng xuất lỗi.";
                 case CODE.EMAIL_CONFIRM_FAIL:
                     return "Chưa xác thực mail.";
+                case CODE.NOT_IN_ROLE_GROUP:
+                    return "Tài khoản không thuộc vai trò yêu cầu.";
                 // ---
                 case CODE.ENTITY_CODE_EXISTS:
                     return "Thực thể đã tồn tại.";

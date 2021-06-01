@@ -2,10 +2,45 @@ namespace marketplace.Utilities.Const
 {
     public static class UrlConst
     {
-        public const string user_username_get = @"/user/{userName}";
-        public const string user_login_get = @"/user/login";
-        public const string user_login_post = @"/user/login";
-        public const string user_confirm_email_get = @"/users/confirmemail";
+        public const string u_user_username_detail_get = @"/u/user/{userName}/detail";
+        public const string u_user_username_update_post = @"/u/user/{userName}/update";
+        public const string u_user_username_deactivate_get = @"/u/user/{userName}/deactivate";
+
+        public const string ad_user_all_get = @"ad/user/all";
+        public const string ad_user_username_detail_get = @"/ad/user/{userName}/detail";
+        public const string ad_user_username_update_post = @"/ad/user/{userName}/update";
+        public const string ad_user_username_deactivate_get = @"/ad/user/{userName}/deactivate";
+        public const string ad_user_username_delete_get = @"/ad/user/{userName}/delete";
+
+        public const string acc_user_logout_get = @"/acc/user/logout";
+
+        public const string g_home_get = @"/home";
+        public const string g_user_login_get = @"/g/user/login";
+        public const string g_user_login_post = @"/g/user/login";
+        public const string g_user_confirm_email_get = @"/g/user/confirmemail";
+
+
+
+
+
+
+
+
+
+
+
+
+        public const string role_index_get = @"/role";
+        public const string routepermission_index_get = @"/routepermission";
+
+
+
+
+
+
+
+
+
 
 
 

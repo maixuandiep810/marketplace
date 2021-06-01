@@ -126,7 +126,7 @@ namespace marketplace.Services.SystemManager.User
             var encodeToken = HttpUtility.UrlEncode(token);
             var email = user.Email;
             var host = _configuration[ConfigKeyConst.BASE_API_ADDRESS];
-            var path = UrlConst.user_confirm_email_get;
+            var path = UrlConst.g_user_confirm_email_get;
 
             var confirmationLink = String.Format("{0}{1}?useremail={2}&token={3}", host, path, email, encodeToken);
 
@@ -164,6 +164,15 @@ namespace marketplace.Services.SystemManager.User
                 if (user.TrangThai == TrangThai.KhongHoatDong)
                 {
                     return new ApiResult<UserDTO>(ApiResultConst.CODE.ACCOUNT_NOT_ACTIVATED, false, null, null);
+                }
+
+                var roleNamesIList = await _userManager.GetRolesAsync(user);
+                var roleNames = new List<string>(roleNamesIList);
+                var checkRoleGroup = _unitOfWork.VaiTroRepository.CheckRoleInRoleGroup(roleNames, request.RoleGroup);
+
+                if (checkRoleGroup)
+                {
+                    return new ApiResult<UserDTO>(ApiResultConst.CODE.NOT_IN_ROLE_GROUP, false, null, null);
                 }
 
                 var claims = new[]
@@ -206,6 +215,46 @@ namespace marketplace.Services.SystemManager.User
             {
                 LogUtils.LogException<UserService>(_env, ex, _logger, "Marketplace LogInfomation Message");
                 return DefaultApiResult.GetExceptionApiResult<UserDTO>(_env, ex, null);
+            }
+        }
+
+        public async Task<ApiResult<PageEntityDTO<UserDTO>>> GetPageAsync(int? page=0)
+        {
+            int start;
+            if (page <= 0)
+            {
+                page = 1;
+            }
+            start = (int)(page - 1) * PageConst.Limit;
+            try
+            {
+                var users = await _unitOfWork.TaiKhoanRepository.GetPageAsync(start, PageConst.Limit);
+                if (users == null)
+                {
+                    return new ApiResult<PageEntityDTO<UserDTO>>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, null, null);
+                }
+                var userDTOs = new List<UserDTO>();
+                foreach (var user in users)
+                {
+                    try
+                    {
+                        var userDTO = await GetUserDTOFromUser(user);
+                        userDTOs.Add(userDTO);
+                    }
+                    catch (System.Exception)
+                    {
+                    }
+                }
+                // var totalRecord = await _unitOfWork.TaiKhoanRepository.CountRecordAsync();
+                var pageUserDTO = new PageEntityDTO<UserDTO>();
+                pageUserDTO.Page = page ?? 1;
+                pageUserDTO.PageContent = userDTOs;
+                return new ApiResult<PageEntityDTO<UserDTO>>(ApiResultConst.CODE.SUCCESS, true, pageUserDTO, null);
+            }
+            catch (System.Exception ex)
+            {
+                LogUtils.LogException<UserService>(_env, ex, _logger, "Marketplace LogInfomation Message");
+                return DefaultApiResult.GetExceptionApiResult<PageEntityDTO<UserDTO>>(_env, ex, null);
             }
         }
 

@@ -22,6 +22,9 @@ namespace marketplace.Data.RepositoryPattern.IRepositories
         Task<List<TEntity>> GetAllDeletedEntityAsync();
         void DeleteDataAllDeletedEntity(List<TEntity> deletedEntities);
 
+        Task<int> CountRecordAsync();
+        Task<List<TEntity>> GetPageByIdAsync(int start, int limit);
+
         // void AddRange(IEnumerable<TEntity> entities);
         // void RemoveRange(IEnumerable<TEntity> entities);
     }

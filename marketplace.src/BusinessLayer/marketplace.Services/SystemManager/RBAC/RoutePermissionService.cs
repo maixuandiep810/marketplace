@@ -22,6 +22,7 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using marketplace.DTO.SystemManager.RBAC;
 using System.Text.RegularExpressions;
+using marketplace.Services.Utils;
 
 namespace marketplace.Services.SystemManager.RBAC
 {
@@ -34,6 +35,23 @@ namespace marketplace.Services.SystemManager.RBAC
         {
 
         }
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
 
         public async Task<RoutePermissionDTO> GetRoutePermissionByPathActionAsync(string path, string action)
         {
@@ -58,6 +76,86 @@ namespace marketplace.Services.SystemManager.RBAC
                 return null;
             }
         }
+
+
+
+
+
+        public async Task<ApiResult<PageEntityDTO<RoutePermissionDTO>>> GetPageByIdAsync(int? page = 0)
+        {
+            int start;
+            if (page <= 0)
+            {
+                page = 1;
+            }
+            start = (int)(page - 1) * PageConst.Limit;
+            try
+            {
+                var entities = await _unitOfWork.QuyenRouteRepository.GetPageByIdAsync(start, PageConst.Limit);
+                if (entities == null)
+                {
+                    return new ApiResult<PageEntityDTO<RoutePermissionDTO>>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, null, null);
+                }
+                var entityDTOs = new List<RoutePermissionDTO>();
+                foreach (var entity in entities)
+                {
+                    try
+                    {
+                        var entityDTO = ConverterDTOEntity.GetRoutePermissionDTOFromQuyenRoute(entity);
+                        entityDTOs.Add(entityDTO);
+                    }
+                    catch (System.Exception)
+                    {
+                    }
+                }
+                // var totalRecord = await _unitOfWork.TaiKhoanRepository.CountRecordAsync();
+                var pageEntityDTO = new PageEntityDTO<RoutePermissionDTO>();
+                pageEntityDTO.Page = page ?? 1;
+                pageEntityDTO.PageContent = entityDTOs;
+                return new ApiResult<PageEntityDTO<RoutePermissionDTO>>(ApiResultConst.CODE.SUCCESS, true, pageEntityDTO, null);
+            }
+            catch (System.Exception ex)
+            {
+                LogUtils.LogException<RoutePermissionService>(_env, ex, _logger, "Marketplace LogInfomation Message");
+                return DefaultApiResult.GetExceptionApiResult<PageEntityDTO<RoutePermissionDTO>>(_env, ex, null);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// 

@@ -6,10 +6,11 @@ namespace marketplace.Data.Entities
     public class CapXa : IBaseEntity<int>
     {
         public int Id { get; set; }
+        public string MaSo { get; set; }
         public bool DaXoa { get; set; }
         public TrangThai TrangThai { set; get; }
 
-        public string MaXa { get; set; }
+
         public string Ten { get; set; }
 
         public int CapHuyenId { get; set; }

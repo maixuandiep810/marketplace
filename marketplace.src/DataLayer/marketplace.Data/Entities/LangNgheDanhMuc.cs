@@ -8,9 +8,10 @@ namespace marketplace.Data.Entities
     public class LangNgheDanhMuc : IBaseEntity<int>
     {
         public int Id { get; set; }
+        public string MaSo { get; set; }
         public bool DaXoa { get; set; }
-        public TrangThai TrangThai { set; get; }    
-    
+        public TrangThai TrangThai { set; get; }
+
         public int LangNgheId { get; set; }
         public int DanhMucId { get; set; }
 

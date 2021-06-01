@@ -22,7 +22,7 @@ namespace marketplace.Data.Configurations
 
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.Ten).HasColumnType("nvarchar(256)").IsRequired();
-            builder.Property(x => x.MaXa).HasColumnType("nvarchar(256)");
+            builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
             
             builder.HasOne<CapHuyen>(x => x.CapHuyen).WithMany(x => x.CapXas).HasForeignKey(x => x.CapHuyenId);
         }

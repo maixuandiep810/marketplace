@@ -37,16 +37,7 @@ namespace marketplace.DTO.Catalog.Category
             }
         }
 
-        public CategoryDTO(DanhMuc danhMuc, ChiTietDanhMuc chiTietDanhMuc) : this(danhMuc)
-        {
-            if (chiTietDanhMuc != null)
-            {
-                IsShownAtHome = danhMuc.HienThiTrangChu;
-                Status = (Status)((int)danhMuc.TrangThai);
-            }
-        }
-
-        public CategoryDTO(DanhMuc danhMuc, ChiTietDanhMuc chiTietDanhMuc, ImageDTO imageDTO) : this(danhMuc, chiTietDanhMuc)
+        public CategoryDTO(DanhMuc danhMuc, ImageDTO imageDTO) : this(danhMuc)
         {
             ImageDTO = imageDTO;
         }

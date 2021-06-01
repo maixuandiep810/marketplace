@@ -22,6 +22,7 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using marketplace.DTO.SystemManager.RBAC;
 using Microsoft.AspNetCore.Identity;
+using marketplace.Services.Utils;
 
 namespace marketplace.Services.SystemManager.RBAC
 {
@@ -41,6 +42,24 @@ namespace marketplace.Services.SystemManager.RBAC
             _roleManager = roleManager;
             _routePermissionService = routePermissionService;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /// <summary>
@@ -69,7 +88,13 @@ namespace marketplace.Services.SystemManager.RBAC
             }
             return roleDTOs;
         }
-        ///
+
+
+
+
+
+
+
         public async Task<List<string>> GetRoleNameByPathActionPermissionAsync(string path, string action)
         {
             var routePermissionDTO = await _routePermissionService.GetRoutePermissionByPathActionAsync(path, action);
@@ -81,6 +106,84 @@ namespace marketplace.Services.SystemManager.RBAC
             var roleDTONames = roleDTOs.Select(x => x.Name).ToList();
             return roleDTONames;
         }
+
+
+
+
+
+        public async Task<ApiResult<PageEntityDTO<RoleDTO>>> GetPageAsync(int? page = 0)
+        {
+            int start;
+            if (page <= 0)
+            {
+                page = 1;
+            }
+            start = (int)(page - 1) * PageConst.Limit;
+            try
+            {
+                var entities = await _unitOfWork.VaiTroRepository.GetPageAsync(start, PageConst.Limit);
+                if (entities == null)
+                {
+                    return new ApiResult<PageEntityDTO<RoleDTO>>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, null, null);
+                }
+                var entityDTOs = new List<RoleDTO>();
+                foreach (var entity in entities)
+                {
+                    try
+                    {
+                        var entityDTO = ConverterDTOEntity.GetRoleDTOFromVaiTro(entity);
+                        entityDTOs.Add(entityDTO);
+                    }
+                    catch (System.Exception)
+                    {
+                    }
+                }
+                // var totalRecord = await _unitOfWork.TaiKhoanRepository.CountRecordAsync();
+                var pageEntityDTO = new PageEntityDTO<RoleDTO>();
+                pageEntityDTO.Page = page ?? 1;
+                pageEntityDTO.PageContent = entityDTOs;
+                return new ApiResult<PageEntityDTO<RoleDTO>>(ApiResultConst.CODE.SUCCESS, true, pageEntityDTO, null);
+            }
+            catch (System.Exception ex)
+            {
+                LogUtils.LogException<RoleService>(_env, ex, _logger, "Marketplace LogInfomation Message");
+                return DefaultApiResult.GetExceptionApiResult<PageEntityDTO<RoleDTO>>(_env, ex, null);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// 
@@ -117,5 +220,8 @@ namespace marketplace.Services.SystemManager.RBAC
                 return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
             }
         }
+
+
+
     }
 }

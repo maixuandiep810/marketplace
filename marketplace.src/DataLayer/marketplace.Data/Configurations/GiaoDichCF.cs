@@ -20,7 +20,7 @@ namespace marketplace.Data.Configurations
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
 
             builder.Property(x => x.Id).UseIdentityColumn();
-            builder.Property(x => x.MaGD).HasColumnType("nvarchar(256)");
+            builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
             builder.Property(x => x.ThanhTien).HasColumnType("decimal(15,2)").IsRequired();
             builder.Property(x => x.Phi).HasColumnType("decimal(15,2)").IsRequired();
             builder.Property(x => x.LoiNhan).HasColumnType("ntext");

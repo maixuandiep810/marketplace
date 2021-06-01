@@ -77,7 +77,6 @@ namespace marketplace.BackendApi.Extensions
             services.AddTransient<IValidator<LoginDTO>, LoginDTOValidator>();
             // PRODUCT
             services.AddTransient<IValidator<CreateProductDTO>, CreateProductDTOValidator>();
-            services.AddTransient<IValidator<DetailProductDTO>, DetailProductDTOValidator>();
             // COMMON
             services.AddTransient<IValidator<CreateImageDTO>, CreateImageDTOValidator>();
             return services;

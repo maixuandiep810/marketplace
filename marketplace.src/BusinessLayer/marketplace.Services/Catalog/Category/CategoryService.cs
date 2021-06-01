@@ -110,9 +110,7 @@ namespace marketplace.Services.Catalog.Category
         /// 
         private async Task<CategoryDTO> GetCategoryDTOFromCategoryAsync(DanhMuc category, string languageId)
         {
-            ChiTietDanhMuc detailCategory = null;
-            detailCategory = await _unitOfWork.ChiTietDanhMucRepository.GetByLanguageIdAsync(category.Id, languageId);
-            var categoryDTO = ConverterDTOEntity.GetCategoryDTOFromDanhMuc(category, detailCategory);
+            var categoryDTO = ConverterDTOEntity.GetCategoryDTOFromDanhMuc(category);
             HinhAnh image = null;
             try
             {
@@ -194,8 +192,6 @@ namespace marketplace.Services.Catalog.Category
         private async Task CreateCategoryFromCreateCategoryDTO(CreateCategoryDTO req)
         {
             var newCategory = ConverterDTOEntity.GetDanhMucFromCreateCategoryDTO(req);
-            var newDetailCategory = ConverterDTOEntity.GetChiTietDanhMucsFromDetailCategoryDTOs(req.DetailCategoryDTOs);
-            newCategory.ChiTietDanhMucs = newDetailCategory;
             await _unitOfWork.DanhMucRepository.AddAsync(newCategory); // Vi Image khong chung Foreignkey la ID CATEGORY
             await _unitOfWork.SaveChangesAsync();
             await _imageService.CreateAsync(req.Image.FormImage, req.Image.ImageUrl, SystemConst.CATEGORY_IMAGE_FOLDER_NAME, newCategory.Id.ToString());

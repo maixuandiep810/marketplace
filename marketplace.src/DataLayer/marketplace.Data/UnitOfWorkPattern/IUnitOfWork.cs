@@ -13,8 +13,8 @@ namespace marketplace.Data.UnitOfWorkPattern
         IChiTietDonHangRepository ChiTietDonHangRepository { get; }
         ICuaHangRepository CuaHangRepository { get; }
         IDanhMucRepository DanhMucRepository { get; }
-        IChiTietDanhMucRepository ChiTietDanhMucRepository { get; }
-        IChiTietSanPhamRepository ChiTietSanPhamRepository { get; }
+        // IChiTietDanhMucRepository ChiTietDanhMucRepository { get; }
+        // IChiTietSanPhamRepository ChiTietSanPhamRepository { get; }
         IDonHangRepository DonHangRepository { get; }
         IGiaoDichRepository GiaoDichRepository { get; }
         IGioHangRepository GioHangRepository { get; }
@@ -23,7 +23,7 @@ namespace marketplace.Data.UnitOfWorkPattern
         // IJwtTokenRepository JwtTokenRepository { get; }
         ILangNgheRepository LangNgheRepository { get; }
         ILangNgheDanhMucRepository LangNgheDanhMucRepository { get; }
-        INgonNguRepository NgonNguRepository { get; }
+        // INgonNguRepository NgonNguRepository { get; }
         INguoiBanRepository NguoiBanRepository { get; }
         IQuanLyDonHangRepository QuanLyDonHangRepository { get; }
 

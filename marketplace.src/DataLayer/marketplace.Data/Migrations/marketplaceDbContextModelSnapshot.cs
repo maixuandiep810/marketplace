@@ -841,9 +841,6 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BitFields")
-                        .HasColumnType("int");
-
                     b.Property<bool>("DaXoa")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -1079,12 +1076,18 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
+                    b.Property<string>("MaVT")
+                        .HasColumnType("nvarchar(256)");
+
                     b.Property<string>("MoTa")
                         .IsRequired()
                         .HasColumnType("ntext");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NhomVT")
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasColumnType("nvarchar(max)");
