@@ -126,7 +126,7 @@ namespace marketplace.Services.SystemManager.User
             var encodeToken = HttpUtility.UrlEncode(token);
             var email = user.Email;
             var host = _configuration[ConfigKeyConst.BASE_API_ADDRESS];
-            var path = UriConst.API_USERS_CONFIRM_EMAIL_GET_PATH_WITHOUT_PARAMS;
+            var path = UrlConst.user_confirm_email_get;
 
             var confirmationLink = String.Format("{0}{1}?useremail={2}&token={3}", host, path, email, encodeToken);
 
@@ -144,18 +144,26 @@ namespace marketplace.Services.SystemManager.User
         /// </summary>
 
 
-        public async Task<ApiResult<string>> LoginAsync(LoginDTO request)
+        public async Task<ApiResult<UserDTO>> LoginAsync(LoginDTO request)
         {
             try
             {
-                var user = await _userManager.FindByNameAsync(request.UserName);
-                if (user == null || (await _signInManager.PasswordSignInAsync(user, request.Password, true, true)).Succeeded == false)
+                var user = await _userManager.FindByEmailAsync(request.Email);
+                if (user == null)
                 {
-                    return new ApiResult<string>(ApiResultConst.CODE.USERNAME_PASSWORD_INCORRECT_E, false, null, null);
+                    return new ApiResult<UserDTO>(ApiResultConst.CODE.USERNAME_PASSWORD_INCORRECT_E, false, null, null);
+                }
+                if (await _userManager.IsEmailConfirmedAsync(user) == false)
+                {
+                    return new ApiResult<UserDTO>(ApiResultConst.CODE.EMAIL_CONFIRM_FAIL, false, null, null);
+                }
+                if ((await _signInManager.PasswordSignInAsync(user, request.Password, true, true)).Succeeded == false)
+                {
+                    return new ApiResult<UserDTO>(ApiResultConst.CODE.USERNAME_PASSWORD_INCORRECT_E, false, null, null);
                 }
                 if (user.TrangThai == TrangThai.KhongHoatDong)
                 {
-                    return new ApiResult<string>(ApiResultConst.CODE.ACCOUNT_NOT_ACTIVATED, false, null, null);
+                    return new ApiResult<UserDTO>(ApiResultConst.CODE.ACCOUNT_NOT_ACTIVATED, false, null, null);
                 }
 
                 var claims = new[]
@@ -170,40 +178,15 @@ namespace marketplace.Services.SystemManager.User
                     expires: DateTime.Now.AddHours(3),
                     signingCredentials: creds);
                 var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
-                var jwtTokenEntity = ConverterDTOEntity.GetJwtTokenFromUser(user.Id, jwtToken);
 
-                await _unitOfWork.JwtTokenRepository.AddAsync(jwtTokenEntity);
-                await _unitOfWork.SaveChangesAsync();
+                var userDTO = await GetUserDTOFromUser(user);
+                userDTO.JwtToken = jwtToken;
 
-                return new ApiResult<string>(ApiResultConst.CODE.SUCCESS, true, jwtToken, null);
+                return new ApiResult<UserDTO>(ApiResultConst.CODE.SUCCESS, true, userDTO, null);
             }
             catch (System.Exception ex)
             {
-                return DefaultApiResult.GetExceptionApiResult<string>(_env, ex, "");
-            }
-        }
-        public async Task<ApiResult<bool>> LogoutAsync(string userName, string token)
-        {
-            try
-            {
-                var user = await _userManager.FindByNameAsync(userName);
-                if (user == null)
-                {
-                    return new ApiResult<bool>(ApiResultConst.CODE.LOGOUT_FAILED, false, false, null);
-                }
-                var jwtToken = await _unitOfWork.JwtTokenRepository.GetJwtTokenAsync(user.Id, token);
-                if (jwtToken == null)
-                {
-                    return new ApiResult<bool>(ApiResultConst.CODE.LOGOUT_FAILED, false, false, null);
-                }
-                jwtToken.TrangThai = TrangThai.KhongHoatDong;
-                await _unitOfWork.SaveChangesAsync();
-                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_LOGOUT, false, false, null);
-            }
-            catch (Exception ex)
-            {
-                LogUtils.LogException<UserService>(_env, ex, _logger, "Marketplace LogInfomation Message");
-                return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
+                return DefaultApiResult.GetExceptionApiResult<UserDTO>(_env, ex, null);
             }
         }
 
@@ -216,17 +199,7 @@ namespace marketplace.Services.SystemManager.User
                 {
                     return new ApiResult<UserDTO>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, null, null);
                 }
-                var userDTO = ConverterDTOEntity.GetUserDTOFromTaiKhoan(user);
-                HinhAnh image = null;
-                try
-                {
-                    image = await _unitOfWork.HinhAnhRepository.GetImageAsync(TypeOfEntityConst.USER, user.Id.ToString());
-                }
-                catch (System.Exception)
-                {
-                }
-                var imageDTO = image != null ? new ImageDTO(image) : null;
-                userDTO.ImageDTO = imageDTO;
+                var userDTO = await GetUserDTOFromUser(user);
                 return new ApiResult<UserDTO>(ApiResultConst.CODE.SUCCESS, true, userDTO, null);
             }
             catch (Exception ex)
@@ -234,6 +207,22 @@ namespace marketplace.Services.SystemManager.User
                 LogUtils.LogException<UserService>(_env, ex, _logger, "Marketplace LogInfomation Message");
                 return DefaultApiResult.GetExceptionApiResult<UserDTO>(_env, ex, null);
             }
+        }
+
+        private async Task<UserDTO> GetUserDTOFromUser(TaiKhoan user)
+        {
+            var userDTO = ConverterDTOEntity.GetUserDTOFromTaiKhoan(user);
+            HinhAnh image = null;
+            try
+            {
+                image = await _unitOfWork.HinhAnhRepository.GetImageAsync(TypeOfEntityConst.USER, user.Id.ToString());
+            }
+            catch (System.Exception)
+            {
+            }
+            var imageDTO = image != null ? new ImageDTO(image) : null;
+            userDTO.ImageDTO = imageDTO;
+            return userDTO;
         }
 
         public async Task<List<string>> GetRoleNameAsync(string userId)
@@ -348,3 +337,28 @@ namespace marketplace.Services.SystemManager.User
 //     }
 // }
 // if (user == null || (await _signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, true)).Succeeded == false)\
+
+
+
+// var jwtTokenEntity = ConverterDTOEntity.GetJwtTokenFromUser(user.Id, jwtToken);
+// await _unitOfWork.JwtTokenRepository.AddAsync(jwtTokenEntity);
+
+
+
+// public async Task<ApiResult<bool>> LogoutAsync(string userName, string token)
+// {
+//     try
+//     {
+//         var user = await _userManager.FindByNameAsync(userName);
+//         if (user == null)
+//         {
+//             return new ApiResult<bool>(ApiResultConst.CODE.LOGOUT_FAILED, false, false, null);
+//         }
+//         return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_LOGOUT, false, false, null);
+//     }
+//     catch (Exception ex)
+//     {
+//         LogUtils.LogException<UserService>(_env, ex, _logger, "Marketplace LogInfomation Message");
+//         return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
+//     }
+// }

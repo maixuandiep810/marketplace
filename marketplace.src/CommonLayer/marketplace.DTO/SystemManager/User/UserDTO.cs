@@ -12,10 +12,11 @@ namespace marketplace.DTO.SystemManager.User
         public DateTime NgaySinh { get; set; }
         public bool LaNguoiBan { get; set; }
         public ImageDTO ImageDTO { get; set; }
+        public string JwtToken { get; set; }
 
         public UserDTO()
         {
-            
+            JwtToken = "";
         }
 
         public UserDTO(TaiKhoan user) : this()

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using marketplace.Data.EF;
 
 namespace marketplace.Data.Migrations
 {
     [DbContext(typeof(marketplaceDbContext))]
-    partial class marketplaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210531214438_TaiCauTrucJwt")]
+    partial class TaiCauTrucJwt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -585,7 +587,7 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Loai")
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("ntext");
 
                     b.Property<string>("MaHA")
                         .HasColumnType("nvarchar(256)");
@@ -610,6 +612,38 @@ namespace marketplace.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("HinhAnh");
+                });
+
+            modelBuilder.Entity("marketplace.Data.Entities.JwtToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("DaXoa")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<Guid>("TaiKhoanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TrangThai")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaiKhoanId");
+
+                    b.ToTable("JwtToken");
                 });
 
             modelBuilder.Entity("marketplace.Data.Entities.KhachHang", b =>
@@ -1204,6 +1238,15 @@ namespace marketplace.Data.Migrations
                     b.HasOne("marketplace.Data.Entities.SanPham", "SanPham")
                         .WithMany("GioHangs")
                         .HasForeignKey("SanPhamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("marketplace.Data.Entities.JwtToken", b =>
+                {
+                    b.HasOne("marketplace.Data.Entities.TaiKhoan", "TaiKhoan")
+                        .WithMany("JwtTokens")
+                        .HasForeignKey("TaiKhoanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

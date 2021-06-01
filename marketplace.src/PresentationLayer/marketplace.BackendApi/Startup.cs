@@ -29,6 +29,7 @@ namespace marketplace.BackendApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession();
             services.AddControllersWithViews().AddFluentValidation();
             services.AddAspDotNetServices();
             services.AddDatabaseServices(Configuration);
@@ -53,7 +54,9 @@ namespace marketplace.BackendApi
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
-            
+
+            app.UseSession();
+
             app.UseRouting();
 
             // app.UseMPExceptionHandler();

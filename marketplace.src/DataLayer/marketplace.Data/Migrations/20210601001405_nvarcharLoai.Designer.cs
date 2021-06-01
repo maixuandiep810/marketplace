@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using marketplace.Data.EF;
 
 namespace marketplace.Data.Migrations
 {
     [DbContext(typeof(marketplaceDbContext))]
-    partial class marketplaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210601001405_nvarcharLoai")]
+    partial class nvarcharLoai
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

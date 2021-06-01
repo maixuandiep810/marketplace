@@ -26,7 +26,7 @@ namespace marketplace.Data.Configurations
             builder.Property(x => x.Url).HasColumnType("ntext");
             builder.Property(x => x.TieuDe).HasColumnType("nvarchar(256)");
             builder.Property(x => x.DoiTuongId).HasColumnType("nvarchar(256)");
-            builder.Property(x => x.Loai).HasColumnType("ntext");
+            builder.Property(x => x.Loai).HasColumnType("nvarchar(256)");
 
         }
     }

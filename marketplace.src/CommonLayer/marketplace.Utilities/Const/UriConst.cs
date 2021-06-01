@@ -1,9 +1,14 @@
 namespace marketplace.Utilities.Const
 {
-    public static class UriConst
+    public static class UrlConst
     {
-        public const string API_USERS_ID_GET_PATH = @"/users/{userId}";
-        public const string API_USERS_USER_NAME_GET_PATH = @"/users/{userName}";
+        public const string user_username_get = @"/user/{userName}";
+        public const string user_login_get = @"/user/login";
+        public const string user_login_post = @"/user/login";
+        public const string user_confirm_email_get = @"/users/confirmemail";
+
+
+
 
         public const string API_USERS_REGISTER_POST_PATH = @"/users/register";
         public const string API_USERS_REGISTER_POST_REQUEST = @"/users/register";

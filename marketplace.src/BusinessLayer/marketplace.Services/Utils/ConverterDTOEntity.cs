@@ -157,13 +157,16 @@ namespace marketplace.Services.Utils
 
 
 
-        public static JwtToken GetJwtTokenFromUser(Guid userId, string token)
-        {
-            var jwtToken = new JwtToken() {
-                TaiKhoanId = userId,
-                Token = token
-            };
-            return jwtToken;
-        }
+
     }
 }
+
+
+// public static JwtToken GetJwtTokenFromUser(Guid userId, string token)
+// {
+//     var jwtToken = new JwtToken() {
+//         TaiKhoanId = userId,
+//         Token = token
+//     };
+//     return jwtToken;
+// }

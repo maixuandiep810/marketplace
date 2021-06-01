@@ -19,6 +19,16 @@ namespace marketplace.BackendApi.Middlewares
         public MPAuthenticationMiddleware(RequestDelegate next) => _next = next;
         public async Task Invoke(HttpContext httpContext, IJWTService jWTService, IUserService userService, IRoutePermissionService routePermissionService)
         {
+            var sessionJwtToken = httpContext.Session.GetString(CookieConst.JwtToken);
+            if (String.IsNullOrEmpty(sessionJwtToken) == false)
+            {
+                httpContext.Request.Headers[HttpContextConst.AUTHORIZATION_ITEM_KEY] = sessionJwtToken;
+            }
+            else
+            {
+                var cookieJwtToken = httpContext.Request.Cookies[CookieConst.JwtToken];
+                httpContext.Request.Headers[HttpContextConst.AUTHORIZATION_ITEM_KEY] = cookieJwtToken;
+            }
             var path = httpContext.Request.Path.ToString();
             var action = httpContext.Request.Method;
 
