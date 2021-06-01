@@ -1,0 +1,72 @@
+@using marketplace.DTO.SystemManager.User
+@using marketplace.DTO.Common;
+@using marketplace.Utilities.Const
+@model UserDTO
+
+@{
+    ViewData["Title"] = "User Login Page";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+
+    var apiResult = (ApiResult<PageEntityDTO<UserDTO>>)ViewData["ApiResult"];
+}
+
+@{
+    if (apiResult == null)
+    {
+        return;
+    }
+
+    //// NULL 
+    var userDTOs = apiResult.Data.PageContent;
+    var currentPage = apiResult.Data.Page;
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Dữ liệu</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th style="width: 40px">Label</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var i = 1;
+
+                            foreach (var userDTO in userDTOs)
+                            {
+                                <tr>
+                                    <td>@i.</td>
+                                    <td>@userDTO.Username</td>
+                                    <td>@userDTO.Email</td>
+                                    <td><span class="badge bg-danger">Delete</span></td>
+                                </tr>
+                                i += 1;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                    <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="User"
+                            asp-route-page="@{var p = currentPage - 1; @p}">&laquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="#">@currentPage</a></li>
+                    <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="User"
+                            asp-route-page="@{var n = currentPage + 1; @n}">&raquo;</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.card -->
+    </div>
+</div>

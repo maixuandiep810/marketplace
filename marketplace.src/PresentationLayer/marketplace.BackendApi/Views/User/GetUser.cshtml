@@ -1,0 +1,26 @@
+@using marketplace.DTO.SystemManager.User
+@using marketplace.DTO.Common;
+@model UserDTO
+
+@{
+    ViewData["Title"] = "User View Page";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+
+    var apiResult = (ApiResult<string>)ViewData["ApiResult"];
+}
+
+<form asp-action="" asp-controller="User" method="POST">
+    <div class="form-group">
+        <label>Tên tài khoản</label>
+        <input type="text" class="form-control" asp-for="Username" value="@Model.Username">
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input type="Email" class="form-control" asp-for="Email" aria-describedby="emailHelp" value="@Model.Email">
+    </div>
+        <div class="form-group">
+        <label>Họ và tên</label>
+        <input type="text" class="form-control" asp-for="FullName" value="@Model.FullName">
+    </div>
+    @* <button type="submit" class="btn btn-primary">Đăng nhập</button> *@
+</form>

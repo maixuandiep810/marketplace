@@ -1,18 +1,24 @@
+@using marketplace.Utilities.Const
 @using static marketplace.Utilities.WebMVC.Extensions.NavigationIndicatorHelper n;
+@{
+    var userName = Context.Request.Cookies[CookieConst.UserName];
+    var userImage = Context.Request.Cookies[CookieConst.UserImage];
+    var roleGroup = Context.Request.Cookies[CookieConst.RoleGroup];
+}
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="~/Home" class="brand-link">
         <img src="~/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">Hello, World!</span>
     </a>
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="~/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img id="UserImage" src="~/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Guest</a>
+                <a href="#" class="d-block" id="UserName">Guest</a>
             </div>
         </div>
         <nav class="mt-2">
@@ -25,15 +31,47 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item ">
-                    <a asp-controller="User" asp-action="Login"
-                        class='nav-link @Url.MakeActiveClass("user","login")'>
-                        <i class="nav-icon fas fa-lock"></i>
-                        <p>
-                            Login
-                        </p>
-                    </a>
-                </li>
+                @if (roleGroup == RoleConst.Group.Admin)
+                {
+                    <li class="nav-item ">
+                        <a asp-controller="Home" asp-action="Index" class='nav-link @Url.MakeActiveClass("home","index")'>
+                            <i class="nav-icon fas fa-home"></i>
+                            <p>
+                                VIP 1
+                            </p>
+                        </a>
+                    </li>
+                }
+                @if (String.IsNullOrEmpty(userName))
+                {
+                    <li class="nav-item ">
+                        <a asp-controller="User" asp-action="Login" class='nav-link @Url.MakeActiveClass("user","login")'>
+                            <i class="nav-icon fas fa-lock"></i>
+                            <p>
+                                Login
+                            </p>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item ">
+                        <a asp-controller="User" asp-action="Login" class='nav-link @Url.MakeActiveClass("user","login")'>
+                            <i class="nav-icon fas fa-lock"></i>
+                            <p>
+                                Chi tiết tài khoản
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a asp-controller="User" asp-action="Logout" class='nav-link @Url.MakeActiveClass("user","logout")'>
+                            <i class="nav-icon fas fa-lock"></i>
+                            <p>
+                                Đăng xuất
+                            </p>
+                        </a>
+                    </li>
+                }
             </ul>
         </nav>
     </div>

@@ -10,6 +10,7 @@ using marketplace.DTO.SystemManager.User;
 using marketplace.Utilities.Const;
 using marketplace.Services.SystemManager.User;
 using Microsoft.AspNetCore.Http;
+using marketplace.BackendApi.Utils;
 
 namespace marketplace.BackendApi.Controllers
 {
@@ -24,6 +25,16 @@ namespace marketplace.BackendApi.Controllers
             _userService = userService;
         }
 
+        [HttpGet(UrlConst.user_index_get)]
+        public async Task<IActionResult> Index(int? page = 0)
+        {
+            var result = await _userService.GetPageAsync(page);
+            ViewData["ApiResult"] = result;
+
+            return View();
+        }
+
+
         [HttpGet(UrlConst.user_login_get)]
         public IActionResult Login()
         {
@@ -33,18 +44,18 @@ namespace marketplace.BackendApi.Controllers
         [HttpPost(UrlConst.user_login_post)]
         public async Task<IActionResult> Login([FromForm] LoginDTO request)
         {
+            /// <summary>
+            /// VALIDATE
+            /// </summary>
             var result = await _userService.LoginAsync(request);
             if (result.IsSuccessed == true)
             {
-                if (request.RememberMe == true)
+                CookieUtils.SetUserCookie(HttpContext, result.Data, request.RoleGroup, request.RememberMe);
+
+                if (request.RememberMe == false)
                 {
-                    Response.Cookies.Append(CookieConst.JwtToken, result.Data.JwtToken, CookieConst.CookieOptions);
+                    HttpContext.Session.SetString(CookieConst.SessionMP, CookieConst.SessionMP);
                 }
-                else
-                {
-                    HttpContext.Session.SetString(CookieConst.JwtToken, result.Data.JwtToken);
-                }
-                Response.Cookies.Append(CookieConst.UserName, result.Data.Username, CookieConst.CookieOptions);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -52,6 +63,27 @@ namespace marketplace.BackendApi.Controllers
             ViewData["ApiResult"] = result;
             return View();
         }
+
+        [HttpGet(UrlConst.user_logout_get)]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove(CookieConst.SessionMP);
+            HttpContext.Session.Clear();
+            CookieUtils.DeteteUserCookie(HttpContext);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet(UrlConst.user_username_get)]
+        public async Task<IActionResult> GetUser(string username)
+        {
+            /// <summary>
+            /// VALIDATE
+            /// </summary>
+            var result = await _userService.GetByUserNameAsync(username);
+            return View(result.Data);
+        }
+
+
 
         // [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         // public IActionResult Error()

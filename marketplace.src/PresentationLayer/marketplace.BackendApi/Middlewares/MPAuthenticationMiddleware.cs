@@ -1,3 +1,4 @@
+using System.Net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ using marketplace.Services.SystemManager.User;
 using marketplace.Utilities.Const;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
+using marketplace.BackendApi.Utils;
 
 namespace marketplace.BackendApi.Middlewares
 {
@@ -19,16 +21,19 @@ namespace marketplace.BackendApi.Middlewares
         public MPAuthenticationMiddleware(RequestDelegate next) => _next = next;
         public async Task Invoke(HttpContext httpContext, IJWTService jWTService, IUserService userService, IRoutePermissionService routePermissionService)
         {
-            var sessionJwtToken = httpContext.Session.GetString(CookieConst.JwtToken);
-            if (String.IsNullOrEmpty(sessionJwtToken) == false)
+            var rememberMe = httpContext.Request.Cookies[CookieConst.RememberMe];
+            var sessionMP = httpContext.Session.GetString(CookieConst.SessionMP);
+            var cookieJwtToken = httpContext.Request.Cookies[CookieConst.JwtToken];
+
+            if (cookieJwtToken != null && sessionMP == null && rememberMe == false.ToString())
             {
-                httpContext.Request.Headers[HttpContextConst.AUTHORIZATION_ITEM_KEY] = sessionJwtToken;
+                CookieUtils.DeteteUserCookie(httpContext);
             }
             else
             {
-                var cookieJwtToken = httpContext.Request.Cookies[CookieConst.JwtToken];
                 httpContext.Request.Headers[HttpContextConst.AUTHORIZATION_ITEM_KEY] = cookieJwtToken;
             }
+
             var path = httpContext.Request.Path.ToString();
             var action = httpContext.Request.Method;
 
