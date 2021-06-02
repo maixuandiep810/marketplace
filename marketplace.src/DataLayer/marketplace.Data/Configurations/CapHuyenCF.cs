@@ -10,21 +10,18 @@ namespace marketplace.Data.Configurations
 {
     public class CapHuyenCF : IEntityTypeConfiguration<CapHuyen>
     {
-        public void Configure(EntityTypeBuilder<CapHuyen>builder)
+        public void Configure(EntityTypeBuilder<CapHuyen> builder)
         {
             builder.ToTable("CapHuyen");
 
             builder.HasKey(x => x.Id);
-            builder.HasAlternateKey(x => x.Ten);
+            builder.Property(x => x.Id).UseIdentityColumn();
 
+            builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
             builder.Property(x => x.DaXoa).HasDefaultValue(0);
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
-
-            builder.Property(x => x.Id).UseIdentityColumn();
-            builder.Property(x => x.Ten).HasColumnType("nvarchar(256)").IsRequired();
-            builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
             
-            builder.HasOne<CapTinh>(x => x.CapTinh).WithMany(x => x.CapHuyens).HasForeignKey(x => x.CapTinhId);
+            builder.Property(x => x.Ten).HasColumnType("nvarchar(256)");
         }
     }
 }

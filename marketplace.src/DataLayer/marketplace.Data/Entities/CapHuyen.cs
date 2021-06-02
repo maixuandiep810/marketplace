@@ -15,6 +15,5 @@ namespace marketplace.Data.Entities
         public int CapTinhId { get; set; }
 
         public virtual CapTinh CapTinh { get; set; }
-        public virtual List<CapXa> CapXas { get; set; }
     }
 }

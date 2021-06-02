@@ -14,7 +14,7 @@ namespace marketplace.Data.Entities
 
         public string Ten { set; get; }
         public string MoTa { set; get; }
-        public bool HienThiTrangChu { set; get; }
+        public int CapDanhMuc { set; get; }
 
         public virtual List<SanPhamDanhMuc> SanPhamDanhMucs { get; set; }
         public virtual List<LangNgheDanhMuc> LangNgheDanhMucs { get; set; }

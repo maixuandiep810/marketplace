@@ -1,6 +1,9 @@
+using System;
+using System.Net;
 using marketplace.DTO.SystemManager.User;
 using marketplace.Utilities.Const;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace marketplace.BackendApi.Utils
 {
@@ -24,6 +27,21 @@ namespace marketplace.BackendApi.Utils
             httpContext.Response.Cookies.Append(CookieConst.RoleGroup, roleGroup, CookieConst.CookieOptions);
             httpContext.Response.Cookies.Append(CookieConst.RememberMe, rememberMe.ToString(), CookieConst.CookieOptions);
             httpContext.Response.Cookies.Append(CookieConst.UserId, userDTO.Id, CookieConst.CookieOptions);
+        }
+
+        public static void SetReturnUrl(HttpContext httpContext)
+        {
+            var IsNewSession = String.IsNullOrEmpty(httpContext.Session.GetString(CookieConst.IsNewSession));
+            var returnUrl = "";
+            var currentUrl = httpContext.Request.GetEncodedUrl();
+            if (IsNewSession == false)
+            {
+                returnUrl = httpContext.Request.Cookies[CookieConst.CurrentUrl];
+                httpContext.Response.Cookies.Append(CookieConst.ReturnUrl, returnUrl);
+                httpContext.Response.Cookies.Append(CookieConst.CurrentUrl, currentUrl);
+            }
+            httpContext.Session.SetString(CookieConst.IsNewSession, false.ToString());
+            httpContext.Response.Cookies.Append(CookieConst.CurrentUrl, currentUrl);
         }
     }
 }

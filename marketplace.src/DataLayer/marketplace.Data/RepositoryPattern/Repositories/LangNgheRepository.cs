@@ -19,7 +19,7 @@ namespace marketplace.Data.RepositoryPattern.Repositories
         {
             try
             {
-                var branch = await FirstOrDefaultAsync(x => x.MaLN == code);
+                var branch = await FirstOrDefaultAsync(x => x.MaSo == code);
                 return branch;
             }
             catch (System.Exception ex)
@@ -32,7 +32,7 @@ namespace marketplace.Data.RepositoryPattern.Repositories
         {
             try
             {
-                var codes = await _entities.Select(x => x.MaLN).ToListAsync();
+                var codes = await _entities.Select(x => x.MaSo).ToListAsync();
                 return codes;
             }
             catch (System.Exception ex)

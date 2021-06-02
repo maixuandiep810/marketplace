@@ -15,15 +15,11 @@ namespace marketplace.Data.Configurations
             builder.ToTable("SanPhamDanhMuc");
 
             builder.HasKey(x => x.Id);
-            builder.HasAlternateKey(x => new { x.DanhMucId, x.SanPhamId });
+            builder.Property(x => x.Id).UseIdentityColumn();
 
+            builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
             builder.Property(x => x.DaXoa).HasDefaultValue(0);
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
-
-            builder.HasOne<SanPham>(x => x.SanPham).WithMany(x => x.SanPhamDanhMucs)
-                .HasForeignKey(x => x.SanPhamId);
-            builder.HasOne<DanhMuc>(x => x.DanhMuc).WithMany(x => x.SanPhamDanhMucs)
-              .HasForeignKey(x => x.DanhMucId);
         }
     }
 }

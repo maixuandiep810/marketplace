@@ -28,7 +28,6 @@ namespace marketplace.DTO.Catalog.Branch
                 IsDeleted = langNghe.DaXoa;
                 Status = (Status) langNghe.TrangThai;
 
-                BranchCode = langNghe.MaLN;
                 Name = langNghe.Ten;
                 FullName = langNghe.TenDayDu;
                 Description = langNghe.MoTa;

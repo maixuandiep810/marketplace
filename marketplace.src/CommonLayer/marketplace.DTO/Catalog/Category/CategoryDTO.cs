@@ -12,7 +12,6 @@ namespace marketplace.DTO.Catalog.Category
     {
         public int Id { get; set; }
         public string Code { get; set; }
-        public bool IsShownAtHome { get; set; }
         public Status Status { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -30,7 +29,6 @@ namespace marketplace.DTO.Catalog.Category
 
                 Id = danhMuc.Id;
                 Code = danhMuc.MaSo;
-                IsShownAtHome = danhMuc.HienThiTrangChu;
                 Status = (Status)((int)danhMuc.TrangThai);
                 Name = "";
                 Description = "";

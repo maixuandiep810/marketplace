@@ -4,6 +4,8 @@ namespace marketplace.Utilities.Const
 {
     public static class CookieConst
     {
+        public const string IsNewSession = "IsNewSession";
+        public const string CurrentUrl = "CurrentUrl";
         public const string ReturnUrl = "ReturnUrl";
         public const string JwtToken = "JwtToken";
         public const string UserName = "UserName";

@@ -15,7 +15,7 @@ namespace marketplace.Data.Entities
         public string MoTa { get; set; }
         public string Url { get; set; }
         public string TieuDe { get; set; }
-        public bool LaAnhMacDinh { get; set; }
+        // public bool LaAnhMacDinh { get; set; }
         public string DoiTuongId { get; set; }
         public string Loai { get; set; }
         public int ThuTu { get; set; }

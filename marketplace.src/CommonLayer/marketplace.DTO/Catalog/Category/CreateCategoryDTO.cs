@@ -12,7 +12,6 @@ namespace marketplace.DTO.Catalog.Category
     {
         public string Code { get; set; }
         public Status Status { get; set; }
-        public bool IsShownAtHome { get; set; }
         public List<DetailCategoryDTO> DetailCategoryDTOs { get; set; }
         public CreateImageDTO Image { get; set; }
     }

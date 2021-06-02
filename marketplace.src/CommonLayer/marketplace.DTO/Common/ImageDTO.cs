@@ -25,7 +25,6 @@ namespace marketplace.DTO.Common
                 Description = image.MoTa;
                 Url = image.Url;
                 Caption = image.TieuDe;
-                IsDefault = image.LaAnhMacDinh;
                 SortOrder = image.ThuTu;
             }
         }

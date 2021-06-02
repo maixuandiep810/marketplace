@@ -15,7 +15,6 @@ namespace marketplace.Data.Configurations
             builder.ToTable("HinhAnh");
 
             builder.HasKey(x => x.Id);
-
             builder.Property(x => x.Id).UseIdentityColumn();
 
             builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");

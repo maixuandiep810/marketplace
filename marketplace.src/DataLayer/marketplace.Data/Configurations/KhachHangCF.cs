@@ -15,7 +15,7 @@ namespace marketplace.Data.Configurations
             builder.ToTable("KhachHang");
 
             builder.HasKey(x => x.Id);
-            builder.HasAlternateKey(x => x.TaiKhoanId);
+            builder.Property(x => x.Id).UseIdentityColumn();
 
             builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
             builder.Property(x => x.DaXoa).HasDefaultValue(0);

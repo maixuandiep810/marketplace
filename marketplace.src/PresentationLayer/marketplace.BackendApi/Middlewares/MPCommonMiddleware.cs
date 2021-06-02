@@ -1,3 +1,5 @@
+
+
 using System.Net;
 using System;
 using System.Collections.Generic;
@@ -22,9 +24,8 @@ namespace marketplace.BackendApi.Middlewares
         public MPCommonMiddleware(RequestDelegate next) => _next = next;
         public async Task Invoke(HttpContext httpContext)
         {
+            CookieUtils.SetReturnUrl(httpContext);
             await _next(httpContext);
-            var returnUrl = httpContext.Request.GetEncodedUrl();
-            httpContext.Session.SetString(CookieConst.ReturnUrl, returnUrl);
         }
     }
 }

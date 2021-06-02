@@ -19,7 +19,6 @@ namespace marketplace.Data.EF
 
             modelBuilder.ApplyConfiguration(new CapTinhCF());
             modelBuilder.ApplyConfiguration(new CapHuyenCF());
-            modelBuilder.ApplyConfiguration(new CapXaCF());
 
             modelBuilder.ApplyConfiguration(new ChiTietDonHangCF());
             modelBuilder.ApplyConfiguration(new CuaHangCF());
@@ -82,7 +81,6 @@ namespace marketplace.Data.EF
 
         public DbSet<CapTinh> CapTinhs { get; set; }
         public DbSet<CapHuyen> CapHuyens { get; set; }
-        public DbSet<CapXa> CapXas { get; set; }
 
 
         public DbSet<ChiTietDonHang> ChiTietDonHangs { get; set; }

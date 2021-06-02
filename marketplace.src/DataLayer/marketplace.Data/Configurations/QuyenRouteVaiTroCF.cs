@@ -15,15 +15,11 @@ namespace marketplace.Data.Configurations
             builder.ToTable("QuyenRouteVaiTro");
 
             builder.HasKey(x => x.Id);
-            // builder.HasAlternateKey(x => new { x.PermissionId, x.ApplicationRoleId });
+            builder.Property(x => x.Id).UseIdentityColumn();
 
             builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
-
             builder.Property(x => x.DaXoa).HasDefaultValue(0);
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
-
-            builder.HasOne<QuyenRoute>(x => x.QuyenRoute).WithMany(x => x.QuyenRouteVaiTros).HasForeignKey(x => x.QuyenRouteId);
-            builder.HasOne<VaiTro>(x => x.VaiTro).WithMany(x => x.QuyenRouteVaiTros).HasForeignKey(x => x.VaiTroId);
         }
     }
 }

@@ -14,17 +14,11 @@ namespace marketplace.Data.Configurations
         {
             builder.ToTable("TaiKhoan");
 
-            builder.Property(x => x.HoTen).HasColumnType("nvarchar(256)").IsRequired();
-
+            builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
             builder.Property(x => x.DaXoa).HasDefaultValue(0);
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
 
-            builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
-            builder.HasOne<KhachHang>(x => x.KhachHang).WithOne(x => x.TaiKhoan).HasForeignKey<KhachHang>(x => x.TaiKhoanId);
-            builder.HasOne<NguoiBan>(x => x.NguoiBan).WithOne(x => x.TaiKhoan).HasForeignKey<NguoiBan>(x => x.TaiKhoanId);
-
-            // builder.Ignore(u => u.Claims);
-            // builder.Ignore(u => u.Logins);
+            builder.Property(x => x.HoTen).HasColumnType("nvarchar(256)");
         }
     }
 }

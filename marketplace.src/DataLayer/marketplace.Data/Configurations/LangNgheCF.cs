@@ -12,21 +12,17 @@ namespace marketplace.Data.Configurations
             builder.ToTable("LangNghe");
 
             builder.HasKey(x => x.Id);
-            builder.HasAlternateKey(x => x.Ten);
-
             builder.Property(x => x.Id).UseIdentityColumn();
 
+            builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
             builder.Property(x => x.DaXoa).HasDefaultValue(0);
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
 
 
-            builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
-            builder.Property(x => x.Ten).HasColumnType("nvarchar(256)").IsRequired();
-            builder.Property(x => x.TenDayDu).HasColumnType("ntext").IsRequired();
-            builder.Property(x => x.MoTa).HasColumnType("ntext").IsRequired();
+            builder.Property(x => x.Ten).HasColumnType("nvarchar(256)");
+            builder.Property(x => x.TenDayDu).HasColumnType("ntext");
+            builder.Property(x => x.MoTa).HasColumnType("ntext");
             builder.Property(x => x.DiaChi).HasColumnType("ntext");
-
-            builder.HasOne<CapXa>(x => x.CapXa).WithMany(x => x.LangNghes).HasForeignKey(x => x.CapXaId);
         }
     }
 }

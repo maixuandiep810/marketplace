@@ -15,16 +15,13 @@ namespace marketplace.Data.Configurations
             builder.ToTable("ChiTietDonHang");
 
             builder.HasKey(x => x.Id);
-            builder.HasAlternateKey(x => new { x.DonHangId, x.SanPhamId });
-            builder.Property(x => x.DonGia).HasColumnType("decimal(15,2)");
+            builder.Property(x => x.Id).UseIdentityColumn();
 
             builder.Property(x => x.DaXoa).HasDefaultValue(0);
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
             builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
 
-
-            builder.HasOne<SanPham>(x => x.SanPham).WithMany(x => x.ChiTietDonHangs).HasForeignKey(x => x.SanPhamId);
-            builder.HasOne<DonHang>(x => x.DonHang).WithMany(x => x.ChiTietDonHangs).HasForeignKey(x => x.DonHangId);
+            builder.Property(x => x.DonGia).HasColumnType("decimal(15,2)");
         }
     }
 }

@@ -45,7 +45,6 @@ namespace marketplace.Services.Common
                 }
                 if (String.IsNullOrEmpty(newImage.Url) == false)
                 {
-                    newImage.LaAnhMacDinh = true;
                     newImage.Loai = TypeOfEntityConst.CATEGORY;
                     newImage.DoiTuongId = entityId;
                     await _unitOfWork.HinhAnhRepository.AddAsync(newImage);
@@ -67,7 +66,6 @@ namespace marketplace.Services.Common
                     newImage.Url = await _fileStorageService.SaveFileAsync(formImage, SystemConst.UPLOAD_IMAGE_FOLDER_NAME);
                     if (String.IsNullOrEmpty(newImage.Url) == false)
                     {
-                        newImage.LaAnhMacDinh = false;
                         newImage.Loai = TypeOfEntityConst.USER_UPLOAD;
                         newImage.DoiTuongId = "";
                         await _unitOfWork.HinhAnhRepository.AddAsync(newImage);

@@ -18,7 +18,6 @@ namespace marketplace.Data.UnitOfWorkPattern
 
         public ICapTinhRepository CapTinhRepository { get; }
         public ICapHuyenRepository CapHuyenRepository { get; }
-        public ICapXaRepository CapXaRepository { get; }
 
 
         public IChiTietDonHangRepository ChiTietDonHangRepository { get; }
@@ -72,7 +71,6 @@ namespace marketplace.Data.UnitOfWorkPattern
             _context = context;
             CapTinhRepository = new CapTinhRepository(_context);
             CapHuyenRepository = new CapHuyenRepository(_context);
-            CapXaRepository = new CapXaRepository(_context);
             // ChiTietDanhMucRepository = new ChiTietDanhMucRepository(_context);
             ChiTietDonHangRepository = new ChiTietDonHangRepository(_context);
             // ChiTietSanPhamRepository = new ChiTietSanPhamRepository(_context);

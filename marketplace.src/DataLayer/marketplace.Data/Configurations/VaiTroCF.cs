@@ -15,11 +15,11 @@ namespace marketplace.Data.Configurations
             builder.ToTable("VaiTro");
 
             builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
-            builder.Property(x => x.MoTa).HasColumnType("ntext").IsRequired();
-            builder.Property(x => x.MaVT).HasColumnType("nvarchar(256)");
-            builder.Property(x => x.NhomVT).HasColumnType("nvarchar(256)");
             builder.Property(x => x.DaXoa).HasDefaultValue(0);
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
+
+            builder.Property(x => x.MoTa).HasColumnType("ntext");
+            builder.Property(x => x.NhomVT).HasColumnType("nvarchar(256)");
         }
     }
 }

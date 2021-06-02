@@ -11,8 +11,8 @@ namespace marketplace.Data.Entities
         public bool DaXoa { get; set; }
         public TrangThai TrangThai { set; get; }
 
-        public string MaNB { get; set; }
         public string MoTa { get; set; }
+        
         public Guid TaiKhoanId { set; get; }
         public int CuaHangId { get; set; }
 

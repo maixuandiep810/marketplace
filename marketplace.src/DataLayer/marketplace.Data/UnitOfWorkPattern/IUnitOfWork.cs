@@ -8,7 +8,6 @@ namespace marketplace.Data.UnitOfWorkPattern
     {
         ICapTinhRepository CapTinhRepository { get; }
         ICapHuyenRepository CapHuyenRepository { get; }
-        ICapXaRepository CapXaRepository { get; }
 
         IChiTietDonHangRepository ChiTietDonHangRepository { get; }
         ICuaHangRepository CuaHangRepository { get; }

@@ -12,16 +12,16 @@ namespace marketplace.Data.Configurations
             builder.ToTable("QuyenRoute");
 
             builder.HasKey(x => x.Id);
-            // builder.HasAlternateKey(x => new { x.HanhDong, x.Ten });
+            builder.Property(x => x.Id).UseIdentityColumn();
 
+            builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
             builder.Property(x => x.DaXoa).HasDefaultValue(0);
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
 
-            builder.Property(x => x.MaSo).HasColumnType("nvarchar(256)");
-            builder.Property(x => x.Ten).HasColumnType("varchar(256)").IsRequired();
-            builder.Property(x => x.MoTa).HasColumnType("ntext").IsRequired();
-            builder.Property(x => x.HanhDong).HasColumnType("varchar(256)").IsRequired(true);
-            builder.Property(x => x.PathRegex).HasColumnType("ntext").IsRequired(true);
+            builder.Property(x => x.Ten).HasColumnType("varchar(256)");
+            builder.Property(x => x.MoTa).HasColumnType("ntext");
+            builder.Property(x => x.HanhDong).HasColumnType("varchar(256)");
+            builder.Property(x => x.PathRegex).HasColumnType("ntext");
         }
     }
 }

@@ -59,7 +59,6 @@ namespace marketplace.Services.Utils
             {
                 MaSo = createCategoryDTO.Code,
                 TrangThai = (TrangThai)((int)createCategoryDTO.Status),
-                HienThiTrangChu = createCategoryDTO.IsShownAtHome
             };
             return danhMuc;
         }
@@ -158,12 +157,10 @@ namespace marketplace.Services.Utils
         {
             var langNghe = new LangNghe()
             {
-                MaLN = createBranchDTO.Code,
                 TrangThai = (TrangThai)((int)createBranchDTO.Status),
                 Ten = createBranchDTO.Name,
                 TenDayDu = createBranchDTO.FullName,
                 MoTa = createBranchDTO.Description,
-                CapXaId = createBranchDTO.CommuneId,
                 DiaChi = createBranchDTO.Address
             };
             return langNghe;
