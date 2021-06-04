@@ -19,13 +19,13 @@ namespace marketplace.Data.Entities
         public int SoCuaHang { get; set; }
 
 
-
+        public int DanhMucId { get; set; }
         public int CapHuyenId { get; set; }
 
 
 
+        public virtual DanhMuc DanhMuc { get; set; }
         public virtual CapHuyen CapHuyen { get; set; }
-        public virtual List<LangNgheDanhMuc> LangNgheDanhMucs { get; set; }
         public virtual List<CuaHang> CuaHangs { get; set; }
     }
 }

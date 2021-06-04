@@ -33,7 +33,7 @@ namespace marketplace.BackendApi.Controllers
             var jwtToken = HttpContext.Request.Cookies[CookieConst.JwtToken];
             if (String.IsNullOrEmpty(jwtToken) == true)
             {
-                return View("Index-Guest");
+                return View("Index-Guest-Buyer");
             }
             // View Error cua Admin, Seller, Co NAV,....
             return View();

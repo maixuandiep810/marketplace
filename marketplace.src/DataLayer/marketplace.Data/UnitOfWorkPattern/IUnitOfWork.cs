@@ -22,7 +22,7 @@ namespace marketplace.Data.UnitOfWorkPattern
         IKhachHangRepository KhachHangRepository { get; }
         // IJwtTokenRepository JwtTokenRepository { get; }
         ILangNgheRepository LangNgheRepository { get; }
-        ILangNgheDanhMucRepository LangNgheDanhMucRepository { get; }
+        // ILangNgheDanhMucRepository LangNgheDanhMucRepository { get; }
         // INgonNguRepository NgonNguRepository { get; }
         INguoiBanRepository NguoiBanRepository { get; }
         IQuanLyDonHangRepository QuanLyDonHangRepository { get; }

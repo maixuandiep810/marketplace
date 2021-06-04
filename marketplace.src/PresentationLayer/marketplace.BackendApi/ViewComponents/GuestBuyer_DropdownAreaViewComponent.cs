@@ -12,10 +12,10 @@ using marketplace.Services.Catalog.Address;
 
 namespace marketplace.BackendApi.ViewComponents
 {
-    public class DropdownAreaViewComponent : ViewComponent
+    public class GuestBuyer_DropdownAreaViewComponent : ViewComponent
     {
         private readonly IAddressService _addressService;
-        public DropdownAreaViewComponent(IAddressService addressService)
+        public GuestBuyer_DropdownAreaViewComponent(IAddressService addressService)
         {
             _addressService = addressService;
         }

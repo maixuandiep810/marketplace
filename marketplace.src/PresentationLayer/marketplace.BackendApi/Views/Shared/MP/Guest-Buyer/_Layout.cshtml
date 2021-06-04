@@ -1,15 +1,16 @@
+@using marketplace.BackendApi.Utils
+@using marketplace.Utilities.Const
+
 @{
     Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
     var role = CookieUtils.GetCookieValue(Context, CookieConst.Role);
 }
 
 @section TopNavigation {
-<partial name="~/Views/Shared/MP/Guest-Buyer/_TopNavigation.cshtml" />
-}
+@(await Component.InvokeAsync("GuestBuyer_TopNavigation"))}
 
 @section MainNavigation {
-<partial name="~/Views/Shared/MP/Guest/_MainNavigation.cshtml" />
-}
+@(await Component.InvokeAsync("GuestBuyer_MainNavigation"))}
 
 @RenderBody()
 

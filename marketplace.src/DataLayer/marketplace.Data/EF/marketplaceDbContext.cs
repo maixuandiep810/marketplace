@@ -38,7 +38,7 @@ namespace marketplace.Data.EF
 
             modelBuilder.ApplyConfiguration(new KhachHangCF());
             modelBuilder.ApplyConfiguration(new LangNgheCF());
-            modelBuilder.ApplyConfiguration(new LangNgheDanhMucCF());
+            // modelBuilder.ApplyConfiguration(new LangNgheDanhMucCF());
 
             modelBuilder.ApplyConfiguration(new NguoiBanCF());
 
@@ -95,7 +95,7 @@ namespace marketplace.Data.EF
         public DbSet<KhachHang> KhachHangs { get; set; }
 
         public DbSet<LangNghe> LangNghes { get; set; }
-        public DbSet<LangNgheDanhMuc> LangNgheDanhMucs { get; set; }
+        // public DbSet<LangNgheDanhMuc> LangNgheDanhMucs { get; set; }
         public DbSet<NguoiBan> NguoiBans { get; set; }
 
         public DbSet<QuanLyDonHang> QuanLyDonHangs { get; set; }

@@ -22,7 +22,6 @@ namespace marketplace.Data.Entities
         public int DanhMucId { get; set; }
 
         public virtual List<SanPhamDanhMuc> SanPhamDanhMucs { get; set; }
-        public virtual List<LangNgheDanhMuc> LangNgheDanhMucs { get; set; }
     }
 }
 
