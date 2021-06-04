@@ -8,5 +8,6 @@ namespace marketplace.Data.RepositoryPattern.IRepositories
     {
         Task<LangNghe> GetByCodeAsync(string code);
         Task<List<string>> GetAllCodeValueAsync();
+        Task<LangNghe> GetByUrl(string url);
     }
 }

@@ -21,47 +21,41 @@ using marketplace.DTO.Catalog.Branch;
 using marketplace.DTO.Catalog.Address;
 using marketplace.DTO.Component;
 
-namespace marketplace.Services.Catalog.Address
+namespace marketplace.Services.Common
 {
-    public class AddressService : BaseService<AddressService>, IAddressService
+    public class ContentNavigationService : BaseService<ContentNavigationService>, IContentNavigationService
     {
-        public AddressService(
+        public ContentNavigationService(
             IConfiguration configuration,
             IUnitOfWork unitOfWork,
             IWebHostEnvironment env,
-            ILogger<AddressService> logger) : base(configuration, unitOfWork, env, logger)
+            ILogger<ContentNavigationService> logger) : base(configuration, unitOfWork, env, logger)
         {
         }
 
-
-
-
-
-
-
-
-
-
-
-
-        public async Task<List<AreaDTO>> GetAllAreaDTOAsync()
+        public async Task<ContentNavigationDTO> GetNavigationAsync(string type, string provinceUrl, string districUrl)
         {
             try
             {
-                var areas = await _unitOfWork.CapVungMienRepository.GetAllIncludeCapTinhsAsync();
-                if (areas == null)
+                var contentNavigationDTO = new ContentNavigationDTO();
+                switch (type)
                 {
-                    return null;
+                    case "province":
+                        var entity = await _unitOfWork.CapTinhRepository.GetByUrl(provinceUrl);
+                        var navigationDTO = new NavigationDTO();
+                        navigationDTO.Name = entity.Ten;
+                        navigationDTO.Url = entity.TenUrlDayDu;
+                        contentNavigationDTO.NavigationDTO.Add(navigationDTO);
+                        break;
+                    default:
+                        break;
                 }
-                var areaDTOs = AreaDTO.GetAreaDTOs(areas);
-                return areaDTOs;
+                return contentNavigationDTO;
             }
             catch (System.Exception)
             {
                 return null;
             }
         }
-
-
     }
 }

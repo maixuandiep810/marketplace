@@ -1,7 +1,8 @@
 @using marketplace.DTO.Catalog.Address
+@using marketplace.Utilities.Const
 
 @{
-    var areaDTOViewData = ViewData["AreaDTOs"];
+    var areaDTOViewData = ViewData[ViewDataConst.AreaDTOs];
     if (areaDTOViewData == null)
     {
         return;

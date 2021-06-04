@@ -7,13 +7,20 @@
 }
 
 @section TopNavigation {
-@(await Component.InvokeAsync("GuestBuyer_TopNavigation"))}
+@(await Component.InvokeAsync("Common_TopNavigation"))
+}
 
 @section MainNavigation {
-@(await Component.InvokeAsync("GuestBuyer_MainNavigation"))}
+@(await Component.InvokeAsync("Common_MainNavigation"))
+}
+
+@section ContentHeader {
+@(await Component.InvokeAsync("Common_ContentHeader"))
+}
 
 @RenderBody()
 
 @section MPScripts {
+@(await Component.InvokeAsync("Common_AlertResultRequest"))
 <partial name="~/Views/Shared/MP/Guest-Buyer/_Scripts.cshtml" />
 }

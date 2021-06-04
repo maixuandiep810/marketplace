@@ -23,7 +23,11 @@ namespace marketplace.BackendApi.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var result = await _addressService.GetAllAreaDTOAsync();
-            ViewData["AreaDTOs"] = result.Data;
+            if (result == null)
+            {
+                return View("Null");
+            }
+            ViewData[ViewDataConst.AreaDTOs] = result;
             return View();
         }
     }

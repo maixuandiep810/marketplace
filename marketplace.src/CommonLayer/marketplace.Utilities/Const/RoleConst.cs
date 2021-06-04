@@ -5,5 +5,6 @@ namespace marketplace.Utilities.Const
         public const string Admin = "Admin";
         public const string Seller = "Seller";
         public const string Buyer = "Buyer";
+        public const string Guest = "Guest";
     }
 }

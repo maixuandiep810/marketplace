@@ -9,18 +9,24 @@ using Microsoft.Extensions.Logging;
 using marketplace.BackendApi.Models;
 using marketplace.Utilities.Const;
 using marketplace.Services.Catalog.Address;
+using marketplace.BackendApi.Utils;
 
 namespace marketplace.BackendApi.ViewComponents
 {
-    public class GuestBuyer_MainNavigationViewComponent : ViewComponent
+    public class Common_TopNavigationViewComponent : ViewComponent
     {
-        public GuestBuyer_MainNavigationViewComponent()
+        public Common_TopNavigationViewComponent()
         {
         }
 
         public IViewComponentResult Invoke()
         {
-            return View("Guest");
+            var role = (string) ViewData[ViewDataConst.Role];
+            if (role == RoleConst.Buyer || role == RoleConst.Guest)
+            {
+                return View("Guest-Buyer");
+            }
+            return View();
         }
     }
 }

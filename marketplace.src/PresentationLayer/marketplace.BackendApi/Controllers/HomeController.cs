@@ -9,16 +9,20 @@ using Microsoft.Extensions.Logging;
 using marketplace.BackendApi.Models;
 using marketplace.Utilities.Const;
 using marketplace.DTO.Catalog.Product;
+using marketplace.Services.Catalog.Address;
+using marketplace.Services.Common;
 
 namespace marketplace.BackendApi.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IContentNavigationService _contentNavigationService;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IContentNavigationService contentNavigationService)
         {
             _logger = logger;
+            _contentNavigationService = contentNavigationService;
         }
 
 
@@ -26,15 +30,39 @@ namespace marketplace.BackendApi.Controllers
 
 
 
-        [HttpGet(UrlConst.buyer_home_get)]
-        [HttpGet(UrlConst.buyer_home_province_district_get)]
-        public IActionResult Index(string provinceCode, string districtCode, [FromQuery] SearchProductDTO searchProductDTO)
+        [HttpGet(UrlConst.home_get)]
+        public IActionResult Index([FromQuery] SearchProductDTO searchProductDTO)
         {
             var jwtToken = HttpContext.Request.Cookies[CookieConst.JwtToken];
+            ViewData[ViewDataConst.Role] = RoleConst.Guest;
+            var messages = new List<string>();
+            messages.Add("aaa");
+            messages.Add("bbbbb");
+            ViewData[ViewDataConst.AlertMessages] = null;
             if (String.IsNullOrEmpty(jwtToken) == true)
             {
-                return View("Index-Guest-Buyer");
+                return View("~/Views/Home/Index-Guest-Buyer.cshtml");
             }
+
+            // View Error cua Admin, Seller, Co NAV,....
+            return View();
+        }
+
+
+        [HttpGet(UrlConst.vungmien_tinh_get)]
+        public async Task<IActionResult> Province(string area, string province, [FromQuery] SearchProductDTO searchProductDTO)
+        {
+            var jwtToken = HttpContext.Request.Cookies[CookieConst.JwtToken];
+            ViewData[ViewDataConst.Role] = RoleConst.Guest;
+            var contentNavigationDTO = await _contentNavigationService.GetNavigationAsync("province", province, "");
+            ViewData[ViewDataConst.ContentNavigation] = contentNavigationDTO;
+            var messages = new List<string>();
+            ViewData[ViewDataConst.AlertMessages] = null;
+            if (String.IsNullOrEmpty(jwtToken) == true)
+            {
+                return View("~/Views/Home/Province-Guest-Buyer.cshtml");
+            }
+
             // View Error cua Admin, Seller, Co NAV,....
             return View();
         }

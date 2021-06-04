@@ -20,9 +20,11 @@ namespace marketplace.Utilities.Const
         public const string g_user_confirm_email_get = @"/g/user/confirmemail";
 
 
-        public const string buyer_home_get = @"/";
+        public const string home_get = @"/";
+        public const string vungmien_tinh_get = @"/vung-mien/{area}/tinh/{province}";
+
         public const string buyer_home_province_district_get = @"/{provinceCode}/{districtCode}";
-        
+
 
         // public const string address_dropdown_area_get = @"/address/dropdown-area";
         // public const string common_error_get = @"/error";
