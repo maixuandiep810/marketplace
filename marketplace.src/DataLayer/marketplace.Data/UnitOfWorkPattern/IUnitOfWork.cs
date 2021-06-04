@@ -6,6 +6,7 @@ namespace marketplace.Data.UnitOfWorkPattern
 {
     public interface IUnitOfWork : IDisposable
     {
+        ICapVungMienRepository CapVungMienRepository { get; }
         ICapTinhRepository CapTinhRepository { get; }
         ICapHuyenRepository CapHuyenRepository { get; }
 

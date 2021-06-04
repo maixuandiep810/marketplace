@@ -12,7 +12,16 @@ namespace marketplace.Data.Entities
 
 
         public string Ten { get; set; }
+        public string TenUrl { get; set; }
+        public string TenUrlDayDu { get; set; }
+        public int SoCuaHang { get; set; }
 
+
+        public int CapVungMienId { get; set; }
+
+
+
+        public CapVungMien CapVungMien { get; set; }
         public virtual List<CapHuyen> CapHuyens { get; set; }
     }
 }

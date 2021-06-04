@@ -134,7 +134,16 @@ namespace marketplace.Data.Migrations
                     b.Property<string>("MaSo")
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int>("SoCuaHang")
+                        .HasColumnType("int");
+
                     b.Property<string>("Ten")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("TenUrl")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("TenUrlDayDu")
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("TrangThai")
@@ -158,6 +167,9 @@ namespace marketplace.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CapVungMienId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("DaXoa")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -166,7 +178,16 @@ namespace marketplace.Data.Migrations
                     b.Property<string>("MaSo")
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int>("SoCuaHang")
+                        .HasColumnType("int");
+
                     b.Property<string>("Ten")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("TenUrl")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("TenUrlDayDu")
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("TrangThai")
@@ -176,7 +197,48 @@ namespace marketplace.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CapVungMienId");
+
                     b.ToTable("CapTinh");
+                });
+
+            modelBuilder.Entity("marketplace.Data.Entities.CapVungMien", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("DaXoa")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("MaSo")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("SoCuaHang")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ten")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("TenUrl")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("TenUrlDayDu")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("TrangThai")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CapVungMien");
                 });
 
             modelBuilder.Entity("marketplace.Data.Entities.ChiTietDonHang", b =>
@@ -254,6 +316,12 @@ namespace marketplace.Data.Migrations
                     b.Property<string>("TenDayDu")
                         .HasColumnType("ntext");
 
+                    b.Property<string>("TenUrl")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("TenUrlDayDu")
+                        .HasColumnType("nvarchar(256)");
+
                     b.Property<int>("TrangThai")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
@@ -283,6 +351,9 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
+                    b.Property<int>("DanhMucId")
+                        .HasColumnType("int");
+
                     b.Property<string>("MaSo")
                         .HasColumnType("nvarchar(256)");
 
@@ -290,7 +361,12 @@ namespace marketplace.Data.Migrations
                         .HasColumnType("ntext");
 
                     b.Property<string>("Ten")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("TenUrl")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("TenUrlDayDu")
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("TrangThai")
@@ -551,11 +627,20 @@ namespace marketplace.Data.Migrations
                     b.Property<string>("MoTa")
                         .HasColumnType("ntext");
 
+                    b.Property<int>("SoCuaHang")
+                        .HasColumnType("int");
+
                     b.Property<string>("Ten")
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("TenDayDu")
                         .HasColumnType("ntext");
+
+                    b.Property<string>("TenUrl")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("TenUrlDayDu")
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("TrangThai")
                         .ValueGeneratedOnAdd()
@@ -816,6 +901,12 @@ namespace marketplace.Data.Migrations
                     b.Property<string>("TenDayDu")
                         .HasColumnType("ntext");
 
+                    b.Property<string>("TenUrl")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("TenUrlDayDu")
+                        .HasColumnType("nvarchar(256)");
+
                     b.Property<int>("TrangThai")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
@@ -967,9 +1058,6 @@ namespace marketplace.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NhomVT")
-                        .HasColumnType("nvarchar(256)");
-
                     b.Property<string>("NormalizedName")
                         .HasColumnType("nvarchar(max)");
 
@@ -988,6 +1076,15 @@ namespace marketplace.Data.Migrations
                     b.HasOne("marketplace.Data.Entities.CapTinh", "CapTinh")
                         .WithMany("CapHuyens")
                         .HasForeignKey("CapTinhId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("marketplace.Data.Entities.CapTinh", b =>
+                {
+                    b.HasOne("marketplace.Data.Entities.CapVungMien", "CapVungMien")
+                        .WithMany("CapTinhs")
+                        .HasForeignKey("CapVungMienId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -16,14 +16,14 @@ namespace marketplace.Data.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Configure using Fluent API
-
+            modelBuilder.ApplyConfiguration(new CapVungMienCF());
             modelBuilder.ApplyConfiguration(new CapTinhCF());
             modelBuilder.ApplyConfiguration(new CapHuyenCF());
 
             modelBuilder.ApplyConfiguration(new ChiTietDonHangCF());
             modelBuilder.ApplyConfiguration(new CuaHangCF());
             modelBuilder.ApplyConfiguration(new DanhMucCF());
-            
+
             // modelBuilder.ApplyConfiguration(new ChiTietDanhMucCF());
             // modelBuilder.ApplyConfiguration(new ChiTietSanPhamCF());
             // modelBuilder.ApplyConfiguration(new NgonNguCF());
@@ -78,7 +78,7 @@ namespace marketplace.Data.EF
         // // public DbSet<AppConfig> AppConfigs { get; set; }
         // // public DbSet<AppConfig> AppConfigs { get; set; }
 
-
+        public DbSet<CapVungMien> CapVungMiens { get; set; }
         public DbSet<CapTinh> CapTinhs { get; set; }
         public DbSet<CapHuyen> CapHuyens { get; set; }
 

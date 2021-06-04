@@ -16,6 +16,23 @@ namespace marketplace.Data.UnitOfWorkPattern
         private readonly marketplaceDbContext _context;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public ICapVungMienRepository CapVungMienRepository { get; }
         public ICapTinhRepository CapTinhRepository { get; }
         public ICapHuyenRepository CapHuyenRepository { get; }
 
@@ -66,9 +83,28 @@ namespace marketplace.Data.UnitOfWorkPattern
 
         public IVaiTroRepository VaiTroRepository { get; }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public UnitOfWork(marketplaceDbContext context)
         {
             _context = context;
+
+
+            CapVungMienRepository = new CapVungMienRepository(_context);
             CapTinhRepository = new CapTinhRepository(_context);
             CapHuyenRepository = new CapHuyenRepository(_context);
             // ChiTietDanhMucRepository = new ChiTietDanhMucRepository(_context);
@@ -99,11 +135,43 @@ namespace marketplace.Data.UnitOfWorkPattern
             VaiTroRepository = new VaiTroRepository(_context);
         }
 
+
+
+
+
+
+
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /// <summary>

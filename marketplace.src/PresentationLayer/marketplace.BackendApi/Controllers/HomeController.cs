@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using marketplace.BackendApi.Models;
+using marketplace.Utilities.Const;
+using marketplace.DTO.Catalog.Product;
 
 namespace marketplace.BackendApi.Controllers
 {
@@ -19,8 +21,21 @@ namespace marketplace.BackendApi.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+
+
+
+
+
+        [HttpGet(UrlConst.buyer_home_get)]
+        [HttpGet(UrlConst.buyer_home_province_district_get)]
+        public IActionResult Index(string provinceCode, string districtCode, [FromQuery] SearchProductDTO searchProductDTO)
         {
+            var jwtToken = HttpContext.Request.Cookies[CookieConst.JwtToken];
+            if (String.IsNullOrEmpty(jwtToken) == true)
+            {
+                return View("Index-Guest");
+            }
+            // View Error cua Admin, Seller, Co NAV,....
             return View();
         }
 

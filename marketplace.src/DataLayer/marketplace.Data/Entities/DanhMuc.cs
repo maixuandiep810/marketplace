@@ -13,8 +13,13 @@ namespace marketplace.Data.Entities
         public TrangThai TrangThai { set; get; }
 
         public string Ten { set; get; }
+        public string TenUrl { get; set; }
+        public string TenUrlDayDu { get; set; }
+
         public string MoTa { set; get; }
         public int CapDanhMuc { set; get; }
+
+        public int DanhMucId { get; set; }
 
         public virtual List<SanPhamDanhMuc> SanPhamDanhMucs { get; set; }
         public virtual List<LangNgheDanhMuc> LangNgheDanhMucs { get; set; }

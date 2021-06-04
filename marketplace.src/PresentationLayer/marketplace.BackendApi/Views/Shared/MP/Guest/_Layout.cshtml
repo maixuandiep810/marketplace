@@ -1,0 +1,18 @@
+@{
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+    var role = CookieUtils.GetCookieValue(Context, CookieConst.Role);
+}
+
+@section TopNavigation {
+<partial name="~/Views/Shared/MP/Guest-Buyer/_TopNavigation.cshtml" />
+}
+
+@section MainNavigation {
+<partial name="~/Views/Shared/MP/Guest/_MainNavigation.cshtml" />
+}
+
+@RenderBody()
+
+@section MPScripts {
+<partial name="~/Views/Shared/MP/Guest-Buyer/_Scripts.cshtml" />
+}

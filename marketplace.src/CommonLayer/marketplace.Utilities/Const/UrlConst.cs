@@ -14,10 +14,19 @@ namespace marketplace.Utilities.Const
 
         public const string acc_user_logout_get = @"/acc/user/logout";
 
-        public const string g_home_get = @"/home";
+        public const string guest_home_get = @"/home";
         public const string g_user_login_get = @"/g/user/login";
         public const string g_user_login_post = @"/g/user/login";
         public const string g_user_confirm_email_get = @"/g/user/confirmemail";
+
+
+        public const string buyer_home_get = @"/";
+        public const string buyer_home_province_district_get = @"/{provinceCode}/{districtCode}";
+        
+
+        // public const string address_dropdown_area_get = @"/address/dropdown-area";
+        // public const string common_error_get = @"/error";
+
 
 
 

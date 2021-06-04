@@ -18,10 +18,10 @@ namespace marketplace.Data.RepositoryPattern.Repositories
 
         public bool CheckRoleInRoleGroup(List<string> roleNames, string roleGroup)
         {
-            if (Find(x => x.NhomVT == roleGroup && roleNames.Contains(x.Name) == true).Count() > 0)
-            {
-                return true;
-            };
+            // if (Find(x => x.NhomVT == roleGroup && roleNames.Contains(x.Name) == true).Count() > 0)
+            // {
+            //     return true;
+            // };
             return false;
         }
 

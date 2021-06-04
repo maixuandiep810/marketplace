@@ -13,7 +13,7 @@ namespace marketplace.Utilities.Const
         public const string RememberMe = "RememberMe";
         public const string UserId = "UserId";
         public const string SessionMP = "SessionMP";
-        public const string RoleGroup = "RoleGroup";
+        public const string Role = "Role";
 
         public static Microsoft.AspNetCore.Http.CookieOptions CookieOptions = new Microsoft.AspNetCore.Http.CookieOptions()
         {

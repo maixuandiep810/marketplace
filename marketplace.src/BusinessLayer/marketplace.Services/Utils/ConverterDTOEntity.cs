@@ -8,6 +8,7 @@ using marketplace.DTO.Catalog.Category;
 using marketplace.DTO.Catalog.Product;
 using marketplace.Data.Enums;
 using marketplace.DTO.Catalog.Branch;
+using marketplace.DTO.Catalog.Address;
 
 namespace marketplace.Services.Utils
 {
@@ -64,7 +65,8 @@ namespace marketplace.Services.Utils
         }
 
 
-        public static ProductDTO GetProductDTOFromProduct(SanPham product) {
+        public static ProductDTO GetProductDTOFromProduct(SanPham product)
+        {
             return new ProductDTO(product);
         }
 
@@ -124,10 +126,6 @@ namespace marketplace.Services.Utils
         {
             return new RoutePermissionDTO(quyenRoute);
         }
-
-
-
-
 
 
 

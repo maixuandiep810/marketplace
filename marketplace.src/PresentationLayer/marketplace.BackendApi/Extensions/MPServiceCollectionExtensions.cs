@@ -19,6 +19,7 @@ using marketplace.Services.SystemManager.RBAC;
 using marketplace.Services.SystemManager.Auth;
 using marketplace.Services.Catalog.Branch;
 using marketplace.Services.Catalog.Store;
+using marketplace.Services.Catalog.Address;
 
 namespace marketplace.BackendApi.Extensions
 {
@@ -57,6 +58,7 @@ namespace marketplace.BackendApi.Extensions
             services.AddTransient<IRoutePermissionService, RoutePermissionService>();
             services.AddTransient<IBranchService, BranchService>();
             services.AddTransient<IStoreService, StoreService>();
+            services.AddTransient<IAddressService, AddressService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             return services;
         }

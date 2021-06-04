@@ -12,6 +12,9 @@ namespace marketplace.Data.Entities
         public TrangThai TrangThai { set; get; }
 
         public string Ten { set; get; }
+        public string TenUrl { get; set; }
+        public string TenUrlDayDu { get; set; }
+
         public string TenDayDu { set; get; }
         public string MoTa { set; get; }
         public decimal DonGia { set; get; }

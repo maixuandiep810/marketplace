@@ -19,7 +19,6 @@ namespace marketplace.Data.Configurations
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
 
             builder.Property(x => x.MoTa).HasColumnType("ntext");
-            builder.Property(x => x.NhomVT).HasColumnType("nvarchar(256)");
         }
     }
 }
