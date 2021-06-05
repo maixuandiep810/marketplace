@@ -43,14 +43,19 @@ namespace marketplace.BackendApi.Controllers
             {
                 return View("~/Views/Home/Index-Guest-Buyer.cshtml");
             }
+            // switch (switch_on)
+            // {
+                
+            //     default:
+            // }
 
             // View Error cua Admin, Seller, Co NAV,....
             return View();
         }
 
 
-        [HttpGet(UrlConst.vungmien_tinh_get)]
-        public async Task<IActionResult> Province(string area, string province, [FromQuery] SearchProductDTO searchProductDTO)
+        [HttpGet(UrlConst.tinh_get)]
+        public async Task<IActionResult> Province([FromQuery] string province, [FromQuery] SearchProductDTO searchProductDTO)
         {
             var jwtToken = HttpContext.Request.Cookies[CookieConst.JwtToken];
             ViewData[ViewDataConst.Role] = RoleConst.Guest;

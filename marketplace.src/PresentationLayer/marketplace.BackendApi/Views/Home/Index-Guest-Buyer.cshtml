@@ -2,4 +2,8 @@
     Layout = "~/Views/Shared/MP/Guest-Buyer/_Layout.cshtml";
 }
 
+@section ContentHeader {
+@(await Component.InvokeAsync("Common_ContentHeader"))
+}
+
 

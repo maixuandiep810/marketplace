@@ -1,0 +1,4 @@
+Các thư mục layout
+-Views
+    - Shared -> AdminLTE (các mục _layout)
+    - Shared -> MP (các mục _layout)

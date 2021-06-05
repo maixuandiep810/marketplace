@@ -46,17 +46,26 @@ namespace marketplace.Services.SystemManager.User
             _emailSender = emailSender;
             _imageService = imageService;
         }
+
+
+
+
+
+
+
+
+        // APIIIIIIIIIIIIIIIIIIIIIIIIIIIII
         public async Task<ApiResult<bool>> RegisterAsync(RegisterDTO request)
         {
             try
             {
-                var user = await _userManager.FindByNameAsync(request.UserName);
-                if (user != null || await _userManager.FindByEmailAsync(request.Email) != null)
+                var existUser = await _userManager.FindByNameAsync(request.Username);
+                if (existUser != null || await _userManager.FindByEmailAsync(request.Email) != null)
                 {
                     return new ApiResult<bool>(ApiResultConst.CODE.USERNAME_EXISTS_E, false, false, null);
                 }
 
-                user = ConverterDTOEntity.GetTaiKhoanFromRegisterDTO(request);
+                var user = request.GetTaiKhoan();
                 var createResult = await _userManager.CreateAsync(user, request.Password);
                 if (createResult.Succeeded == false)
                 {
@@ -67,9 +76,9 @@ namespace marketplace.Services.SystemManager.User
 
                 return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_REGISTER_S, true, true, null);
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
-                return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
+                throw;
             }
         }
 
@@ -80,13 +89,15 @@ namespace marketplace.Services.SystemManager.User
                 var user = await _userManager.FindByEmailAsync(userEmail);
                 if (user == null)
                 {
-                    return new ApiResult<bool>(ApiResultConst.CODE.CONFIRM_EMAIL_FAILED, false, false, null);
+                    // return new ApiResult<bool>(ApiResultConst.CODE.CONFIRM_EMAIL_FAILED, false, false, null);
+                    throw new Exception();
                 }
 
                 var resultConfirm = await _userManager.ConfirmEmailAsync(user, token);
                 if (resultConfirm.Succeeded == false)
                 {
-                    return new ApiResult<bool>(ApiResultConst.CODE.CONFIRM_EMAIL_FAILED, false, false, null);
+                    // return new ApiResult<bool>(ApiResultConst.CODE.CONFIRM_EMAIL_FAILED, false, false, null);
+                    throw new Exception();
                 }
 
                 _unitOfWork.TaiKhoanRepository.ActivateEntity(user);
@@ -94,13 +105,14 @@ namespace marketplace.Services.SystemManager.User
 
                 return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_CONFIRM_EMAIL_ENTITY_S, true, true, null);
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
-                return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
+                throw;
             }
         }
 
-        public async Task<ApiResult<bool>> ResendConfirmEmail(string userEmail)
+        // CHUA DUNG
+        public async Task<ApiResult<bool>> ResendConfirmEmail(string userEmail)// CHUA DU
         {
             try
             {
@@ -126,7 +138,7 @@ namespace marketplace.Services.SystemManager.User
             var encodeToken = HttpUtility.UrlEncode(token);
             var email = user.Email;
             var host = _configuration[ConfigKeyConst.BASE_API_ADDRESS];
-            var path = UrlConst.g_user_confirm_email_get;
+            var path = UrlConst.user_confirm_email_get;
 
             var confirmationLink = String.Format("{0}{1}?useremail={2}&token={3}", host, path, email, encodeToken);
 
@@ -134,6 +146,24 @@ namespace marketplace.Services.SystemManager.User
 
             await _emailSender.SendEmailAsync(email, EmailConst.CONFIRM_EMAIL_SUBJECT, messageContent);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
 
         /// <summary>
         /// 
@@ -168,12 +198,12 @@ namespace marketplace.Services.SystemManager.User
 
                 var roleNamesIList = await _userManager.GetRolesAsync(user);
                 var roleNames = new List<string>(roleNamesIList);
-                var checkRoleGroup = _unitOfWork.VaiTroRepository.CheckRoleInRoleGroup(roleNames, request.RoleGroup);
+                // var checkRoleGroup = _unitOfWork.VaiTroRepository.CheckRoleInRoleGroup(roleNames, request.RoleGroup);
 
-                if (checkRoleGroup)
-                {
-                    return new ApiResult<UserDTO>(ApiResultConst.CODE.NOT_IN_ROLE_GROUP, false, null, null);
-                }
+                // if (checkRoleGroup)
+                // {
+                //     return new ApiResult<UserDTO>(ApiResultConst.CODE.NOT_IN_ROLE_GROUP, false, null, null);
+                // }
 
                 var claims = new[]
                     {
@@ -218,7 +248,7 @@ namespace marketplace.Services.SystemManager.User
             }
         }
 
-        public async Task<ApiResult<PageEntityDTO<UserDTO>>> GetPageAsync(int? page=0)
+        public async Task<ApiResult<PageEntityDTO<UserDTO>>> GetPageAsync(int? page = 0)
         {
             int start;
             if (page <= 0)

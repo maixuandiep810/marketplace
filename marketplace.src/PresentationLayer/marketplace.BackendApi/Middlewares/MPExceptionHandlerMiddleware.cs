@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using marketplace.Utilities.Common;
+using System.Net.Mime;
 
 namespace marketplace.BackendApi.Middlewares
 {
@@ -36,7 +37,13 @@ namespace marketplace.BackendApi.Middlewares
             {
                 LogUtils.LogException<MPExceptionHandlerMiddleware>(_env, ex, _logger, "Marketplace LogInfomation Message");
                 var apiResult = DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
-                await httpContext.WriteJsonResponseAsync(500, apiResult);
+                var isApplicationJsonRequest = httpContext.Request.ContentType == MediaTypeNames.Application.Json;
+                if (isApplicationJsonRequest == true)
+                {
+                    await httpContext.WriteJsonResponseAsync(200, apiResult);
+                }
+                // httpContext.Items["ABC"] = 111;
+                httpContext.Response.Redirect(UrlConst.error_get);
             }
         }
     }

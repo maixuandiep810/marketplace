@@ -15,12 +15,14 @@
 }
 
 @section ContentHeader {
-@(await Component.InvokeAsync("Common_ContentHeader"))
+    @RenderSection("ContentHeader", required: false)
 }
 
 @RenderBody()
 
 @section MPScripts {
-@(await Component.InvokeAsync("Common_AlertResultRequest"))
-<partial name="~/Views/Shared/MP/Guest-Buyer/_Scripts.cshtml" />
+
+@(await Component.InvokeAsync("Common_AlertResultRequest"));
+
+    @RenderSection("MPScripts", required: false)
 }

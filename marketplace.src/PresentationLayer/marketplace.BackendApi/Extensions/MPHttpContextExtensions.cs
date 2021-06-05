@@ -17,7 +17,6 @@ namespace marketplace.BackendApi.Extensions
             // Set the content type
             httpContext.Response.ContentType = "application/json; charset=utf-8";
             await httpContext.Response.WriteAsync(jsonResult);
-
         }
     }
 }

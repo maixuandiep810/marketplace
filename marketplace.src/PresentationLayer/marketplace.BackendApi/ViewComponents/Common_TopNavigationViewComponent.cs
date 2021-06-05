@@ -26,7 +26,7 @@ namespace marketplace.BackendApi.ViewComponents
             {
                 return View("Guest-Buyer");
             }
-            return View();
+            return View("Guest-Buyer");
         }
     }
 }

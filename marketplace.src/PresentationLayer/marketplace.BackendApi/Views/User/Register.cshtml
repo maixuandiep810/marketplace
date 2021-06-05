@@ -1,0 +1,66 @@
+@using marketplace.DTO.SystemManager.User
+@using marketplace.DTO.Common;
+@using marketplace.Utilities.Const
+@model RegisterDTO
+
+@{
+    Layout = "~/Views/Shared/MP/Guest-Buyer/_Layout.cshtml";
+    ViewData["Title"] = "Đăng ký";
+    var apiResult = (ApiResult<UserDTO>)ViewData["ApiResult"];
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- jquery validation -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Đăng ký tài khoản</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form id="registerForm">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <input type="email" asp-for="Email" class="form-control" placeholder="Nhập email">
+                    </div>
+                    <div class="form-group">
+                        <label for="Username">Tên tài khoản</label>
+                        <input type="text" asp-for="Username" class="form-control" placeholder="Nhập tên tài khoản">
+                    </div>
+                    <div class="form-group">
+                        <label for="Password">Mật khẩu</label>
+                        <input type="password" asp-for="Password" class="form-control" placeholder="Nhập mật khẩu">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConfirmPassword">Xác nhận mật khẩu</label>
+                        <input type="password" asp-for="ConfirmPassword" class="form-control" placeholder="Nhập mật khẩu">
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary" id="submitRegister">Đăng nhập</button>
+                </div>
+            </form>
+            <p id="registerFormResult" hidden="true">
+                Đăng kí thành công, kiểm tra email để xác thực tài khoản.
+            </p>
+        </div>
+        <!-- /.card -->
+    </div>
+    <!--/.col (left) -->
+    <!-- right column -->
+    <div class="col-md-6">
+
+    </div>
+    <!--/.col (right) -->
+</div>
+<!-- /.row -->
+
+
+@section MPScripts {
+<script src="~/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="~/plugins/jquery-validation/additional-methods.min.js"></script>
+<script src="~/mp-frontend/js/RegisterFormManager.js"></script>
+}

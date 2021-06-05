@@ -11,6 +11,8 @@ using marketplace.Utilities.Const;
 using marketplace.Services.SystemManager.User;
 using Microsoft.AspNetCore.Http;
 using marketplace.BackendApi.Utils;
+using marketplace.DTO.Common;
+using marketplace.BackendApi.Extensions;
 
 namespace marketplace.BackendApi.Controllers
 {
@@ -25,6 +27,81 @@ namespace marketplace.BackendApi.Controllers
             _userService = userService;
         }
 
+
+
+
+
+
+        //------------------------------------------------------------------------------------------
+
+
+        [HttpGet(UrlConst.user_register_get)]
+        public IActionResult Register()
+        {
+            return View();
+        }
+        // JSON
+        [HttpPost(UrlConst.user_register_post)]
+        public async Task<IActionResult> Register([FromBody] RegisterDTO request)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return Ok(new ApiResult<bool>(ApiResultConst.CODE.INVALID_REQUEST_DATA, false, false, null, ModelState.GetMessageList()));
+            }
+            var result = await _userService.RegisterAsync(request);
+            return Ok(result);
+        }
+        //
+        [HttpPost(UrlConst.user_confirm_email_get)]
+        public async Task<IActionResult> Register([FromQuery] string useremail, [FromQuery] string token)
+        {
+            if (ModelState.IsValid == false)
+            {
+                throw new Exception();
+            }
+            var result = await _userService.ConfirmUserEmail(useremail, token);
+            if (result.IsSuccessed == false)
+            {
+                throw new Exception();
+            }
+            return Redirect("/");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         [HttpGet(UrlConst.ad_user_all_get)]
         public async Task<IActionResult> Ad_GetAll(int? page = 0)
         {
@@ -35,13 +112,15 @@ namespace marketplace.BackendApi.Controllers
         }
 
 
-        [HttpGet(UrlConst.g_user_login_get)]
+        [HttpGet(UrlConst.user_login_get)]
         public IActionResult Login()
         {
+            throw new Exception();
             return View();
         }
 
-        [HttpPost(UrlConst.g_user_login_post)]
+        // JSON
+        [HttpPost(UrlConst.user_login_post)]
         public async Task<IActionResult> Login([FromForm] LoginDTO request)
         {
             /// <summary>
@@ -50,11 +129,11 @@ namespace marketplace.BackendApi.Controllers
             var result = await _userService.LoginAsync(request);
             if (result.IsSuccessed == true)
             {
-                CookieUtils.SetUserCookie(HttpContext, result.Data, request.RoleGroup, request.RememberMe);
+                // CookieUtils.SetUserCookie(HttpContext, result.Data, request.RoleGroup, request.RememberMe);
 
                 if (request.RememberMe == false)
                 {
-                    HttpContext.Session.SetString(CookieConst.SessionMP, CookieConst.SessionMP);
+                    HttpContext.Session.SetString(CookieConst.SessionJwtToken, true.ToString());
                 }
 
                 return RedirectToAction("Index", "Home");
@@ -65,14 +144,29 @@ namespace marketplace.BackendApi.Controllers
         }
 
 
+
+
+
         [HttpGet(UrlConst.acc_user_logout_get)]
         public IActionResult Logout()
         {
-            HttpContext.Session.Remove(CookieConst.SessionMP);
+            // HttpContext.Session.Remove(CookieConst.SessionMP);
             HttpContext.Session.Clear();
             CookieUtils.DeteteUserCookie(HttpContext);
             return RedirectToAction("Index", "Home");
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         [HttpGet(UrlConst.ad_user_username_detail_get)]

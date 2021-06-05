@@ -22,17 +22,17 @@ namespace marketplace.BackendApi.Middlewares
         public async Task Invoke(HttpContext httpContext, IJWTService jWTService, IUserService userService, IRoutePermissionService routePermissionService)
         {
             var rememberMe = httpContext.Request.Cookies[CookieConst.RememberMe];
-            var sessionMP = httpContext.Session.GetString(CookieConst.SessionMP);
+            // var sessionMP = httpContext.Session.GetString(CookieConst.SessionMP);
             var cookieJwtToken = httpContext.Request.Cookies[CookieConst.JwtToken];
 
-            if (cookieJwtToken != null && sessionMP == null && rememberMe == false.ToString())
-            {
-                CookieUtils.DeteteUserCookie(httpContext);
-            }
-            else
-            {
-                httpContext.Request.Headers[HttpContextConst.AUTHORIZATION_ITEM_KEY] = cookieJwtToken;
-            }
+            // if (cookieJwtToken != null && sessionMP == null && rememberMe == false.ToString())
+            // {
+            //     CookieUtils.DeteteUserCookie(httpContext);
+            // }
+            // else
+            // {
+            //     httpContext.Request.Headers[HttpContextConst.AUTHORIZATION_ITEM_KEY] = cookieJwtToken;
+            // }
 
             var path = httpContext.Request.Path.ToString();
             var action = httpContext.Request.Method;

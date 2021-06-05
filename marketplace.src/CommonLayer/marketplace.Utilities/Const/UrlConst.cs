@@ -15,13 +15,24 @@ namespace marketplace.Utilities.Const
         public const string acc_user_logout_get = @"/acc/user/logout";
 
         public const string guest_home_get = @"/home";
-        public const string g_user_login_get = @"/g/user/login";
         public const string g_user_login_post = @"/g/user/login";
         public const string g_user_confirm_email_get = @"/g/user/confirmemail";
 
 
+        // HOME
         public const string home_get = @"/";
-        public const string vungmien_tinh_get = @"/vung-mien/{area}/tinh/{province}";
+        public const string tinh_get = @"/tinh/chi-tiet";
+        // USER
+        public const string user_login_get = @"/user/login";
+        public const string user_login_post = @"/user/login";
+        public const string user_register_get = @"/user/register";
+        public const string user_register_post = @"/user/register";
+        public const string user_confirm_email_get = @"/user/confirmemail";
+        
+        // ERROR
+        public const string error_get = @"/error";
+
+
 
         public const string buyer_home_province_district_get = @"/{provinceCode}/{districtCode}";
 

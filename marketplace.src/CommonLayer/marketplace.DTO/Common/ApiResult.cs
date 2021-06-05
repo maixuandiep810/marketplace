@@ -12,6 +12,7 @@ namespace marketplace.DTO.Common
         public bool IsSuccessed { get; set; }
         public T Data { get; set; }
         public List<string> Messages { get; set; }
+        public string Message { get; set; }
         public string StackTrace { get; set; }
 
         public ApiResult() : this(default(T))
@@ -25,7 +26,8 @@ namespace marketplace.DTO.Common
             IsSuccessed = false;
             Data = defaultData;
             Messages = new List<string>();
-            Messages.Add(ApiResultConst.MESSAGE(ApiResultConst.CODE.ERROR));
+            // Messages.Add(ApiResultConst.MESSAGE(ApiResultConst.CODE.ERROR));
+            Message = ApiResultConst.MESSAGE(ApiResultConst.CODE.ERROR);
         }
 
         public ApiResult(int code, bool isSuccessed, T data, string stackTrace)
@@ -72,7 +74,8 @@ namespace marketplace.DTO.Common
             StackTrace = stackTrace;
 
             Messages = new List<string>();
-            Messages.Add(ApiResultConst.MESSAGE(code));
+            // Messages.Add(ApiResultConst.MESSAGE(code));
+            Message = ApiResultConst.MESSAGE(code);
         }
 
         public void SetResult(int code, bool isSuccessed, T data, string stackTrace, params string[] messages)
@@ -90,7 +93,8 @@ namespace marketplace.DTO.Common
             Messages = new List<string>();
             foreach (var mess in messages)
             {
-                Messages.Add(mess);
+                // Messages.Add(mess);
+                Message += mess + "\n";
             }
         }
 
@@ -109,7 +113,7 @@ namespace marketplace.DTO.Common
             Messages = new List<string>();
             foreach (var mess in messages)
             {
-                Messages.Add(mess);
+                Message += mess + "\n";
             }
         }
     }
