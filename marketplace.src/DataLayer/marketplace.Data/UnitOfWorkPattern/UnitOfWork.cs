@@ -55,23 +55,11 @@ namespace marketplace.Data.UnitOfWorkPattern
 
         public IHinhAnhRepository HinhAnhRepository { get; }
 
-        public IKhachHangRepository KhachHangRepository { get; }
-
-        // public IJwtTokenRepository JwtTokenRepository { get; }
+        public INguoiMuaRepository NguoiMuaRepository { get; }
 
         public ILangNgheRepository LangNgheRepository { get; }
 
-        // public ILangNgheDanhMucRepository LangNgheDanhMucRepository { get; }
-
-        // public INgonNguRepository NgonNguRepository { get; }
-
         public INguoiBanRepository NguoiBanRepository { get; }
-
-        public IQuanLyDonHangRepository QuanLyDonHangRepository { get; }
-
-        // public IQuyenEntityRepository QuyenEntityRepository { get; }
-        // public IQuyenEntityTaiKhoanRepository QuyenEntityTaiKhoanRepository { get; }
-        // public IQuyenEntityVaiTroRepository QuyenEntityVaiTroRepository { get; }
         public IQuyenRouteRepository QuyenRouteRepository { get; }
         public IQuyenRouteVaiTroRepository QuyenRouteVaiTroRepository { get; }
 
@@ -107,26 +95,20 @@ namespace marketplace.Data.UnitOfWorkPattern
             CapVungMienRepository = new CapVungMienRepository(_context);
             CapTinhRepository = new CapTinhRepository(_context);
             CapHuyenRepository = new CapHuyenRepository(_context);
-            // ChiTietDanhMucRepository = new ChiTietDanhMucRepository(_context);
             ChiTietDonHangRepository = new ChiTietDonHangRepository(_context);
-            // ChiTietSanPhamRepository = new ChiTietSanPhamRepository(_context);
             CuaHangRepository = new CuaHangRepository(_context);
             DanhMucRepository = new DanhMucRepository(_context);
             DonHangRepository = new DonHangRepository(_context);
-            GiaoDichRepository = new GiaoDichRepository(_context);
+            // GiaoDichRepository = new GiaoDichRepository(_context);
             GioHangRepository = new GioHangRepository(_context);
             HinhAnhRepository = new HinhAnhRepository(_context);
-            KhachHangRepository = new KhachHangRepository(_context);
-            // JwtTokenRepository = new JwtTokenRepository(_context);
-            // LangNgheDanhMucRepository = new LangNgheDanhMucRepository(_context);
+            NguoiMuaRepository = new NguoiMuaRepository(_context);
+      
             LangNgheRepository = new LangNgheRepository(_context);
             // NgonNguRepository = new NgonNguRepository(_context);
             NguoiBanRepository = new NguoiBanRepository(_context);
             NguoiBanRepository = new NguoiBanRepository(_context);
-            QuanLyDonHangRepository = new QuanLyDonHangRepository(_context);
-            // QuyenEntityRepository = new QuyenEntityRepository(_context);
-            // QuyenEntityTaiKhoanRepository = new QuyenEntityTaiKhoanRepository(_context);
-            // QuyenEntityVaiTroRepository = new QuyenEntityVaiTroRepository(_context);
+
             QuyenRouteRepository = new QuyenRouteRepository(_context);
             QuyenRouteVaiTroRepository = new QuyenRouteVaiTroRepository(_context);
             SanPhamRepository = new SanPhamRepository(_context);

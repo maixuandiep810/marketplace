@@ -22,11 +22,22 @@ namespace marketplace.BackendApi.ViewComponents
         public IViewComponentResult Invoke()
         {
             var role = (string) ViewData[ViewDataConst.Role];
-            if (role == RoleConst.Guest)
+            var roleName = HttpContext.Items[HttpContextConst.RoleName_Item_Key].ToString();
+
+            switch (roleName)
             {
-                return View("Guest");
+                case RoleConst.Guest:
+                    return View("Guest");               
+                case RoleConst.Buyer:
+                    return View("Buyer");  
+                case RoleConst.Seller:
+                    return View("Seller");  
+                case RoleConst.Admin:
+                    return View("Admin");      
+                default:
+                    break;
             }
-            return View("Guest");
+            return View("Guest-Buyer");
         }
     }
 }

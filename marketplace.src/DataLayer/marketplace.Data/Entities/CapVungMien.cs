@@ -10,8 +10,6 @@ namespace marketplace.Data.Entities
         public bool DaXoa { get; set; }
         public TrangThai TrangThai { set; get; }
         public int SoCuaHang { get; set; }
-        public string TenUrl { get; set; }
-        public string TenUrlDayDu { get; set; }
 
 
 

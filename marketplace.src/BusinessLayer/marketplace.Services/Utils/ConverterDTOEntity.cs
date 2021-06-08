@@ -98,10 +98,7 @@ namespace marketplace.Services.Utils
 
 
 
-        public static UserDTO GetUserDTOFromTaiKhoan(TaiKhoan user)
-        {
-            return new UserDTO(user);
-        }
+
 
 
         public static RoleDTO GetRoleDTOFromVaiTro(VaiTro vaiTro)

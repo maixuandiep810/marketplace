@@ -29,9 +29,9 @@ namespace marketplace.BackendApi.Controllers
 
 
         [HttpGet(UrlConst.error_get)]
-        public IActionResult Index()
+        public IActionResult Index([FromQuery] string errorMessage)
         {
-            // var a = HttpContext.Items["ABC"].ToString();
+            ViewData[ViewDataConst.ErrorMessage] = errorMessage ?? "";
             return View();
         }
 

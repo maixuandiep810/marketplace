@@ -6,7 +6,7 @@ namespace marketplace.DTO.SystemManager.User
     {
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Role { get; set; }
+        public string RoleName { get; set; }
         public bool RememberMe { get; set; }
     }
     

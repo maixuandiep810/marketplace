@@ -1,0 +1,98 @@
+@using marketplace.DTO.SystemManager.User
+@using marketplace.DTO.Common;
+@using marketplace.Utilities.Const
+@model UserDTO
+
+@{
+    ViewData["Title"] = "Quản lý tài khoản";
+    Layout = "~/Views/Shared/MP/_Layout.cshtml";
+
+    var pageDTO = (PageEntityDTO<UserDTO>)ViewData[ViewDataConst.PageDTO];
+    var userDTOs = pageDTO.PageContent;
+    var currentPage = pageDTO.Page;
+    var totalPage = pageDTO.TotalPage;
+}
+
+@section ContentHeader {
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Dữ liệu</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th style="width: 20%">Label</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var i = 1;
+                            foreach (var userDTO in userDTOs)
+                            {
+                                var detailLink = "/user/" + userDTO.UserName;
+                                <tr>
+                                    <td>@i.</td>
+                                    <td>@userDTO.UserName</td>
+                                    <td>@userDTO.Email</td>
+                                    <td>NULL</td>
+                                    <td>
+                                        <span class="badge bg-danger">
+                                            <a href="@detailLink">Detail</a>
+                                        </span>
+                                        <span class="badge bg-danger">
+                                            <a asp-action="Index" asp-controller="User">Delete</a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                i += 1;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                    @{
+                        var hrefPrefix = UrlConst.admin_user_getall_get + "?";
+                        var currentLink = hrefPrefix + "page=" + currentPage;
+                        if (currentPage >= 2)
+                        {
+                            var prev = hrefPrefix + "page=" + (currentPage - 1);
+                            <li class="page-item"><a class="page-link" href="@prev">&laquo;</a></li>
+                        }
+                        <li class="page-item"><a class="page-link" href="@currentLink">@currentPage</a></li>
+                        if (currentPage < totalPage)
+                        {
+                            var next = hrefPrefix + "page=" + (currentPage + 1);
+                            <li class="page-item"><a class="page-link" href="@next">&raquo;</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+        <!-- /.card -->
+    </div>
+</div>

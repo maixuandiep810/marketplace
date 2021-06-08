@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using marketplace.Utilities.Common;
 using System.Net.Mime;
+using System.Text.RegularExpressions;
 
 namespace marketplace.BackendApi.Middlewares
 {
@@ -29,6 +30,13 @@ namespace marketplace.BackendApi.Middlewares
 
         public async Task Invoke(HttpContext httpContext)
         {
+            var path = httpContext.Request.Path.ToString();
+            var action = httpContext.Request.Method;
+            if (Regex.IsMatch(path, UrlConst.error_get))
+            {
+                await _next.Invoke(httpContext);
+            }
+
             try
             {
                 await _next.Invoke(httpContext);
@@ -36,14 +44,22 @@ namespace marketplace.BackendApi.Middlewares
             catch (Exception ex)
             {
                 LogUtils.LogException<MPExceptionHandlerMiddleware>(_env, ex, _logger, "Marketplace LogInfomation Message");
-                var apiResult = DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
-                var isApplicationJsonRequest = httpContext.Request.ContentType == MediaTypeNames.Application.Json;
-                if (isApplicationJsonRequest == true)
+                
+                var contentType = httpContext.Request.ContentType;
+                if (contentType != null)
                 {
-                    await httpContext.WriteJsonResponseAsync(200, apiResult);
+                    var apiResult = DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
+                    var jsonContentType = "application/json";
+                    var jsonUTF8ContentType = "application/json; charset=utf-8";
+                    var isApplicationJsonRequest = contentType.Equals(jsonContentType, StringComparison.OrdinalIgnoreCase) || contentType.Equals(jsonUTF8ContentType, StringComparison.OrdinalIgnoreCase);
+                    if (isApplicationJsonRequest == true)
+                    {
+                        await httpContext.WriteJsonResponseAsync(200, apiResult);
+                    }
                 }
-                // httpContext.Items["ABC"] = 111;
-                httpContext.Response.Redirect(UrlConst.error_get);
+                throw ex;
+                // await httpContext.WriteCodeResponseAsync(500);
+                // httpContext.Response.Redirect(UrlConst.error_get);
             }
         }
     }

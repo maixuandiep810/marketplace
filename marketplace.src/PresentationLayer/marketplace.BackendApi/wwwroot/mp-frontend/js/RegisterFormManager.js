@@ -26,7 +26,7 @@ $(function () {
           $('#registerFormResult').attr("hidden", false);
         }
         else {
-          alert(response.messages);
+          alert("Quá trình đăng ký thất bại");
         };
       }).fail(function (error) {
         alert("Quá trình đăng ký thất bại");
@@ -45,7 +45,7 @@ $(function () {
       },
       Password: {
         required: true,
-        minlength: 1
+        minlength: 6
       },
       ConfirmPassword: {
         equalTo: Password
@@ -63,7 +63,7 @@ $(function () {
       },
       Password: {
         required: "Xin nhập mật khẩu",
-        minlength: "Mật khẩu phải dài hơn 5 kí tự"
+        minlength: "Mật khẩu phải dài hơn 6 kí tự"
       },
       ConfirmPassword: {
         equalTo: "Xac thực mật khẩu không hợp lệ - không trùng"

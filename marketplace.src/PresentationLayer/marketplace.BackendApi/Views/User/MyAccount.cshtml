@@ -1,0 +1,112 @@
+@using marketplace.DTO.SystemManager.User
+@using marketplace.DTO.Common;
+@using marketplace.Utilities.Const
+
+
+@{
+    Layout = "~/Views/Shared/MP/_Layout.cshtml";
+    ViewData["Title"] = "Tài khoản của tôi";
+    var userDTO = (UserDTO)ViewData[ViewDataConst.UserDTO];
+}
+
+@section ContentHeader {
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-6">
+        <!-- jquery validation -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Chi tiết tài khoản</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form id="MyAccountForm">
+                <div class="card-body">
+                    @*
+
+                        Nho Default Image
+
+                    *@
+                    <div class="form-group">
+                        <label for="Image">Ảnh đại diện</label>
+                        <div class="col-md-3">
+                            <img class="img-fluid" src="@userDTO.ImageDTO.Url"></img>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Email" disabled>Email</label>
+                        <input type="file" name="Email" class="form-control" value="@userDTO.Email" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="Email" disabled>Email</label>
+                        <input type="text" name="Email" class="form-control" value="@userDTO.Email" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="UserName">Tên tài khoản</label>
+                        <input type="text" name="UserName" class="form-control" value="@userDTO.UserName" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="FullName">Họ và tên</label>
+                        <input type="text" name="FullName" class="form-control" value="@userDTO.FullName"
+                            placeholder="Nhập họ và tên">
+                    </div>
+                    <!-- Date -->
+                    <div class="form-group">
+                        <label>Date:</label>
+                        <div class="input-group date" id="DobDate" data-target-input="nearest">
+                            <input type="text" name="Dob" class="form-control datetimepicker-input"
+                                value="@userDTO.Dob.ToShortDateString()" data-target="#DobDate" />
+                            <div class="input-group-append" data-target="#DobDate" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="RoleNames">Vai trò</label>
+                        <input type="text" name="RoleNames" class="form-control" value="@userDTO.RoleNames" disabled>
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.card -->
+    </div>
+    <!--/.col (left) -->
+    <!-- right column -->
+    <div class="col-md-6">
+
+    </div>
+    <!--/.col (right) -->
+</div>
+<!-- /.row -->
+
+
+@section MPScripts {
+<script src="~/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="~/plugins/jquery-validation/additional-methods.min.js"></script>
+<script src="~/mp-frontend/js/MyAccountForm.js"></script>
+<script>
+    //Date picker
+    $('#DobDate').datetimepicker({
+        format: 'L'
+    });
+</script>
+}

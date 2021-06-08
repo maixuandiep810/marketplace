@@ -22,8 +22,6 @@ namespace marketplace.Data.Configurations
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
 
             builder.Property(x => x.Ten).HasColumnType("nvarchar(256)");
-            builder.Property(x => x.TenUrl).HasColumnType("nvarchar(256)");
-            builder.Property(x => x.TenUrlDayDu).HasColumnType("nvarchar(256)");
 
             builder.Property(x => x.TenDayDu).HasColumnType("ntext");
             builder.Property(x => x.MoTa).HasColumnType("ntext");

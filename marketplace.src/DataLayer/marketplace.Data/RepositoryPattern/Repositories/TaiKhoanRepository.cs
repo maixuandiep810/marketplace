@@ -16,7 +16,8 @@ namespace marketplace.Data.RepositoryPattern.Repositories
 
         }
 
-        public async Task<List<TaiKhoan>> GetPageAsync(int start, int limit) {
+        public async Task<List<TaiKhoan>> GetPageAsync(int start, int limit)
+        {
             return await _entities.Select(x => x).OrderByDescending(x => x.UserName).Skip(start).Take(limit).ToListAsync();
         }
     }

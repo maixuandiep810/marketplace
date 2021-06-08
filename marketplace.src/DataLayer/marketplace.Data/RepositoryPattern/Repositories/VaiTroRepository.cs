@@ -16,13 +16,9 @@ namespace marketplace.Data.RepositoryPattern.Repositories
 
         }
 
-        public bool CheckRoleInRoleGroup(List<string> roleNames, string roleGroup)
+        public async Task<VaiTro> GetByNameAsync(string roleName)
         {
-            // if (Find(x => x.NhomVT == roleGroup && roleNames.Contains(x.Name) == true).Count() > 0)
-            // {
-            //     return true;
-            // };
-            return false;
+            return await _entities.Where( x => x.Name == roleName).FirstOrDefaultAsync();
         }
 
         public async Task<List<VaiTro>> GetPageAsync(int start, int limit)

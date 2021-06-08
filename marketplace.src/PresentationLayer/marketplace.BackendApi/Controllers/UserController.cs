@@ -52,19 +52,81 @@ namespace marketplace.BackendApi.Controllers
             return Ok(result);
         }
         //
-        [HttpPost(UrlConst.user_confirm_email_get)]
-        public async Task<IActionResult> Register([FromQuery] string useremail, [FromQuery] string token)
+        [HttpGet(UrlConst.user_confirm_email_get)]
+        public async Task<IActionResult> ConfirmEmail([FromQuery] string useremail, [FromQuery] string token)
         {
             if (ModelState.IsValid == false)
             {
                 throw new Exception();
             }
             var result = await _userService.ConfirmUserEmail(useremail, token);
-            if (result.IsSuccessed == false)
+            if (result == false)
             {
                 throw new Exception();
             }
-            return Redirect("/");
+            return View();
+        }
+        //
+        [HttpGet(UrlConst.user_login_get)]
+        public IActionResult Login()
+        {
+            return View();
+        }
+        // JSON
+        [HttpPost(UrlConst.user_login_post)]
+        public async Task<IActionResult> Login([FromBody] LoginDTO request)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return Ok(new ApiResult<bool>(ApiResultConst.CODE.INVALID_REQUEST_DATA, false, false, null, ModelState.GetMessageList()));
+            }
+            var result = await _userService.LoginAsync(request);
+            if (result.IsSuccessed == true)
+            {
+                CookieUtils.SetUserCookie(HttpContext, result.Data, request.RememberMe);
+
+                if (request.RememberMe == false)
+                {
+                    HttpContext.Session.SetString(CookieConst.SessionJwtToken, true.ToString());
+                }
+
+                return Ok(result);
+            }
+            return Ok(new ApiResult<bool>(ApiResultConst.CODE.ERROR, false, false, null));
+        }
+        //
+        [HttpGet(UrlConst.user_myaccount_get)]
+        public async Task<IActionResult> MyAccount()
+        {
+            var userId = HttpContext.Items[HttpContextConst.Id_Item_Key].ToString();
+            var result = await _userService.GetByIdAsync(userId);
+            ViewData[ViewDataConst.UserDTO] = result;
+            return View();
+        }
+        // JSON
+        [HttpPost(UrlConst.user_update_post)]
+        public async Task<IActionResult> Update([FromBody] UpdateUserDTO request)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return Ok(new ApiResult<bool>(ApiResultConst.CODE.INVALID_REQUEST_DATA, false, false, null, ModelState.GetMessageList()));
+            }
+            var userId = HttpContext.Items[HttpContextConst.Id_Item_Key].ToString();
+            var result = await _userService.UpdateMyAccountAsync(userId, request);
+            return Ok(result);
+        }
+
+        [HttpGet(UrlConst.admin_user_getall_get)]
+        public async Task<IActionResult> UserGetAll([FromQuery] int? page = 0)
+        {
+            if (ModelState.IsValid == false)
+            {
+                throw new Exception();
+            }
+
+            var result = await _userService.GetPageAsync(page);
+            ViewData[ViewDataConst.PageDTO] = result;
+            return View();
         }
 
 
@@ -112,36 +174,6 @@ namespace marketplace.BackendApi.Controllers
         }
 
 
-        [HttpGet(UrlConst.user_login_get)]
-        public IActionResult Login()
-        {
-            throw new Exception();
-            return View();
-        }
-
-        // JSON
-        [HttpPost(UrlConst.user_login_post)]
-        public async Task<IActionResult> Login([FromForm] LoginDTO request)
-        {
-            /// <summary>
-            /// VALIDATE
-            /// </summary>
-            var result = await _userService.LoginAsync(request);
-            if (result.IsSuccessed == true)
-            {
-                // CookieUtils.SetUserCookie(HttpContext, result.Data, request.RoleGroup, request.RememberMe);
-
-                if (request.RememberMe == false)
-                {
-                    HttpContext.Session.SetString(CookieConst.SessionJwtToken, true.ToString());
-                }
-
-                return RedirectToAction("Index", "Home");
-            }
-
-            ViewData["ApiResult"] = result;
-            return View();
-        }
 
 
 
@@ -169,26 +201,18 @@ namespace marketplace.BackendApi.Controllers
 
 
 
-        [HttpGet(UrlConst.ad_user_username_detail_get)]
-        public async Task<IActionResult> Ad_DetailUser(string username)
-        {
-            /// <summary>
-            /// VALIDATE
-            /// </summary>
-            var result = await _userService.GetByUserNameAsync(username);
-            return View(result.Data);
-        }
 
 
-        [HttpGet(UrlConst.ad_user_username_detail_get)]
-        public async Task<IActionResult> U_DetailUser(string username)
-        {
-            /// <summary>
-            /// VALIDATE
-            /// </summary>
-            var result = await _userService.GetByUserNameAsync(username);
-            return View(result.Data);
-        }
+
+        // [HttpGet(UrlConst.ad_user_username_detail_get)]
+        // public async Task<IActionResult> U_DetailUser(string username)
+        // {
+        //     /// <summary>
+        //     /// VALIDATE
+        //     /// </summary>
+        //     var result = await _userService.GetByUserNameAsync(username);
+        //     return View(result.Data);
+        // }
 
 
 

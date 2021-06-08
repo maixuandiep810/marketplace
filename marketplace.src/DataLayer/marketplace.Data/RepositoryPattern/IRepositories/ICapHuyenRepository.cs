@@ -6,6 +6,5 @@ namespace marketplace.Data.RepositoryPattern.IRepositories
 {
     public interface ICapHuyenRepository : IGenericRepository<CapHuyen, int>
     {
-         Task<CapHuyen> GetByUrl(string url);
     }
 }

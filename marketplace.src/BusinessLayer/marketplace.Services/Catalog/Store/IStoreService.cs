@@ -17,11 +17,12 @@ using marketplace.DTO.Catalog.Category;
 using Microsoft.Extensions.Logging;
 using marketplace.Utilities.Common;
 using marketplace.Services.Utils;
+using marketplace.DTO.Catalog.Store;
 
 namespace marketplace.Services.Catalog.Store
 {
     public interface IStoreService
     {
-         
+        Task<StoreDTO> GetBySellerIdAsync(string userId);
     }
 }

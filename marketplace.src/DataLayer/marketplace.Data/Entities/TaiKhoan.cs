@@ -20,7 +20,7 @@ namespace marketplace.Data.Entities
         public bool LaNguoiBan { get; set; }
 
 
-        public virtual KhachHang KhachHang { get; set; }
+        public virtual NguoiMua NguoiMua { get; set; }
         public virtual NguoiBan NguoiBan { get; set; }
         // public virtual List<JwtToken> JwtTokens { get; set; }
         // public List<QuyenEntityTaiKhoan> QuyenEntityTaiKhoans { get; set; }

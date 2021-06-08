@@ -15,13 +15,13 @@ namespace marketplace.Data.Entities
         public string MoTa { get; set; }
         public decimal ThanhTien { get; set; }
         public TrangThaiDonHang TrangThaiDonHang { set; get; }
-        public int KhachHangId { set; get; }
+        public int NguoiMuaId { set; get; }
+        public int CuaHangId { set; get; }
 
 
-        public virtual KhachHang KhachHang { get; set; }
+        public virtual NguoiMua NguoiMua { get; set; }
+        public virtual CuaHang CuaHang { get; set; }
         public virtual List<ChiTietDonHang> ChiTietDonHangs { get; set; }
-        public virtual List<QuanLyDonHang> QuanLyDonHangs { get; set; }
-        public virtual GiaoDich GiaoDich { get; set; }
     }
 }
 

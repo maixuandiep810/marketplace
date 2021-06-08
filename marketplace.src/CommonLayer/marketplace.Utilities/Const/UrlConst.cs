@@ -19,6 +19,38 @@ namespace marketplace.Utilities.Const
         public const string g_user_confirm_email_get = @"/g/user/confirmemail";
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // HOME
         public const string home_get = @"/";
         public const string tinh_get = @"/tinh/chi-tiet";
@@ -28,9 +60,30 @@ namespace marketplace.Utilities.Const
         public const string user_register_get = @"/user/register";
         public const string user_register_post = @"/user/register";
         public const string user_confirm_email_get = @"/user/confirmemail";
-        
+        public const string user_myaccount_get = @"/user/myaccount";
+        public const string user_update_post = @"/user/update";
+
+
+
         // ERROR
         public const string error_get = @"/error";
+
+
+        // ADMIN
+        public const string admin_user_getall_get = @"/admin/user/getall";
+        public const string admin_user_getbyid_get = @"/admin/user/getbyid";
+        public const string admin_store_getall_get = @"/admin/store/getall";
+        public const string admin_store_getbyid_get = @"/admin/store/getbyid";
+        public const string admin_product_getall_get = @"/admin/product/getall";
+        public const string admin_product_getbyid_get = @"/admin/product/getbyid";
+
+
+
+        // SELLER 
+        public const string seller_mystore_detail = @"/seller/mystore/detail";
+
+
+
 
 
 
@@ -39,6 +92,15 @@ namespace marketplace.Utilities.Const
 
         // public const string address_dropdown_area_get = @"/address/dropdown-area";
         // public const string common_error_get = @"/error";
+
+
+
+
+
+
+
+
+
 
 
 

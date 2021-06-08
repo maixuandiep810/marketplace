@@ -6,6 +6,6 @@ namespace marketplace.Data.RepositoryPattern.IRepositories
 {
     public interface ICuaHangRepository : IGenericRepository<CuaHang, int>
     {
-        Task<CuaHang> GetByUrl(string url);
+        Task<CuaHang> GetBySellerIdAsync(string userId);
     }
 }

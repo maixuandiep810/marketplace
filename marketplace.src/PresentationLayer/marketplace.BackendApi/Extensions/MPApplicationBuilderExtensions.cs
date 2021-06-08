@@ -11,20 +11,20 @@ namespace marketplace.BackendApi.Extensions
             return app.UseMiddleware<MPExceptionHandlerMiddleware>();
         }
 
-        public static IApplicationBuilder UseMPCommonMiddleware(this IApplicationBuilder app)
-        {
-            return app.UseMiddleware<MPCommonMiddleware>();
-        }
-
         public static IApplicationBuilder UseMPAuthenticationMiddleware(this IApplicationBuilder app)
         {
             return app.UseMiddleware<MPAuthenticationMiddleware>();
         }
 
-        public static IApplicationBuilder UseMPAuthorizationRouteMiddleware(this IApplicationBuilder app)
+        public static IApplicationBuilder UseMPFakeDataMiddleware(this IApplicationBuilder app)
         {
-            return app.UseMiddleware<MPAuthorizationRouteMiddleware>();
+            return app.UseMiddleware<MPFakeDataMiddleware>();
         }
+
+        // public static IApplicationBuilder UseMPAuthorizationRouteMiddleware(this IApplicationBuilder app)
+        // {
+        //     return app.UseMiddleware<MPAuthorizationRouteMiddleware>();
+        // }
     }
 }
 

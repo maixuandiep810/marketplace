@@ -7,7 +7,7 @@ namespace marketplace.Data.RepositoryPattern.IRepositories
 {
     public interface IVaiTroRepository : IGenericRepository<VaiTro, Guid>
     {
-        bool CheckRoleInRoleGroup(List<string> roleNames, string roleGroup);
+        Task<VaiTro> GetByNameAsync(string roleName);
         Task<List<VaiTro>> GetPageAsync(int start, int limit);
     }
 }

@@ -1,0 +1,29 @@
+@using marketplace.Utilities.Const
+
+@{
+    const string defaultUserImage = "/user-content/images/060cd7c8-8839-4216-b805-fd122c900e10.png";
+    var userName = Context.Items[HttpContextConst.UserName_Item_Key].ToString();
+    var userImage = Context.Items[HttpContextConst.UserImage_Item_Key].ToString();
+    var roleName = Context.Items[HttpContextConst.RoleName_Item_Key].ToString();
+    userImage = String.IsNullOrEmpty(userImage) == false ? userImage : defaultUserImage;
+}
+
+<!-- Sidebar user (optional) -->
+<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="image">
+        <img src="@userImage" class="img-circle elevation-2" alt="User Image">
+    </div>
+    <div class="info">
+        <a href="#" class="d-block">@userName</a>
+    </div>
+</div>
+
+<div>
+    <a href="#">Vai trò : @roleName</a>
+</div>
+<div>
+    <a href="/user/myaccount">Chi tiết Tài khoản</a>
+</div>
+<div>
+    <a href="#">Đăng xuất</a>
+</div>

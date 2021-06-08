@@ -14,11 +14,8 @@ namespace marketplace.Data.Entities
         public string MoTa { get; set; }
         
         public Guid TaiKhoanId { set; get; }
-        public int CuaHangId { get; set; }
-
 
         public virtual TaiKhoan TaiKhoan { get; set; }
         public virtual CuaHang CuaHang { get; set; }
-        public virtual List<QuanLyDonHang> QuanLyDonHangs { get; set; }
     }
 }

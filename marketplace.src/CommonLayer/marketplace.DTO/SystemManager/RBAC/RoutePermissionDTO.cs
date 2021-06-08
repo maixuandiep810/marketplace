@@ -1,6 +1,7 @@
 using System.IO;
 using FluentValidation;
 using marketplace.Data.Entities;
+using marketplace.DTO.Enum;
 
 namespace marketplace.DTO.SystemManager.RBAC
 {
@@ -11,6 +12,7 @@ namespace marketplace.DTO.SystemManager.RBAC
         public string Action { get; set; } 
         public string PathRegex { get; set; }
         public bool IsAuthenticatedRoute { get; set; }
+        public Status Status { get; set; }
 
         public RoutePermissionDTO(QuyenRoute quyenRoute)
         {
@@ -19,6 +21,7 @@ namespace marketplace.DTO.SystemManager.RBAC
             Action = quyenRoute.HanhDong;
             PathRegex = quyenRoute.PathRegex;
             IsAuthenticatedRoute = quyenRoute.LaRouteCanXacThuc;
+            Status = (Status) quyenRoute.TrangThai;
         }
     }
 }

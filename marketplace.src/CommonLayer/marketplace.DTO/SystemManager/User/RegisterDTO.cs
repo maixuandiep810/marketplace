@@ -7,7 +7,7 @@ namespace marketplace.DTO.SystemManager.User
     public class RegisterDTO
     {
         public string Email { get; set; }
-        public string Username { get; set; }
+        public string UserName { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
 
@@ -16,7 +16,7 @@ namespace marketplace.DTO.SystemManager.User
             var taiKhoan = new TaiKhoan()
             {
                 Email = this.Email,
-                UserName = this.Username,
+                UserName = this.UserName,
                 TrangThai = TrangThai.KhongHoatDong
             };
             return taiKhoan;

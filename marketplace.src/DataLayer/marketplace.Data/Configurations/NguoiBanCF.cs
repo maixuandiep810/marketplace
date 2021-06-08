@@ -21,7 +21,9 @@ namespace marketplace.Data.Configurations
             builder.Property(x => x.DaXoa).HasDefaultValue(0);
             builder.Property(x => x.TrangThai).HasDefaultValue(TrangThai.KhongHoatDong);
 
-            builder.Property(x => x.MoTa).HasColumnType("ntext").IsRequired();
+            builder.Property(x => x.MoTa).HasColumnType("ntext");
+
+            builder.HasOne(a => a.CuaHang).WithOne(a => a.NguoiBan).HasForeignKey<CuaHang>(c => c.NguoiBanId);
         }
     }
 }

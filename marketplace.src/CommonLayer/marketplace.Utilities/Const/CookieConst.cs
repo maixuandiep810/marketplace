@@ -11,14 +11,14 @@ namespace marketplace.Utilities.Const
         public const string UserName = "UserName";
         public const string UserImage = "UserImage";
         public const string RememberMe = "RememberMe";
-        public const string UserId = "UserId";
+        public const string Id = "Id";
         public const string SessionJwtToken = "SessionJwtToken";
-        public const string Role = "Role";
+        public const string RoleName = "RoleName";
 
         public static Microsoft.AspNetCore.Http.CookieOptions CookieOptions = new Microsoft.AspNetCore.Http.CookieOptions()
         {
             Path = "/",
-            MaxAge = TimeSpan.FromDays(30)
+            MaxAge = TimeSpan.FromDays(30),
         };
     }
 }

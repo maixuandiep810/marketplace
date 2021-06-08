@@ -1,25 +1,12 @@
 using System.Collections.Generic;
-using System.Net.Mime;
 using System.Threading.Tasks;
 using marketplace.Data.UnitOfWorkPattern;
-using marketplace.DTO.Catalog.Product;
 using marketplace.DTO.Common;
 using Microsoft.Extensions.Configuration;
 using marketplace.Utilities.Const;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using marketplace.Services.Common;
-using System;
-using marketplace.Data.Entities;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using marketplace.DTO.Catalog.Category;
 using Microsoft.Extensions.Logging;
 using marketplace.Utilities.Common;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
 using marketplace.DTO.SystemManager.RBAC;
 using System.Text.RegularExpressions;
 using marketplace.Services.Utils;
@@ -46,36 +33,42 @@ namespace marketplace.Services.SystemManager.RBAC
 
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="action"></param>
-        /// <returns></returns>
 
-        public async Task<RoutePermissionDTO> GetRoutePermissionByPathActionAsync(string path, string action)
+        public async Task<RoutePermissionDTO> GetRoutePermissionDTOAsync(string path, string action)
         {
             try
             {
                 var routePermissions = await _unitOfWork.QuyenRouteRepository.GetAllAsync();
                 if (routePermissions != null)
                 {
-                    var routePerm = routePermissions.Find(x =>
+                    var routePermission = routePermissions.Find(x =>
                         {
                             var isRightPath = Regex.IsMatch(path, x.PathRegex);
                             var isRightMethod = action == x.HanhDong;
                             var isRightRoute = isRightPath && isRightMethod;
                             return isRightRoute;
                         });
-                    return new RoutePermissionDTO(routePerm);
+                    return new RoutePermissionDTO(routePermission);
                 }
                 return null;
             }
-            catch (System.Exception)
+            catch (System.Exception ex) 
             {
-                return null;
+                throw ex;
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -157,6 +150,11 @@ namespace marketplace.Services.SystemManager.RBAC
 
 
 
+
+    }
+}
+
+
         /// <summary>
         /// 
         /// 
@@ -165,35 +163,33 @@ namespace marketplace.Services.SystemManager.RBAC
         /// 
         /// 
         /// 
-        /// </summary>
-        public async Task<ApiResult<bool>> ChangeStatusAsync(int routePrmissionId, bool status)
-        {
-            try
-            {
-                var routePermission = await _unitOfWork.QuyenRouteRepository.GetByIdAsync(routePrmissionId);
-                if (routePermission == null)
-                {
-                    return new ApiResult<bool>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, false, null);
-                }
-                if (status == false)
-                {
-                    _unitOfWork.QuyenRouteRepository.DeactivateEntity(routePermission);
-                }
-                else
-                {
-                    _unitOfWork.QuyenRouteRepository.ActivateEntity(routePermission);
-                }
-                await _unitOfWork.SaveChangesAsync();
-                return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_DELETING_ENTITY_S, true, true, null);
-            }
-            catch (System.Exception ex)
-            {
-                LogUtils.LogException<RoutePermissionService>(_env, ex, _logger, "Marketplace LogInfomation Message");
-                return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
-            }
-        }
-    }
-}
+        // /// </summary>
+        // public async Task<ApiResult<bool>> ChangeStatusAsync(int routePrmissionId, bool status)
+        // {
+        //     try
+        //     {
+        //         var routePermission = await _unitOfWork.QuyenRouteRepository.GetByIdAsync(routePrmissionId);
+        //         if (routePermission == null)
+        //         {
+        //             return new ApiResult<bool>(ApiResultConst.CODE.ENTITY_NOT_FOUND_E, false, false, null);
+        //         }
+        //         if (status == false)
+        //         {
+        //             _unitOfWork.QuyenRouteRepository.DeactivateEntity(routePermission);
+        //         }
+        //         else
+        //         {
+        //             _unitOfWork.QuyenRouteRepository.ActivateEntity(routePermission);
+        //         }
+        //         await _unitOfWork.SaveChangesAsync();
+        //         return new ApiResult<bool>(ApiResultConst.CODE.SUCCESSFULLY_DELETING_ENTITY_S, true, true, null);
+        //     }
+        //     catch (System.Exception ex)
+        //     {
+        //         LogUtils.LogException<RoutePermissionService>(_env, ex, _logger, "Marketplace LogInfomation Message");
+        //         return DefaultApiResult.GetExceptionApiResult<bool>(_env, ex, false);
+        //     }
+        // }
 
 
 

@@ -10,43 +10,60 @@ namespace marketplace.BackendApi.Utils
     public static class CookieUtils
     {
 
-        public static string GetCookieValue(HttpContext httpContext, string cookieName) {
+        public static string GetCookieValue(HttpContext httpContext, string cookieName)
+        {
             return httpContext.Request.Cookies[cookieName];
         }
 
         public static void DeteteUserCookie(HttpContext httpContext)
         {
             httpContext.Response.Cookies.Delete(CookieConst.UserName);
+            httpContext.Response.Cookies.Delete(CookieConst.Id);
             httpContext.Response.Cookies.Delete(CookieConst.JwtToken);
             httpContext.Response.Cookies.Delete(CookieConst.UserImage);
-            httpContext.Response.Cookies.Delete(CookieConst.Role);
+            httpContext.Response.Cookies.Delete(CookieConst.RoleName);
             httpContext.Response.Cookies.Delete(CookieConst.RememberMe);
-            httpContext.Response.Cookies.Delete(CookieConst.UserId);
         }
 
-        public static void SetUserCookie(HttpContext httpContext, UserDTO userDTO, string role, bool rememberMe)
+        public static void SetUserCookie(HttpContext httpContext, UserDTO userDTO, bool rememberMe)
         {
-            httpContext.Response.Cookies.Append(CookieConst.UserName, userDTO.Username, CookieConst.CookieOptions);
+            httpContext.Response.Cookies.Append(CookieConst.UserName, userDTO.UserName, CookieConst.CookieOptions);
+            httpContext.Response.Cookies.Append(CookieConst.Id, userDTO.Id, CookieConst.CookieOptions);
             httpContext.Response.Cookies.Append(CookieConst.JwtToken, userDTO.JwtToken, CookieConst.CookieOptions);
-            httpContext.Response.Cookies.Append(CookieConst.UserImage, userDTO.ImageDTO.Url, CookieConst.CookieOptions);
-            httpContext.Response.Cookies.Append(CookieConst.Role, role, CookieConst.CookieOptions);
+            if (userDTO.ImageDTO != null)
+            {
+                httpContext.Response.Cookies.Append(CookieConst.UserImage, userDTO.ImageDTO.Url, CookieConst.CookieOptions);
+            }
+            else
+            {
+                httpContext.Response.Cookies.Append(CookieConst.UserImage, "", CookieConst.CookieOptions);
+            }
+            httpContext.Response.Cookies.Append(CookieConst.RoleName, userDTO.RoleName, CookieConst.CookieOptions);
             httpContext.Response.Cookies.Append(CookieConst.RememberMe, rememberMe.ToString(), CookieConst.CookieOptions);
-            httpContext.Response.Cookies.Append(CookieConst.UserId, userDTO.Id, CookieConst.CookieOptions);
         }
 
-        public static void SetReturnUrl(HttpContext httpContext)
+        public static void GetUserHttpItems(HttpContext httpContext)
         {
-            var IsNewSession = String.IsNullOrEmpty(httpContext.Session.GetString(CookieConst.IsNewSession));
-            var returnUrl = "";
-            var currentUrl = httpContext.Request.GetEncodedUrl();
-            if (IsNewSession == false)
-            {
-                returnUrl = httpContext.Request.Cookies[CookieConst.CurrentUrl];
-                httpContext.Response.Cookies.Append(CookieConst.ReturnUrl, returnUrl);
-                httpContext.Response.Cookies.Append(CookieConst.CurrentUrl, currentUrl);
-            }
-            httpContext.Session.SetString(CookieConst.IsNewSession, false.ToString());
-            httpContext.Response.Cookies.Append(CookieConst.CurrentUrl, currentUrl);
+            httpContext.Items[HttpContextConst.Id_Item_Key] = httpContext.Request.Cookies[CookieConst.Id];
+            httpContext.Items[HttpContextConst.JwtToken_Item_Key] = httpContext.Request.Cookies[CookieConst.JwtToken];
+
+            httpContext.Items[HttpContextConst.UserName_Item_Key] = httpContext.Request.Cookies[CookieConst.UserName];
+            httpContext.Items[HttpContextConst.UserImage_Item_Key] = httpContext.Request.Cookies[CookieConst.UserImage];
+            httpContext.Items[HttpContextConst.RoleName_Item_Key] = httpContext.Request.Cookies[CookieConst.RoleName];
+            httpContext.Items[HttpContextConst.RemeberMe_Item_Key] = httpContext.Request.Cookies[CookieConst.RememberMe];
+            httpContext.Items[HttpContextConst.SessionJwtToken] = httpContext.Request.Cookies[CookieConst.SessionJwtToken];
+        }
+
+        public static void SetUserGuestHttpItems(HttpContext httpContext)
+        {
+            httpContext.Items[HttpContextConst.Id_Item_Key] = "";
+            httpContext.Items[HttpContextConst.JwtToken_Item_Key] = "";
+
+            httpContext.Items[HttpContextConst.UserName_Item_Key] = "";
+            httpContext.Items[HttpContextConst.UserImage_Item_Key] = "";
+            httpContext.Items[HttpContextConst.RoleName_Item_Key] = RoleConst.Guest;
+            httpContext.Items[HttpContextConst.RemeberMe_Item_Key] = "";
+            httpContext.Items[HttpContextConst.SessionJwtToken] = "";
         }
     }
 }

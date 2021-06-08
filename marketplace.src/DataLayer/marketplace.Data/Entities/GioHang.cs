@@ -17,11 +17,11 @@ namespace marketplace.Data.Entities
         public DateTime NgayCapNhat { get; set; }
 
 
-        public int KhachHangId { get; set; }
+        public int NguoiMuaId { get; set; }
         public int SanPhamId { set; get; }
 
 
         public virtual SanPham SanPham { get; set; }
-        public virtual KhachHang KhachHang { get; set; }
+        public virtual NguoiMua NguoiMua { get; set; }
     }
 }

@@ -40,10 +40,5 @@ namespace marketplace.Data.RepositoryPattern.Repositories
                 throw ex;
             }
         }
-
-        public async Task<LangNghe> GetByUrl(string url)
-        {
-            return await Find(x => x.TenUrl == url).Select(x => x).FirstOrDefaultAsync();
-        }
     }
 }

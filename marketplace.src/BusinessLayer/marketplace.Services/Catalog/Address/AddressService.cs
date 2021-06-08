@@ -19,7 +19,6 @@ using marketplace.Utilities.Common;
 using marketplace.Services.Utils;
 using marketplace.DTO.Catalog.Branch;
 using marketplace.DTO.Catalog.Address;
-using marketplace.DTO.Component;
 
 namespace marketplace.Services.Catalog.Address
 {

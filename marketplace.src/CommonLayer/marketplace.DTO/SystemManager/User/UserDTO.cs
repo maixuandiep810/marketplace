@@ -7,11 +7,12 @@ namespace marketplace.DTO.SystemManager.User
     public class UserDTO
     {
         public string Id { get; set; }
-        public string Username { get; set; }
+        public string UserName { get; set; }
         public string Email { get; set; }
         public string FullName { get; set; }
         public DateTime Dob { get; set; }
-        public bool IsSeller { get; set; }
+        public string RoleName { get; set; }
+        public string RoleNames { get; set; }
         public ImageDTO ImageDTO { get; set; }
         public string JwtToken { get; set; }
 
@@ -22,15 +23,11 @@ namespace marketplace.DTO.SystemManager.User
 
         public UserDTO(TaiKhoan user) : this()
         {
-            if (user != null)
-            {
-                Id = user.Id.ToString();
-                Username = user.UserName;
-                Email = user.Email;
-                FullName = user.HoTen;
-                Dob = user.NgaySinh;
-                IsSeller = user.LaNguoiBan;
-            }
+            Id = user.Id.ToString();
+            UserName = user.UserName;
+            Email = user.Email;
+            FullName = user.HoTen;
+            Dob = user.NgaySinh;
         }
     }
 }

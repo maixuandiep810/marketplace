@@ -14,9 +14,6 @@ namespace marketplace.Data.RepositoryPattern.Repositories
         {
 
         }
-        public async Task<CapTinh> GetByUrl(string url)
-        {
-            return await Find(x => x.TenUrl == url).Select(x => x).FirstOrDefaultAsync();
-        }
+
     }
 }

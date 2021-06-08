@@ -15,9 +15,8 @@ namespace marketplace.Data.RepositoryPattern.Repositories
 
         }
 
-        public async Task<CuaHang> GetByUrl(string url)
-        {
-            return await Find(x => x.TenUrl == url).Select(x => x).FirstOrDefaultAsync();
+        public async Task<CuaHang> GetBySellerIdAsync(string userId) {
+            return await _context.NguoiBans.Where(x => x.TaiKhoanId == (new Guid(userId))).Include(x => x.CuaHang).ThenInclude(x => x.LangNghe).Select(x => x.CuaHang).FirstOrDefaultAsync();
         }
     }
 }

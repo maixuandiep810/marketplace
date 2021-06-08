@@ -17,7 +17,6 @@ namespace marketplace.DTO.Catalog.Address
         public ProvinceDTO(CapTinh capTinh) : this()
         {
                 Name = capTinh.Ten;
-                RelativeUrl = capTinh.TenUrlDayDu;
                 TotalStore = capTinh.SoCuaHang;
         }
 

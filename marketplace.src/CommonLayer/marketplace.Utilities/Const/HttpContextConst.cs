@@ -2,14 +2,19 @@ namespace marketplace.Utilities.Const
 {
     public class HttpContextConst
     {
-        public const string ID_JWT_KEY = "Id";
-        public const string AUTHORIZATION_ITEM_KEY = "Authorization";
-        public const string IS_AUTHENTICATED_ROUTE_ITEM_KEY = "IsAuthenticatedRoute";
-        public const string ROLE_NAMES_ITEM_KEY = "RoleNames";
-        public const string USER_ID_ITEM_KEY = "UserId";
-        // public const string AUTHORIZATION_ITEM_KEY = "Authorization";
-        // public const string AUTHORIZATION_ITEM_KEY = "Authorization";
-        // public const string AUTHORIZATION_ITEM_KEY = "Authorization";
+        // USER
+        public const string Id_Item_Key = "Id";
+        public const string JwtToken_Item_Key = "JwtToken";
+        public const string UserName_Item_Key = "UserName";
+        public const string UserImage_Item_Key = "UserImage";
+        public const string RoleName_Item_Key = "RoleName";
+        public const string RemeberMe_Item_Key = "Remeberme";
+        public const string SessionJwtToken = "UserName";
 
+        // JWT
+        public const string Id_Jwt_Key = "Id";
+
+        // ROUTE
+        public const string CurrentRoute = "CurrentRoute";
     }
 }

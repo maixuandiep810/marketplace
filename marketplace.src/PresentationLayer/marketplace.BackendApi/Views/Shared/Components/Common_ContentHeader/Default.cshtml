@@ -1,7 +1,4 @@
-@using marketplace.DTO.Component
-
 @{
-  var contentNavigation = (ContentNavigationDTO)ViewData[ViewDataConst.ContentNavigation];
 }
 
 <!-- Content Header (Page header) -->
@@ -10,20 +7,6 @@
     <div class="row mb-2">
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-left">
-          @* <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Daxxxshboard v1</li> *@
-          @if (contentNavigation == null)
-          {
-            <li class="breadcrumb-item"><a href="/">Home</a></li>
-          }
-          else
-          {
-            foreach (var item in contentNavigation.NavigationDTO)
-            {
-              var url = "/" + item.Url;
-              <li class="breadcrumb-item"><a href="@url">@item.Name</a><span>/</span></li>
-            }
-          }
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->

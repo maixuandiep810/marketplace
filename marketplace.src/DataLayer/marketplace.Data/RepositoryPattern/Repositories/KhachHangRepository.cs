@@ -4,9 +4,9 @@ using marketplace.Data.EF;
 
 namespace marketplace.Data.RepositoryPattern.Repositories
 {
-    public class KhachHangRepository : GenericRepository<KhachHang, int>, IKhachHangRepository
+    public class NguoiMuaRepository : GenericRepository<NguoiMua, int>, INguoiMuaRepository
     {
-        public KhachHangRepository(marketplaceDbContext marketplaceDbContext) : base(marketplaceDbContext)
+        public NguoiMuaRepository(marketplaceDbContext marketplaceDbContext) : base(marketplaceDbContext)
         {
 
         }

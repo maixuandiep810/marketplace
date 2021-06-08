@@ -19,13 +19,13 @@ namespace marketplace.Data.UnitOfWorkPattern
         IGiaoDichRepository GiaoDichRepository { get; }
         IGioHangRepository GioHangRepository { get; }
         IHinhAnhRepository HinhAnhRepository { get; }
-        IKhachHangRepository KhachHangRepository { get; }
+        INguoiMuaRepository NguoiMuaRepository { get; }
         // IJwtTokenRepository JwtTokenRepository { get; }
         ILangNgheRepository LangNgheRepository { get; }
         // ILangNgheDanhMucRepository LangNgheDanhMucRepository { get; }
         // INgonNguRepository NgonNguRepository { get; }
         INguoiBanRepository NguoiBanRepository { get; }
-        IQuanLyDonHangRepository QuanLyDonHangRepository { get; }
+        // IQuanLyDonHangRepository QuanLyDonHangRepository { get; }
 
         // IQuyenEntityRepository QuyenEntityRepository { get; }
         // IQuyenEntityTaiKhoanRepository QuyenEntityTaiKhoanRepository { get; }

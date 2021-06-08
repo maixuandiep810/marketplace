@@ -18,6 +18,13 @@ namespace marketplace.BackendApi.Extensions
             httpContext.Response.ContentType = "application/json; charset=utf-8";
             await httpContext.Response.WriteAsync(jsonResult);
         }
+        public static async Task WriteCodeResponseAsync(this HttpContext httpContext, int statusCode)
+        {
+            httpContext.Response.StatusCode = statusCode;
+            // Set the content type
+            httpContext.Response.ContentType = "application/json; charset=utf-8";
+            await httpContext.Response.WriteAsync("");
+        }
     }
 }
 

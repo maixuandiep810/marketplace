@@ -1,0 +1,27 @@
+@using marketplace.BackendApi.Utils
+@using marketplace.Utilities.Const
+
+@{
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+
+@section TopNavigation {
+@(await Component.InvokeAsync("Common_TopNavigation"))
+}
+
+@section MainNavigation {
+@(await Component.InvokeAsync("Common_MainNavigation"))
+}
+
+@section ContentHeader {
+    @RenderSection("ContentHeader", required: false)
+}
+
+@RenderBody()
+
+@section MPScripts {
+
+@(await Component.InvokeAsync("Common_AlertResultRequest"));
+
+    @RenderSection("MPScripts", required: false)
+}

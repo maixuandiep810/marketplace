@@ -6,7 +6,6 @@ namespace marketplace.DTO.Catalog.Address
     public class AreaDTO
     {
         public string Name { get; set; }
-        public string RelativeUrl { get; set; }
         public int TotalStore { get; set; }
         public List<ProvinceDTO> ProvinceDTOs { get; set; }
 
@@ -18,7 +17,6 @@ namespace marketplace.DTO.Catalog.Address
         public AreaDTO(CapVungMien capVungMien) : this()
         {
             Name = capVungMien.Ten;
-            RelativeUrl = capVungMien.TenUrlDayDu;
             TotalStore = capVungMien.SoCuaHang;
             if (capVungMien.CapTinhs != null)
             {

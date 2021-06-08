@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 
 namespace marketplace.Data.EF
 {
@@ -15,6 +16,7 @@ namespace marketplace.Data.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             //Configure using Fluent API
             modelBuilder.ApplyConfiguration(new CapVungMienCF());
             modelBuilder.ApplyConfiguration(new CapTinhCF());
@@ -23,29 +25,19 @@ namespace marketplace.Data.EF
             modelBuilder.ApplyConfiguration(new ChiTietDonHangCF());
             modelBuilder.ApplyConfiguration(new CuaHangCF());
             modelBuilder.ApplyConfiguration(new DanhMucCF());
-
-            // modelBuilder.ApplyConfiguration(new ChiTietDanhMucCF());
-            // modelBuilder.ApplyConfiguration(new ChiTietSanPhamCF());
-            // modelBuilder.ApplyConfiguration(new NgonNguCF());
-
             modelBuilder.ApplyConfiguration(new DonHangCF());
 
 
-            modelBuilder.ApplyConfiguration(new GiaoDichCF());
+
             modelBuilder.ApplyConfiguration(new GioHangCF());
             modelBuilder.ApplyConfiguration(new HinhAnhCF());
-            // modelBuilder.ApplyConfiguration(new JwtTokenCF());
 
-            modelBuilder.ApplyConfiguration(new KhachHangCF());
+            modelBuilder.ApplyConfiguration(new NguoiMuaCF());
             modelBuilder.ApplyConfiguration(new LangNgheCF());
             // modelBuilder.ApplyConfiguration(new LangNgheDanhMucCF());
 
             modelBuilder.ApplyConfiguration(new NguoiBanCF());
 
-            modelBuilder.ApplyConfiguration(new QuanLyDonHangCF());
-            // modelBuilder.ApplyConfiguration(new QuyenEntityCF());
-            // modelBuilder.ApplyConfiguration(new QuyenEntityTaiKhoanCF());
-            // modelBuilder.ApplyConfiguration(new QuyenEntityVaiTroCF());
             modelBuilder.ApplyConfiguration(new QuyenRouteCF());
             modelBuilder.ApplyConfiguration(new QuyenRouteVaiTroCF());
 
@@ -69,7 +61,13 @@ namespace marketplace.Data.EF
 
             //Data seeding
             // modelBuilder.Seed();
-            //base.OnModelCreating(modelBuilder);
+
+
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
         }
 
         // public DbSet<ApplicationUser> ApplicationUsers { get; set; }
@@ -88,25 +86,14 @@ namespace marketplace.Data.EF
         public DbSet<DanhMuc> DanhMucs { get; set; }
         public DbSet<DonHang> DonHangs { get; set; }
 
-        public DbSet<GiaoDich> GiaoDichs { get; set; }
         public DbSet<GioHang> GioHangs { get; set; }
         public DbSet<HinhAnh> HinhAnhs { get; set; }
 
-        public DbSet<KhachHang> KhachHangs { get; set; }
+        public DbSet<NguoiMua> NguoiMuas { get; set; }
 
         public DbSet<LangNghe> LangNghes { get; set; }
         // public DbSet<LangNgheDanhMuc> LangNgheDanhMucs { get; set; }
         public DbSet<NguoiBan> NguoiBans { get; set; }
-
-        public DbSet<QuanLyDonHang> QuanLyDonHangs { get; set; }
-
-        // public DbSet<JwtToken> JwtTokens { get; set; }
-        // public DbSet<NgonNgu> NgonNgus { get; set; }
-        // public DbSet<QuyenEntity> QuyenEntities { get; set; }
-        // public DbSet<QuyenEntityTaiKhoan> QuyenEntityTaiKhoans { get; set; }
-        // public DbSet<QuyenEntityVaiTro> QuyenEntityVaiTros { get; set; }
-        // public DbSet<ChiTietDanhMuc> ChiTietDanhMucs { get; set; }
-        // public DbSet<ChiTietSanPham> ChiTietSanPhams { get; set; }
 
 
         public DbSet<QuyenRoute> QuyenRoutes { get; set; }

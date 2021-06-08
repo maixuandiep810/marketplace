@@ -59,7 +59,6 @@ namespace marketplace.BackendApi.Extensions
             services.AddTransient<IBranchService, BranchService>();
             services.AddTransient<IStoreService, StoreService>();
             services.AddTransient<IAddressService, AddressService>();
-            services.AddTransient<IContentNavigationService, ContentNavigationService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             return services;
         }
